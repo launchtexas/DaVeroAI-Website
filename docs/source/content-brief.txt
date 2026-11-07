@@ -1,0 +1,295 @@
+
+=== Slide 1 ===
+MESSAGING LIFTED VERBATIM FROM THE DECKS
+Lines ready for the site
+POSITIONING
+An AI-agentic company that delivers finished outcomes around AI-native platforms. Not software seats. Not billable hours.
+CONCEPT
+Everything between “the software is live” and “the final outcome is delivered.”
+CONTRAST
+Platforms deliver the capability. DaveroAI delivers the finished outcome
+PROOF OF NEED
+AI enablement is the bottleneck. We enable and deliver finished outcome.
+GOVERNANCE
+Humans review and approve. Agents do the rest.
+GOLDEN RULE
+The client identifies the gap. We build. The client validates. We own, run and improve the agent.
+SCALE
+Every engagement adds to the library, so the next client starts further ahead.
+CLOSE
+The last mile is where software, services and context meet.
+1
+
+=== Slide 2 ===
+REFERENCE 01  ·  POSITIONING &amp; THE CORE IDEA
+Brand promise
+Source: 3. DaveroAI Investor Deck, slide 1
+WEBSITE PLACEMENT
+Home · Hero (Section 1)
+WHAT TO USE
+Core positioning line: “DaveroAI is an agentic AI company that turns your business platforms into finished, end-to-end workflows, built, run and continuously improved by AI agents, with your team approving every result.”
+2
+
+=== Slide 3 ===
+REFERENCE 02  ·  POSITIONING &amp; THE CORE IDEA
+Definition of “The Last Mile”
+Source: 0. One Pager on Last Mile, slide 1
+WEBSITE PLACEMENT
+Agentic AI page · Home Section 3
+WHAT TO USE
+Signature concept. Use the three-state diagram (platform covers it / client adopts / the last mile), the 4-point test, and the four domain examples (Finance, Procurement &amp; Supply Chain, IT Services, Insurance). Strong candidate for an interactive explainer.
+3
+
+=== Slide 4 ===
+REFERENCE 03  ·  POSITIONING &amp; THE CORE IDEA
+Platform vs. DaVeroAI
+Source: 3. DaveroAI Investor Deck, slide 4
+WEBSITE PLACEMENT
+Home Section 2 (Evolution of AI) · Agentic AI page
+WHAT TO USE
+The “Platforms deliver the capability. DaveroAI delivers the finished outcome” comparison. Use as the visual contrast for “traditional tools vs. agentic outcomes”.
+4
+
+=== Slide 5 ===
+REFERENCE 04  ·  POSITIONING &amp; THE CORE IDEA
+Core strategy: Where / What / How
+Source: 3. DaveroAI Investor Deck, slide 9
+WEBSITE PLACEMENT
+Home · Why Agentic AI · About
+WHAT TO USE
+Three-part strategy: complex workflows in and around the platform (WHERE), purpose-built platform-coupled agents (WHAT), a partner firm dedicated to each platform ecosystem (HOW). The quote works as a pull-quote.
+5
+
+=== Slide 6 ===
+REFERENCE 05  ·  MARKET SHIFT &amp; BUSINESS CHALLENGES
+Labor arbitrage → agent arbitrage
+Source: 1. Rillet – Own the Last Mile, slide 8
+WEBSITE PLACEMENT
+Home Section 2 · Agentic AI page
+WHAT TO USE
+Yesterday vs. tomorrow comparison and the $0.5T software vs. $2T services bar. Good for an animated before/after.
+CAUTION
+Quotes from Nick Kopp (Rillet) and Sequoia need attribution; Rillet logo needs permission before public use.
+6
+
+=== Slide 7 ===
+REFERENCE 07  ·  MARKET SHIFT &amp; BUSINESS CHALLENGES
+Demand rising, DIY AI stalling into Finance Domain
+Source: 3. DaveroAI Investor Deck, slide 6
+WEBSITE PLACEMENT
+Home Section 3 (Business challenges)
+WHAT TO USE
+Six stat tiles: 340K accountants lost, ~75% CPAs nearing retirement, 61% talent shortage, 12% run AI in core processes, 14% trust AI, 40%+ agentic projects scrapped. Key line: “Delivery, not models, is the bottleneck. We sell delivery.”
+CAUTION
+Each stat must carry its source (Sequoia, Controllers Council, insightsoftware, Wakefield, Gartner).
+7
+
+=== Slide 8 ===
+REFERENCE 08  ·  MARKET SHIFT &amp; BUSINESS CHALLENGES
+Top five challenges &amp; our response
+Source: 1. Rillet – Own the Last Mile, slide 23
+WEBSITE PLACEMENT
+Home Section 3 · Solutions page
+WHAT TO USE
+Challenge → answer pairing (trust gap, platform-switching fear, stretched teams, AI not used, product gaps). Best structure for the challenge cards on the homepage.
+CAUTION
+Hidden slide in the source. Written for Rillet: replace “Rillet Agent Builder” with DaveroAI’s own role name. Source for “#1 missing features” differs from slide 6 (G2 vs. client complaints).
+8
+
+=== Slide 9 ===
+REFERENCE 10  ·  MARKET SHIFT &amp; BUSINESS CHALLENGES
+Market for DaVeroAI
+Source: 3. DaveroAI Investor Deck, slide 5
+WEBSITE PLACEMENT
+Agentic AI page · Insights
+WHAT TO USE
+$80–115B US accounting, audit and tax work bought from outside providers. Use the “Our wedge” statement for audience targeting (mid-market and enterprise moving onto AI-native platforms (ERP, CRM, procurement, etc.)).
+CAUTION
+Market-size chart is investor-oriented; on the website use it in Insights rather than the homepage.
+9
+
+=== Slide 10 ===
+REFERENCE 11  ·  SOLUTION, SERVICES &amp; METHODOLOGY
+We build, own and run the agents
+Source: 3. DaveroAI Investor Deck, slide 10
+WEBSITE PLACEMENT
+Home Section 7 (Methodology) · Our Approach
+WHAT TO USE
+The 4-step model: Embed → Develop skill → Harvest → Scale, plus the Golden Rule: “The client identifies the gap. We build. The client validates. We own, run and improve the agent.” Ideal for an animated journey.
+CAUTION
+Project brief proposes 7 steps (Discover → Optimize); the decks use 4 or 5. Confirm which to show.
+10
+
+=== Slide 11 ===
+REFERENCE 12  ·  SOLUTION, SERVICES &amp; METHODOLOGY
+Service lines: Implement · Build agents · Run &amp; tune
+Source: 2a. Operating Model – Last Mile Design, slide 5
+WEBSITE PLACEMENT
+Services page · Home Section 4
+WHAT TO USE
+Three service cards with outcomes: ledger live / agents running the close / agents that keep getting better. Agent examples: reconciliations, accruals, flux analysis, AR/collections, audit prep.
+CAUTION
+Says “Rillet only”. Investor deck says multi-platform (Rillet, Tabs, Maxio, Campfire). Confirm scope.
+11
+
+=== Slide 12 ===
+REFERENCE 13  ·  SOLUTION, SERVICES &amp; METHODOLOGY
+How an engagement runs (5 steps)
+WEBSITE PLACEMENT
+Our Approach · Services
+WHAT TO USE
+Engage → Build the skill → Harden with a constitution → Converge into the platform → Review and approve. The “constitution” idea is a distinctive differentiator.
+12
+
+=== Slide 13 ===
+REFERENCE 14  ·  SOLUTION, SERVICES &amp; METHODOLOGY
+Engagement models
+Source: 3. DaveroAI Investor Deck, slide 11
+WEBSITE PLACEMENT
+Services · “How we engage” block
+WHAT TO USE
+Deployment (fixed fee, 6–10 week embed) · Agent subscription · Managed outcome (close-as-a-service). The margin ladder (Bespoke → Template → Library agent → Vertical pack) explains the compounding library.
+CAUTION
+Pricing structure is marked as proposed. Show model names only, no margins or price logic.
+13
+
+=== Slide 14 ===
+REFERENCE 15  ·  SOLUTION, SERVICES &amp; METHODOLOGY
+The skill factory
+Source: 2a. Operating Model – Last Mile Design, slide 9
+WEBSITE PLACEMENT
+Our Approach · Why partner with us
+WHAT TO USE
+Develop → Reuse → Redeploy loop. “Every engagement adds to the library, so the next client starts further ahead.” Good looping animation.
+CAUTION
+Replace “XYZ skill library” with DaveroAI.
+14
+
+=== Slide 15 ===
+04
+Trust, governance &amp; delivery team
+Human-in-the-loop controls, who does what around every agent, and why the model wins.
+WEBSITE PAGES  Technology &amp; Architecture · Home Section 5 · Why partner
+Human in the loop
+Five actors around every agent
+The delivery pod
+Why we win and keep winning
+Where we sit in the landscape
+
+=== Slide 16 ===
+REFERENCE 16  ·  TRUST, GOVERNANCE &amp; DELIVERY TEAM
+Human in the loop
+Source: 2a. Operating Model – Last Mile Design, slide 6
+WEBSITE PLACEMENT
+Home Section 5 (Agentic AI in action) · Technology &amp; governance
+WHAT TO USE
+Prepare (agent) → Review (human) → Approve (human) → Record (GL, full audit trail). Core of the multi-agent demo: show agent vs. human steps clearly.
+CAUTION
+Quote is Rillet’s own wording (Series C announcement); attribute it or rephrase.
+16
+
+=== Slide 17 ===
+REFERENCE 17  ·  TRUST, GOVERNANCE &amp; DELIVERY TEAM
+Five actors around every agent
+Source: 1. Rillet – Own the Last Mile, slide 13
+WEBSITE PLACEMENT
+Technology &amp; governance · Our Approach
+WHAT TO USE
+Subject expert, Agent Builder, Validator, Operator, Owner. Key message: the client stays in control (defines, approves, runs). Consultants keep advisory and assurance roles.
+CAUTION
+Owner is shown as “Platform”; on the site, make clear DaveroAI owns and runs the agent.
+17
+
+=== Slide 18 ===
+REFERENCE 18  ·  TRUST, GOVERNANCE &amp; DELIVERY TEAM
+The delivery pod
+Source: 2a. Operating Model – Last Mile Design, slide 7
+WEBSITE PLACEMENT
+Why partner with us · About
+WHAT TO USE
+Forward Deployed Accountant (pod lead), Solutions Engineer (integrations), Forward Deployed Agent Engineer (agents). “One pod per client.”
+CAUTION
+Role naming conflicts with “Agent Builder (accountant + engineer)” in the investor deck. Pick one vocabulary.
+18
+
+=== Slide 19 ===
+REFERENCE 19  ·  TRUST, GOVERNANCE &amp; DELIVERY TEAM
+Why we win and keep winning
+Source: 3. DaveroAI Investor Deck, slide 15
+WEBSITE PLACEMENT
+Home Section 8 (Why partner with us)
+WHAT TO USE
+Four differentiators with icons: Context captured · Platform-native · Human-validated · Compounding library. Ready-made card set.
+19
+
+=== Slide 20 ===
+REFERENCE 20  ·  TRUST, GOVERNANCE &amp; DELIVERY TEAM
+Where we sit in the landscape
+Source: 3. DaveroAI Investor Deck, slide 14
+WEBSITE PLACEMENT
+Why partner with us · Insights
+WHAT TO USE
+2×2: sells the tool ↔ sells the work vs. depth of platform context. “Our edge” bullets give the differentiation copy.
+CAUTION
+Positioning is the author’s own assessment. Avoid naming competitors on the public site unless approved.
+20
+
+=== Slide 21 ===
+05
+Outcomes, ecosystem &amp; leadership
+What clients get, the platform ecosystem, the founder story and the closing message.
+WEBSITE PAGES  Home Sections 6, 8 &amp; 10 · Industries · About · Contact
+What the client gets
+Platform-anchored go-to-market
+Founder
+Closing message
+
+=== Slide 22 ===
+REFERENCE 21  ·  OUTCOMES, ECOSYSTEM &amp; LEADERSHIP
+What the client gets
+Source: 1. Rillet – Own the Last Mile, slide 19
+WEBSITE PLACEMENT
+Home · Business outcomes · Contact value proposition
+WHAT TO USE
+Use the left column only: expert help, last-mile workflows automated, teams move to higher-value work, AI put to work under the client’s own approval.
+CAUTION
+Right column (“What the Platform gets”) is partner-facing. Do not publish.
+22
+
+=== Slide 23 ===
+REFERENCE 22  ·  OUTCOMES, ECOSYSTEM &amp; LEADERSHIP
+Platform-anchored go-to-market
+Source: 3. DaveroAI Investor Deck, slide 13
+WEBSITE PLACEMENT
+Industries / Ecosystem · Home Section 6
+WHAT TO USE
+Client journey: Platform referral → Embed and prove → Expand → Replicate. Platforms named: Rillet, Tabs, Maxio, Campfire.
+CAUTION
+Platform relationships are advisory and in discussion. No commercial partnership is signed, so don’t show logos as “partners”.
+23
+
+=== Slide 24 ===
+REFERENCE 23  ·  OUTCOMES, ECOSYSTEM &amp; LEADERSHIP
+Founder
+Source: 3. DaveroAI Investor Deck, slide 16
+WEBSITE PLACEMENT
+About · Leadership
+WHAT TO USE
+Hemang Bhatt, Founder &amp; CEO: 20+ years in SaaS, FinTech and professional services; Consero Global, Oracle NetSuite, Gordian, JPMorgan Chase, American Express; Rillet PAB and Tabs Advisory Board.
+CAUTION
+Advisory roles are non-commercial. Remove the “First hires (funded)” block. Confirm headshot and bio wording with Hemang.
+24
+
+=== Slide 25 ===
+REFERENCE 24  ·  OUTCOMES, ECOSYSTEM &amp; LEADERSHIP
+Closing message
+Source: 3. DaveroAI Investor Deck, slide 20
+WEBSITE PLACEMENT
+Home Section 10 (Final CTA) · Footer
+WHAT TO USE
+“The last mile is where software, services and context meet” and the three-quote trio (Sequoia, Goldberg, Kopp). Strong closing band before “Start a conversation”.
+CAUTION
+Replace investor next steps with the consultation CTA. Don’t publish the personal email address.
+25
+
+=== media files: 22 ===
