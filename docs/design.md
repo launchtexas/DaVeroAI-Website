@@ -1,21 +1,26 @@
-# DaVeroAI website: design spec
+# Davero AI website: design spec
 
-> Status: **DRAFT, sitemap provisional.** Waiting for `docs/brief.md`. Everything below the sitemap is still to be written. Owner: Designer.
+> Owner: Designer. Source of truth for the Builder. Inputs: `docs/brief.md` and the live site daveroai.com (fetched 2026-11-07).
+> Status: **Sitemap LOCKED.** Rest of spec follows below.
 
-## 1. Sitemap (provisional, locks when the brief lands)
+## 1. Sitemap (locked)
 
-| # | Page | Route | Sections, top to bottom |
-|---|------|-------|--------------------------|
-| 1 | Home | `/` | Hero, Problem, What DaVeroAI does, How it works (3 steps), Use cases, Proof [TBD], Final CTA |
-| 2 | Product | `/product` | Overview, Features, Integrations [TBD], FAQ, CTA |
-| 3 | Solutions | `/solutions` | Intro, one section per audience (audiences from brief), CTA |
-| 4 | Pricing | `/pricing` | Only if the brief confirms public pricing. If not: no page, and the nav item becomes "Book a demo" |
-| 5 | About | `/about` | Mission, Values, Team [TBD], CTA |
-| 6 | Contact / Book a demo | `/contact` | Form + email address |
-| 7 | Privacy, Terms | `/privacy`, `/terms` | Placeholder legal text |
+| # | Page | Route | Nav label | Sections, top to bottom (section id) |
+|---|------|-------|-----------|--------------------------------------|
+| 1 | Home | `/` | (logo) | Hero `#hero` · Problem `#problem` · Services overview (6) `#services` · Approach (4 steps + orchestrator diagram) `#approach` · Industries (9) `#industries` · Final CTA `#cta` |
+| 2 | Services | `/services` | Services | Intro `#intro` · one section per service (6): `#multi-agent-systems`, `#intelligent-automation`, `#ai-strategy`, `#enterprise-integration`, `#platform-engineering`, `#security-governance` · Approach (same 4 steps, short) `#approach` · FAQ `#faq` · CTA `#cta` |
+| 3 | Industries | `/industries` | Industries | Intro `#intro` · 9 industry blocks: `#cybersecurity`, `#itsm`, `#financial-services`, `#customer-experience`, `#enterprise-knowledge`, `#supply-chain`, `#automotive`, `#business-operations`, `#data-analytics` · CTA `#cta` |
+| 4 | About | `/about` | About | Mission `#mission` · How we work (principles) `#principles` · Team `#team` **[TBD, hidden until supplied]** · CTA `#cta` |
+| 5 | Contact | `/contact` | Contact (as button) | Heading + short text `#intro` · Contact form `#form` · Direct email hello@davero.ai `#email` |
+| 6 | Privacy | `/privacy` | footer only | Placeholder legal text |
+| 7 | Terms | `/terms` | footer only | Placeholder legal text |
+| — | 404 | `/404` | — | Short message + links to Home and Contact |
 
-**Global on every page**
-- Header nav: Product, Solutions, Pricing (or omitted, see row 4), About, plus primary button "Book a demo" pointing to `/contact`.
-- Footer: logo, page links, legal links, contact email, copyright.
+Decisions:
+- **No Product page** (services firm) and **no Pricing page** (no public pricing). Nav slot goes to the CTA button.
+- **Approach is a section, not a page**: full on Home, short on Services. Saves a page with no unique content.
+- **No proof section** (clients, logos, numbers, testimonials, case studies) anywhere until real material exists. Do not build empty placeholders for it.
+- Every "CTA" section and button points to `/contact`. `mailto:hello@davero.ai` appears on Contact and in the footer.
 
-**Section ids** (for anchors and for the Writer's headings in content.md): use kebab-case names of the sections above, for example `#how-it-works`, `#use-cases`, `#final-cta`.
+**Header (all pages):** logo "DAVERO AI." left → Services, Industries, About → primary button "Start a conversation" (`/contact`).
+**Footer (all pages):** logo + one-line tagline · page links · Privacy, Terms · hello@davero.ai · © {year} Davero AI.
