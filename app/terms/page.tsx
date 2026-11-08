@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalDoc, Mail, type LegalSection } from "@/components/site/legal-doc";
-import { Tbd } from "@/components/site/tbd";
 
 // Terms for using the website only; client services are governed by a separate signed agreement.
 export const metadata: Metadata = {
@@ -17,8 +16,8 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          These terms apply to your use of daveroai.com (the <strong>website</strong>), operated by <Tbd>Legal entity name</Tbd>,
-          trading as DaVero AI, of <Tbd>Registered address</Tbd> (<strong>DaVero AI</strong>, <strong>we</strong>,{" "}
+          These terms apply to your use of daveroai.com (the <strong>website</strong>), operated by DaVero AI LLC,
+          of 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States (<strong>DaVero AI</strong>, <strong>we</strong>,{" "}
           <strong>us</strong>). By using the website you accept them. If you do not accept them, do not use the website.
         </p>
         <p>
@@ -161,8 +160,8 @@ const sections: LegalSection[] = [
     title: "Governing law and disputes",
     body: (
       <p>
-        These terms and any dispute arising from them or the website are governed by the laws of <Tbd>Governing law</Tbd>, and
-        the courts of <Tbd>Governing law</Tbd> have exclusive jurisdiction. If you are a consumer, you also keep the protection of
+        These terms and any dispute arising from them or the website are governed by the laws of the State of Texas, United States, without regard to its conflict-of-laws rules, and
+        the state and federal courts located in Collin County, Texas, have exclusive jurisdiction. If you are a consumer, you also keep the protection of
         the mandatory laws of the country where you live and may bring proceedings there.
       </p>
     ),

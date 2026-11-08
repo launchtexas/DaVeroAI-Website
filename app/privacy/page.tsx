@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalDoc, LegalTable, Mail, type LegalSection } from "@/components/site/legal-doc";
-import { Tbd } from "@/components/site/tbd";
 
 // Every statement about data here must match the code: app/api/contact/route.ts, lib/contact-shield.ts,
 // lib/contact-rules.ts, components/site/turnstile.tsx, next.config.ts. Open facts: docs/legal-review.md.
@@ -19,7 +18,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          This policy explains how <Tbd>Legal entity name</Tbd>, trading as DaVero AI, of <Tbd>Registered address</Tbd> (
+          This policy explains how DaVero AI LLC (DaVero AI), of 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States (
           <strong>DaVero AI</strong>, <strong>we</strong>, <strong>us</strong>) handles personal information collected through
           daveroai.com (the <strong>website</strong>).
         </p>
@@ -140,7 +139,7 @@ const sections: LegalSection[] = [
               "Stores short-lived rate-limit counters and repeat-message fingerprints shared across servers",
               "IP address; a one-way fingerprint of your email and message",
             ],
-            ["Our email service provider", "Hosts the inbox that receives enquiries", "Contact form fields and our correspondence with you"],
+            ["Microsoft Corporation (Microsoft 365)", "Hosts the inbox that receives enquiries", "Contact form fields and our correspondence with you"],
           ]}
         />
         <p>
@@ -175,7 +174,7 @@ const sections: LegalSection[] = [
           [
             "Enquiries and our correspondence",
             <>
-              As long as needed to respond and to manage any resulting relationship, then deleted within <Tbd>Retention period</Tbd>
+              Kept indefinitely as part of our business records, unless you ask us to delete them; we then delete them unless the law requires us to keep them
             </>,
           ],
           ["Per-IP rate-limit counters", "Up to 10 minutes, and up to 24 hours for the daily limit when shared limits are enabled"],
@@ -193,7 +192,7 @@ const sections: LegalSection[] = [
       <p>
         The website is served only over HTTPS and sets strict browser security headers. The contact form endpoint accepts
         same-origin requests only, caps request size, validates every field and keeps no database: a submission is passed
-        straight to our email provider. No method of transmission or
+        straight to our email provider, Microsoft 365. No method of transmission or
         storage is completely secure. See our <Link className="link" href="/security">Security</Link> page for more, including how
         to report a vulnerability.
       </p>
@@ -268,7 +267,7 @@ const sections: LegalSection[] = [
     body: (
       <p>
         For any question about this policy or your personal information, email <Mail subject="Privacy request" /> or write to{" "}
-        <Tbd>Legal entity name</Tbd>, <Tbd>Registered address</Tbd>.
+        DaVero AI LLC, 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States.
       </p>
     ),
   },

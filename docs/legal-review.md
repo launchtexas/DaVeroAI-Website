@@ -10,10 +10,10 @@ carry `data-tbd`, so `grep -rn "<Tbd>" app` finds every one.
 
 | Placeholder | Where |
 |---|---|
-| `[Legal entity name]` | Privacy §1 and §13, Terms §1, Legal notice §1 and §7 |
-| `[Registered address]` | Privacy §1 and §13, Terms §1, Legal notice §1 and §7 |
-| `[Governing law]` | Terms §10 (governing law and courts) |
-| `[Retention period]` | Privacy §6 (how long enquiries and correspondence are kept) |
+| ~~`[Legal entity name]`~~ filled: DaVero AI LLC | Privacy §1 and §13, Terms §1, Legal notice §1 and §7 |
+| ~~`[Registered address]`~~ filled: 2100 N Greenville Ave, Ste 217, Richardson, TX 75082 | Privacy §1 and §13, Terms §1, Legal notice §1 and §7 |
+| ~~`[Governing law]`~~ filled: Texas, Collin County courts | Terms §10 (governing law and courts) |
+| ~~`[Retention period]`~~ filled: indefinite unless deletion requested | Privacy §6 (how long enquiries and correspondence are kept) |
 
 Also unknown and therefore not stated on the pages: company registration number, VAT/tax number, a named data protection
 contact or DPO. The pages route every privacy, legal and security request to `ask@daveroai.com`.
@@ -87,3 +87,8 @@ contact or DPO. The pages route every privacy, legal and security request to `as
 - No database; the submission goes to Resend as a plain-text email to `CONTACT_TO` (default ask@daveroai.com).
 - No cookies, web storage, analytics or advertising anywhere in `app`, `components` or `lib`.
 - There is no sitemap in the app, so no sitemap entries were added.
+
+
+## Client decisions (2026-11-08)
+- Entity DaVero AI LLC; address 2100 N Greenville Ave, Ste 217, Richardson, TX 75082; Texas law, Collin County courts; inbox on Microsoft 365.
+- Enquiries kept indefinitely unless the person asks for deletion. **Lawyer to confirm:** GDPR/UK GDPR storage limitation expects a defined period or criteria; indefinite retention is a risk for EU/UK enquirers. Also confirm the Collin County venue (75082 is in Collin County).

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalDoc, Mail, type LegalSection } from "@/components/site/legal-doc";
-import { Tbd } from "@/components/site/tbd";
 
 // Third-party names listed here are the ones that appear on the site (lib/content.ts, app/governance/page.tsx).
 export const metadata: Metadata = {
@@ -19,10 +18,10 @@ const sections: LegalSection[] = [
         <p>This website is operated by:</p>
         <ul>
           <li>
-            <Tbd>Legal entity name</Tbd>, trading as DaVero AI
+            DaVero AI LLC
           </li>
           <li>
-            Registered address: <Tbd>Registered address</Tbd>
+            Registered address: 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States
           </li>
           <li>
             Email: <Mail />
@@ -100,8 +99,8 @@ const sections: LegalSection[] = [
     title: "Contact",
     body: (
       <p>
-        Legal questions and notices: email <Mail subject="Legal notice" /> or write to <Tbd>Legal entity name</Tbd>,{" "}
-        <Tbd>Registered address</Tbd>.
+        Legal questions and notices: email <Mail subject="Legal notice" /> or write to DaVero AI LLC,{" "}
+        2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States.
       </p>
     ),
   },
