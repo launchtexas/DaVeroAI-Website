@@ -55,6 +55,21 @@ export function looksLikeSpam(d: { name: string; company: string; message: strin
 export const contentHash = (email: string, message: string) =>
   createHash("sha256").update(`${email.toLowerCase()}\n${message.replace(/\s+/g, " ").trim().toLowerCase()}`).digest("hex");
 
+// ---------- Rate-limit key ----------
+// One IPv6 user (home line, VPS) gets a whole /64, so limiting each IPv6 address separately lets them rotate
+// addresses freely. Limit by the /64 prefix instead; IPv4 (and IPv4-mapped IPv6) stays per address.
+export function rateLimitKey(ip: string): string {
+  const v = ip.split("%")[0].toLowerCase();
+  if (!v.includes(":")) return v;
+  const mapped = v.match(/^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/);
+  if (mapped) return mapped[1];
+  const [head, tail] = v.split("::");
+  const h = head ? head.split(":") : [];
+  const t = tail ? tail.split(":") : [];
+  const groups = tail === undefined ? h : [...h, ...Array(Math.max(0, 8 - h.length - t.length)).fill("0"), ...t];
+  return `${groups.slice(0, 4).map((g) => (parseInt(g, 16) || 0).toString(16)).join(":")}::/64`;
+}
+
 // ---------- Optional durable store: Upstash Redis REST API (fetch, no SDK) ----------
 function upstash() {
   const url = process.env.UPSTASH_REDIS_REST_URL;

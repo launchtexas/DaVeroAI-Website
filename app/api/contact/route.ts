@@ -7,6 +7,7 @@ import {
   durableRateLimited,
   issueFormToken,
   looksLikeSpam,
+  rateLimitKey,
   releaseSubmission,
   turnstileEnabled,
   verifyTurnstile,
@@ -92,7 +93,8 @@ export async function POST(request: Request) {
   if (checkFormToken(input.t) === "spam") return fakeOk();
 
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() || request.headers.get("x-real-ip") || "unknown";
-  if (rateLimited(ip) || (await durableRateLimited(ip))) return json({ error: "rate_limited" }, 429);
+  const limitKey = rateLimitKey(ip); // IPv6: the /64 prefix, so rotating addresses in one allocation does not help
+  if (rateLimited(limitKey) || (await durableRateLimited(limitKey))) return json({ error: "rate_limited" }, 429);
 
   const data = {} as Record<Field, string>;
   const errors: Partial<Record<Field, string>> = {};
