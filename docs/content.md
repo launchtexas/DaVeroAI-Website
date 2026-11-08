@@ -5,7 +5,7 @@
 > Owner: Writer 2. Source: the client's content deck (`docs/source/content-brief.pptx`, text in `content-brief.txt`, slide images in `docs/source/media/`). Every line below comes from the deck; nothing is invented.
 > **Structure:** pages and sections follow the deck's WEBSITE PLACEMENT lines. `docs/design.md` §1 is being rewritten; when it is locked, re-map section ids and routes to it. Routes below are provisional.
 > **Conventions:** "quoted" = deck line used verbatim. Unquoted = tightened heading/button or a minimal rewording forced by a CAUTION (marked *(adapted)*). Every stat carries its source. **[TBD]** = missing from the deck; do not fill in.
-> **Defaults applied (from god, until the client answers):** brand spelled "DaveroAI"; third-party quotes only attributed; third-party stats only with source; no partner, client or platform logos; Rillet, Tabs, Maxio, Campfire named only as platforms we work around, never as partners; no competitor names; no pricing, margins or market-size charts on Home (Insights only); 4-step model on Home, 5-step engagement on Our Approach; one role vocabulary (Forward Deployed Accountant, Solutions Engineer, Forward Deployed Agent Engineer); DaveroAI owns and runs the agents; no personal email; every CTA is "Start a conversation" → `/contact`.
+> **Defaults applied (from god, until the client answers):** brand spelled "DaveroAI"; third-party quotes only attributed; third-party stats only with source; no partner, client or platform logos; Rillet, Tabs, Maxio, Campfire named only as platforms we work around, never as partners; no competitor names; no pricing, margins or market-size charts on Home (Insights only); 4-step model on Home, 5-step engagement on Our Approach; one role vocabulary (Forward Deployed Consultant, Solutions Engineer, Forward Deployed Agent Engineer); DaveroAI owns and runs the agents; no personal email; every CTA is "Start a conversation" → `/contact`.
 > SEO title ≤ 60 characters, meta description ≤ 155.
 
 ---
@@ -72,8 +72,8 @@
 - Takeaway: "Top row: the people who do the work are leaving. Bottom row: companies buy AI but can't deploy or trust it alone."
 - Key line: "Delivery, not models, is the bottleneck. We sell delivery."
 - Challenge cards (challenge / stat / our response). Responses *(adapted)*: "Rillet Agent Builder" replaced with our role names.
-  1. **"The trust gap"** · 14% "of mid-market CFOs fully trust AI with accounting data" (Wakefield Research, Feb 2026) · A Forward Deployed Accountant beside the team; every change human-approved.
-  2. **"Fear of switching platforms"** · 70%+ "of ERP projects miss their original goals" (**[TBD: source; the deck gives none. Hide this stat until sourced]**) · Strong collaboration between our Forward Deployed Accountant and the client's subject expert. We upskill the client's subject expert to be a builder.
+  1. **"The trust gap"** · 14% "of mid-market CFOs fully trust AI with accounting data" (Wakefield Research, Feb 2026) · A Forward Deployed Consultant beside the team; every change human-approved.
+  2. **"Fear of switching platforms"** · 70%+ "of ERP projects miss their original goals" (**[TBD: source; the deck gives none. Hide this stat until sourced]**) · Strong collaboration between our Forward Deployed Consultant and the client's subject expert. We upskill the client's subject expert to be a builder.
   3. **"Stretched finance teams"** · 61% "of finance leaders report accounting talent shortages" (Controllers Council, 2026) · Our pod does the build work, so lean teams gain capacity, not more load.
   4. **"AI bought, not used"** · 12% "of finance teams run AI in core processes" (insightsoftware, 2026) · Our pod develops skills and deploys working agents in days.
   5. **"Product gaps (client-specific gaps)"** · #1 · ""Missing features" still tops G2 complaints" (G2 **[TBD: report and date]**) · Real client gaps become product candidates, and our pod is the bridge between them.
@@ -115,7 +115,7 @@
 - Eyebrow: An outcomes company
 - Headline: "We build, own and run the agents around the platform"
 - Four steps *(step 1 adapted to the one role vocabulary)*:
-  1. **Embed** · A forward-deployed pod (a Forward Deployed Accountant with engineers) "joins the client in the last weeks of platform implementation."
+  1. **Embed** · A forward-deployed pod (a Forward Deployed Consultant with engineers) "joins the client in the last weeks of platform implementation."
   2. **Develop skill** · "Takes over the close and builds agents for the client's last-mile workflows, human-validated."
   3. **Harvest** · "Every agent is scored. Reusable ones join our owned library; bespoke ones run for that client."
   4. **Scale** · "Library agents deploy across new clients" "in days, not months." *(adapted: "and platform partners" removed)*
@@ -130,7 +130,7 @@
   2. **Platform-native** (plug) · "Built only on AI-native platforms (ERP, CRM, procurement, etc.)," working alongside the platform, "not a rival integrator." *(adapted: "as a partner they refer to" removed)*
   3. **Human-validated** (shield) · "Every change client-approved; controls stay with the client and auditor." Answers the 14% trust gap (Wakefield Research, Feb 2026).
   4. **Compounding library** (layers) · "Each deployment is harvested. More agents mean faster deployments." *(adapted: "and higher margins" removed)*
-- Pod strip: "One pod per client." Forward Deployed Accountant (pod lead) · Solutions Engineer (integrations) · Forward Deployed Agent Engineer (agents). Link → `/about#pod`
+- Pod strip: "One pod per client." Forward Deployed Consultant (pod lead) · Solutions Engineer (integrations) · Forward Deployed Agent Engineer (agents). Link → `/about#pod`
 - Library line: "Every engagement adds to the library, so the next client starts further ahead."
 
 ### Section 9 `#section-9`
@@ -267,7 +267,7 @@
 - Loop:
   1. **Develop** · "Skills are built and hardened in a factory setting."
   2. **Reuse** · "Each hardened skill becomes a reusable asset in the" DaveroAI "skill library for the next" client. *(adapted)*
-  3. **Redeploy** · "Forward Deployed Accountants move to the next client or process as skills mature."
+  3. **Redeploy** · "Forward Deployed Consultants move to the next client or process as skills mature."
 - Line: "Every engagement adds to the library, so the next client starts further ahead."
 
 ### CTA `#cta`
@@ -290,7 +290,7 @@
 
 ### Constitution `#constitution` *(slide 12)*
 - Headline: Hardened with a constitution
-- Body: "Rules, controls and edge cases that make the skill reliable." Our Forward Deployed Accountant "builds the skill and writes its constitution."
+- Body: "Rules, controls and edge cases that make the skill reliable." Our Forward Deployed Consultant "builds the skill and writes its constitution."
 
 ### Architecture `#architecture`
 - **[TBD: the deck has no technical architecture content (security, data handling, hosting, certifications). Do not invent.]**
@@ -364,11 +364,11 @@
 - Core strategy (Where / What / How): as `/agentic-ai#strategy`, short form.
 
 ### The delivery pod `#pod` *(slide 18)*
-- Headline: "Led by the Forward Deployed Accountant"
-- **Forward Deployed Accountant** · Pod lead · "Domain expert who engages enterprise clients, understands their processes, builds the skill and writes its constitution. A peer to controllers and CFOs."
+- Headline: "Led by the Forward Deployed Consultant"
+- **Forward Deployed Consultant** · Pod lead · "Domain expert who engages enterprise clients, understands their processes, builds the skill and writes its constitution. A peer to controllers and CFOs."
 - **Solutions Engineer** · Integrations · "Platform integrations, data and APIs. Connects the client’s data so agents have what they need."
 - **Forward Deployed Agent Engineer** · Agents · "Builds, fine-tunes and deploys agents."
-- Summary: "The Forward Deployed Accountant leads and owns the client relationship." "The Solutions Engineer connects the data." The Forward Deployed Agent Engineer "ships the agents."
+- Summary: "The Forward Deployed Consultant leads and owns the client relationship." "The Solutions Engineer connects the data." The Forward Deployed Agent Engineer "ships the agents."
 - Band: "The unit of delivery" · "One pod per client."
 
 ### Leadership `#leadership` *(slide 24; confirm wording with Hemang)*

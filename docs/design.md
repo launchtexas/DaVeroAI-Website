@@ -13,7 +13,7 @@
 5. **No competitor names.** The landscape 2×2 shows axes and DaVero AI only, unnamed categories elsewhere.
 6. **No pricing, margins or market-size charts on Home.** Those live on Insights only. Engagement models show names only, no prices or margin logic.
 7. Methodology: **4-step model on Home** (Embed → Develop skill → Harvest → Scale); **5-step engagement on Our Approach** (Engage → Build the skill → Harden with a constitution → Converge into the platform → Review and approve). Services links to Our Approach, it does not show a third variant.
-8. One role vocabulary: **Forward Deployed Accountant** (pod lead), **Solutions Engineer** (integrations), **Forward Deployed Agent Engineer** (agents). Never "Agent Builder".
+8. One role vocabulary: **Forward Deployed Consultant** (pod lead), **Solutions Engineer** (integrations), **Forward Deployed Agent Engineer** (agents). Never "Agent Builder".
 9. **DaVero AI owns and runs the agents.** In the five-actors view the Owner/Operator is DaVero AI, never "Platform".
 10. Founder: **Hemang Bhatt, Founder & CEO**, bio from deck REFERENCE 23 minus the "First hires (funded)" block; advisory roles described as advisory (non-commercial). Headshot: `public/images/hemang-bhatt.jpg` via `next/image`, alt "Hemang Bhatt, Founder and CEO". No personal email anywhere.
 11. One CTA label: **"Start a conversation"** → `/contact#form`.
@@ -231,7 +231,7 @@ hero → `service-lines` three **stacked sticky cards** (each card full containe
 
 ### 5.4 Our Approach `/approach`
 
-hero → `engagement` ★ sticky story (§6.4 model B, 5 steps; step 3 "Harden with a constitution" gets a highlighted card with a short definition) → `golden-rule` full-width quote-style statement (unquoted, our own words), four clauses as four mono-indexed lines: The client identifies the gap · We build · The client validates · We own, run and improve the agent → `skill-factory` ★ loop (§6.6) split 6/6 with copy → `pod` 3 role cards (role title, one line, "Pod lead" chip on Forward Deployed Accountant) + line "One pod per client." → `actors` short: 5 actor chips in a row and link "How governance works" → `/governance#actors` → `cta`.
+hero → `engagement` ★ sticky story (§6.4 model B, 5 steps; step 3 "Harden with a constitution" gets a highlighted card with a short definition) → `golden-rule` full-width quote-style statement (unquoted, our own words), four clauses as four mono-indexed lines: The client identifies the gap · We build · The client validates · We own, run and improve the agent → `skill-factory` ★ loop (§6.6) split 6/6 with copy → `pod` 3 role cards (role title, one line, "Pod lead" chip on Forward Deployed Consultant) + line "One pod per client." → `actors` short: 5 actor chips in a row and link "How governance works" → `/governance#actors` → `cta`.
 
 ### 5.5 Technology & governance `/governance`
 

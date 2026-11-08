@@ -63,12 +63,12 @@ export const challenges: Challenge[] = [
   {
     title: "The trust gap",
     stat: { value: "14%", label: "of mid-market CFOs fully trust AI with accounting data", source: "Wakefield Research, Feb 2026" },
-    answer: "A Forward Deployed Accountant beside the team; every change human-approved.",
+    answer: "A Forward Deployed Consultant beside the team; every change human-approved.",
   },
   {
     title: "Fear of switching platforms",
     answer:
-      "Strong collaboration between our Forward Deployed Accountant and the client's subject expert. We upskill the client's subject expert to be a builder.",
+      "Strong collaboration between our Forward Deployed Consultant and the client's subject expert. We upskill the client's subject expert to be a builder.",
   },
   {
     title: "Stretched finance teams",
@@ -215,15 +215,15 @@ export const strategy = {
 };
 
 export const pod = [
-  { role: "Forward Deployed Accountant", tag: "Pod lead", body: "Domain expert who engages enterprise clients, understands their processes, builds the skill and writes its constitution. A peer to controllers and CFOs." },
+  { role: "Forward Deployed Consultant", tag: "Pod lead", body: "Domain expert who engages enterprise clients, understands their processes, builds the skill and writes its constitution. A peer to controllers and CFOs." },
   { role: "Solutions Engineer", tag: "Integrations", body: "Platform integrations, data and APIs. Connects the client’s data so agents have what they need." },
 ];
 export const POD_LINE = "One pod per client.";
 
-// docs/governance.md #actors. The builder is the pod (Forward Deployed Accountant + Solutions Engineer).
+// docs/governance.md #actors. The builder is the pod (Forward Deployed Consultant + Solutions Engineer).
 export const actors = [
   { key: "A", name: "Subject expert", who: "Client or consultant", body: "Defines the workflow, rules and edge cases." },
-  { key: "B", name: "Forward Deployed Accountant", who: "DaVero AI pod", body: "Builds the agent around those requirements, with the Solutions Engineer." },
+  { key: "B", name: "Forward Deployed Consultant", who: "DaVero AI pod", body: "Builds the agent around those requirements, with the Solutions Engineer." },
   { key: "C", name: "Validator", who: "Client or consultant", body: "Checks controls and approves results in the platform." },
   { key: "D", name: "Operator", who: "DaVero AI", body: "Runs the agent, monitors exceptions and coordinates resolution." },
   { key: "E", name: "Owner", who: "DaVero AI", body: "Owns the agent and its ongoing improvement." },

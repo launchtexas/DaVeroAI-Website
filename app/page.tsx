@@ -210,7 +210,7 @@ export default function Home() {
           <SectionHead id="why-us-title" eyebrow="Why partner with us" title="Why we win and keep winning" />
           <Differentiators />
           <p className="t-small mt-8 text-muted-fg">
-            {POD_LINE} Forward Deployed Accountant (pod lead) &middot; Solutions Engineer (integrations).{" "}
+            {POD_LINE} Forward Deployed Consultant (pod lead) &middot; Solutions Engineer (integrations).{" "}
             <Link href="/about#pod" className="link">
               Meet the pod
             </Link>

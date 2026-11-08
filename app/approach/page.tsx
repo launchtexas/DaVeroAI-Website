@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const loop = [
   { title: "Develop", body: "Skills are built and hardened in a factory setting." },
   { title: "Reuse", body: "Each hardened skill becomes a reusable asset in the DaVero AI skill library for the next client." },
-  { title: "Redeploy", body: "Forward Deployed Accountants move to the next client or process as skills mature." },
+  { title: "Redeploy", body: "Forward Deployed Consultants move to the next client or process as skills mature." },
 ];
 
 export default function ApproachPage() {
@@ -88,7 +88,7 @@ export default function ApproachPage() {
 
       <section id="pod" aria-labelledby="pod-title" className="section band-paper">
         <div className="container-x">
-          <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Accountant" />
+          <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Consultant" />
           <PodCards />
           <p className="t-h3 mt-10 !font-medium">{POD_LINE}</p>
         </div>

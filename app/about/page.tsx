@@ -45,7 +45,7 @@ export default function AboutPage() {
 
       <section id="pod" aria-labelledby="pod-title" className="section band-paper">
         <div className="container-x">
-          <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Accountant" />
+          <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Consultant" />
           <PodCards compact />
           <p className="mt-8 text-muted-fg">
             <span className="t-mono mr-3 text-faint">The unit of delivery</span>
