@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bot } from "lucide-react";
+import { Workflow } from "lucide-react";
 import { CtaBand, PageHero, SectionHead } from "@/components/site/blocks";
 import { PageArt } from "@/components/site/art";
 import { HitlDemo } from "@/components/site/hitl-demo";
@@ -103,7 +103,7 @@ export default function GovernancePage() {
           <div aria-hidden="true" className="my-4 hidden items-center gap-4 lg:flex">
             <span className="h-px flex-1 bg-line-strong" />
             <span className="flex items-center gap-2 rounded-full border border-mark bg-surface-2 px-5 py-3">
-              <Bot className="size-5 text-mark" strokeWidth={1.5} />
+              <Workflow className="size-5 text-mark" strokeWidth={1.5} />
               <span className="t-mono text-fg">Agent</span>
             </span>
             <span className="h-px flex-1 bg-line-strong" />

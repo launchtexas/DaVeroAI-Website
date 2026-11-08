@@ -254,21 +254,21 @@
 
   /* Type, §3.2: Inter. Display/headings Bold–ExtraBold, body Regular/Medium (brand kit p.6). */
   .t-display {
-    font-size: clamp(2.75rem, 1.7rem + 4.6vw, 5rem);
+    font-size: clamp(3rem, 2.2rem + 3.4vw, 4.5rem); /* Display 48-72 (guide p.6) */
     font-weight: 800;
     line-height: 1.02;
     letter-spacing: -0.04em;
     max-width: 14ch;
   }
   .t-h1 {
-    font-size: clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem);
+    font-size: clamp(2.25rem, 1.9rem + 1.5vw, 3rem); /* H1 36-48 */
     font-weight: 800;
     line-height: 1.06;
     letter-spacing: -0.035em;
     max-width: 18ch;
   }
   .t-h2 {
-    font-size: clamp(1.875rem, 1.4rem + 1.9vw, 2.875rem);
+    font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2rem); /* H2 24-32 */
     font-weight: 700;
     line-height: 1.12;
     letter-spacing: -0.03em;
@@ -281,14 +281,14 @@
     letter-spacing: -0.015em;
   }
   .t-stat {
-    font-size: clamp(2.5rem, 1.8rem + 3vw, 4.25rem);
+    font-size: clamp(3rem, 2.2rem + 3vw, 4.25rem); /* Display 48-72 */
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
   }
   .t-lead {
-    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+    font-size: 1.125rem; /* Body 16-18 */
     line-height: 1.55;
     letter-spacing: -0.005em;
     color: var(--text-muted);
@@ -298,11 +298,11 @@
     font-size: 0.9375rem;
     line-height: 1.55;
   }
-  /* Label style (kept the .t-mono name): Inter SemiBold caps, as the kit's section labels. */
+  /* Label style (kept the .t-mono name): Inter Bold caps, as the kit's section labels (guide weights: 400/500/700/800 only). */
   .t-mono {
     font-family: var(--font-sans);
     font-size: 0.75rem;
-    font-weight: 650;
+    font-weight: 700;
     line-height: 1.4;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -412,7 +412,7 @@
     color: var(--mark);
   }
   .legal-prose strong {
-    font-weight: 650;
+    font-weight: 700;
   }
   .legal-anchor {
     color: inherit;
@@ -446,7 +446,7 @@
   }
   .legal-table th {
     background: var(--surface);
-    font-weight: 650;
+    font-weight: 700;
   }
   @media (max-width: 639px) {
     .legal-table thead {
@@ -475,7 +475,7 @@
       content: attr(data-label);
       display: block;
       font-size: 0.75rem;
-      font-weight: 650;
+      font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--text-muted);

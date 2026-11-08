@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BookCheck, Bot, Check, ChevronLeft, ChevronRight, Pause, Play, User, UserCheck } from "lucide-react";
+import { BookCheck, Workflow, Check, ChevronLeft, ChevronRight, Pause, Play, User, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { hitlSteps, HITL_ALT } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -9,7 +9,7 @@ import { ActorChip, Legend } from "./blocks";
 import { useInViewOnce, useReducedMotion } from "./hooks";
 import { useHydrated } from "./tabs";
 
-const icons = [Bot, User, UserCheck, BookCheck];
+const icons = [Workflow, User, UserCheck, BookCheck];
 const LAST = hitlSteps.length - 1;
 const TICK = 2400;
 const trailActor = ["Agent", "Human · SME team", "Human · SME team", "Platform · system of record"];

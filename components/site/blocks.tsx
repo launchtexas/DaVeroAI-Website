@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookCheck, Bot, Check, Layers, LibraryBig, ScanText, User, UserCheck } from "lucide-react";
+import { ArrowRight, BookCheck, Workflow, Check, Layers, LibraryBig, ScanText, User, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HeroStripes, StripeBand } from "./art";
@@ -351,7 +351,7 @@ export function CheckList({ items }: { items: string[] }) {
   );
 }
 
-const actorIcon = { agent: Bot, human: User, record: BookCheck } as const;
+const actorIcon = { agent: Workflow, human: User, record: BookCheck } as const;
 
 export function ActorChip({ actor, label }: { actor: keyof typeof actorIcon; label: string }) {
   const Icon = actorIcon[actor];
@@ -375,7 +375,7 @@ export function Legend() {
     <ul className="t-mono flex flex-wrap gap-x-5 gap-y-2 text-muted-fg" aria-label="Legend">
       <li className="flex items-center gap-2">
         <span aria-hidden="true" className="dot bg-mark" />
-        <Bot aria-hidden="true" className="size-4" /> Agent
+        <Workflow aria-hidden="true" className="size-4" /> Agent
       </li>
       <li className="flex items-center gap-2">
         <span aria-hidden="true" className="dot bg-mark-human" />

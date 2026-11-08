@@ -20,13 +20,13 @@ export function BarChart({ title, bars, source, id, note }: { title: string; bar
         <div aria-hidden="true" className="space-y-3 sm:space-y-2">
           {bars.map((b) => (
             <div key={b.label} className="grid gap-1 sm:grid-cols-[13.5rem_1fr] sm:items-center sm:gap-4">
-              <span className={cn("t-small", b.ours ? "font-semibold text-fg" : "text-muted-fg")}>{b.label}</span>
+              <span className={cn("t-small", b.ours ? "font-medium text-fg" : "text-muted-fg")}>{b.label}</span>
               <div className="flex items-center gap-3">
                 <span
                   className={cn("bar block h-6 shrink-0 rounded-r-[var(--r-chip)] sm:h-7", b.ours ? "bg-[var(--brand)]" : "bg-line-strong")}
                   style={{ width: `${(b.value / max) * 62}%` }}
                 />
-                <span className="t-small leading-tight font-semibold tabular-nums sm:whitespace-nowrap">
+                <span className="t-small leading-tight font-medium tabular-nums sm:whitespace-nowrap">
                   {b.display}
                   {b.range && <span className="block font-normal text-muted-fg sm:ml-1.5 sm:inline">{b.range}</span>}
                 </span>
@@ -67,7 +67,7 @@ export function BarChart({ title, bars, source, id, note }: { title: string; bar
       </table>
       </div>
       <figcaption id={`${id}-cap`} className="mt-6">
-        <span className="block font-semibold">{title}</span>
+        <span className="block font-medium">{title}</span>
         {note && <span className="t-small mt-1 block text-muted-fg">{note}</span>}
         <span className="t-mono mt-2 block text-faint">Source: {source}</span>
       </figcaption>

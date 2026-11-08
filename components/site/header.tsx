@@ -88,7 +88,7 @@ export function Header() {
                         href={item.href}
                         aria-current={isActive(item.href) ? "page" : undefined}
                         className={cn(
-                          "flex min-h-14 items-center text-2xl font-bold tracking-[-0.025em]",
+                          "flex min-h-14 items-center text-2xl font-medium tracking-[-0.025em]",
                           isActive(item.href) ? "text-accent" : "text-fg",
                         )}
                       >

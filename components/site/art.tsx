@@ -3,7 +3,7 @@
 // photos of people or deck images. All decorative art is aria-hidden; the home hero art has a caption.
 import { cn } from "@/lib/utils";
 
-const label = { fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 650, letterSpacing: "0.08em" } as const;
+const label = { fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em" } as const;
 
 /** §6.0 Home hero: platform go-live → the last mile (agent and human steps) → finished outcome. */
 export function HeroArt() {
@@ -70,7 +70,7 @@ export function HeroArt() {
               {s.who === "agent" && <rect x="12" y="12" width="10" height="10" rx="2" fill="var(--brand)" />}
               {s.who === "human" && <circle cx="17" cy="17" r="5" fill="none" stroke="var(--midnight)" strokeWidth="2" />}
               {s.who === "record" && <rect x="12" y="12" width="10" height="10" rx="2" fill="none" stroke="var(--midnight)" strokeWidth="2" />}
-              <text x="30" y="22" fill="var(--midnight)" fontSize="13" fontWeight="650" letterSpacing="0">
+              <text x="30" y="22" fill="var(--midnight)" fontSize="13" fontWeight="700" letterSpacing="0">
                 {s.text}
               </text>
               </g>

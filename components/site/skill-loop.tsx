@@ -45,7 +45,7 @@ export function SkillLoop() {
             <path key={a} d="M -5 -5 L 2 0 L -5 5" fill="none" stroke="var(--line-strong)" strokeWidth="1.5" transform={`rotate(${a} 160 160) translate(160 40) `} />
           ))}
           <text x="160" y="156" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.08em" fill="var(--text-faint)">
-            DAVEROAI
+            DAVERO AI
           </text>
           <text x="160" y="174" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.08em" fill="var(--text-faint)">
             LIBRARY
