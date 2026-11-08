@@ -23,7 +23,7 @@
 - Tagline: "The last mile is where software, services and context meet." *(deck slide 25: Footer placement)*
 - Links: Agentic AI · Services · Our Approach · Technology & Governance · Industries · Insights · About · Contact
 - Legal: Privacy · Terms
-- Email: ask@daveroai.com (enquiry inbox; the contact form's mailto target, not displayed on the site)
+- Email: ask@daveroai.com (enquiry inbox; the contact form emails entries here via Resend; shown on the site only as the fallback link when the form fails)
 - Copyright: © {year} DaveroAI. **[TBD: legal entity name]**
 
 ### Shared labels
@@ -412,11 +412,11 @@
   - Empty required field: "Please enter your [field name]."
   - Bad email: "Please enter a valid email address, like name@company.com."
   - Error summary at top: "Please fix the [n] fields marked below."
-- Success: "Thanks. Your message is on its way. We'll reply by email."
-- Failure: "Your message didn't send. Please try again."
+- Success: "Thanks. Your message has been sent." / "We'll reply by email."
+- Failure: "Your message didn't send. Please try again." / "If it still fails, email us at ask@daveroai.com." (mailto link, shown only on failure)
 
 ### Email `#email`
-- Enquiry inbox: ask@daveroai.com (contact-form mailto target). No personal email (deck CAUTION).
+- Enquiry inbox: ask@daveroai.com (contact form entries are emailed here; mailto shown only as the failure fallback). No personal email (deck CAUTION).
 
 ---
 

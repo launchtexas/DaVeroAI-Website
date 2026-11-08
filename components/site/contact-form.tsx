@@ -8,14 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { domains } from "@/lib/content";
+import { domains, EMAIL } from "@/lib/content";
 import { submitContact, type ContactData } from "@/lib/contact";
+import { FIELDS, MESSAGE_MAX, validateField, type Field } from "@/lib/contact-rules";
 
-type Field = keyof ContactData;
 type Errors = Partial<Record<Field, string>>;
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const MESSAGE_MAX = 2000;
 const REQUIRED: Field[] = ["name", "email", "company", "message"];
 const LABELS: Record<Field, string> = {
   name: "Name",
@@ -26,33 +24,6 @@ const LABELS: Record<Field, string> = {
   message: "Which workflow do you want finished?",
 };
 
-function validateField(field: Field, raw: string): string | undefined {
-  const v = raw.trim();
-  switch (field) {
-    case "name":
-      if (v.length < 2) return "Please enter your name.";
-      if (v.length > 100) return "Please keep this under 100 characters.";
-      return;
-    case "email":
-      if (!v) return "Please enter your work email.";
-      if (!EMAIL_RE.test(v) || v.length > 254) return "Please enter a valid email address, like name@company.com.";
-      return;
-    case "company":
-      if (v.length < 2) return "Please enter your company.";
-      if (v.length > 120) return "Please keep this under 120 characters.";
-      return;
-    case "platform":
-      if (v.length > 100) return "Please keep this under 100 characters.";
-      return;
-    case "message":
-      if (!v) return "Please enter the workflow you want finished.";
-      if (v.length < 20) return "Please add a little more detail (at least 20 characters).";
-      if (v.length > MESSAGE_MAX) return `Please keep this under ${MESSAGE_MAX} characters.`;
-      return;
-  }
-}
-
-const ORDER: Field[] = ["name", "email", "company", "platform", "domain", "message"];
 const empty: ContactData = { name: "", email: "", company: "", platform: "", domain: "", message: "" };
 
 // Pre-selects the domain from ?domain=<id> (links on /industries).
@@ -93,9 +64,9 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
       return;
     }
     const next: Errors = {};
-    for (const f of ORDER) next[f] = validateField(f, data[f]);
+    for (const f of FIELDS) next[f] = validateField(f, data[f]);
     setErrors(next);
-    const invalid = ORDER.filter((f) => next[f]);
+    const invalid = FIELDS.filter((f) => next[f]);
     setSummary(invalid);
     if (invalid.length) {
       requestAnimationFrame(() => summaryRef.current?.focus());
@@ -120,11 +91,9 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
     return (
       <div role="status">
         <h2 ref={doneRef} tabIndex={-1} className="t-h3 outline-none">
-          Your email app should now open with your message.
+          Thanks. Your message has been sent.
         </h2>
-        <p className="mt-3 text-muted-fg">
-          Nothing is sent until you press Send in your email app. Once it arrives, we reply by email.
-        </p>
+        <p className="mt-3 text-muted-fg">We&apos;ll reply by email.</p>
         <Button type="button" variant="secondary" className="mt-6" onClick={() => setStatus("idle")}>
           Back to the form
         </Button>
@@ -188,10 +157,18 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
         </div>
       )}
       {status === "failed" && (
-        <p role="alert" className="flex items-start gap-2 rounded-[var(--r-ctl)] border border-error p-4 text-error">
+        <div role="alert" className="flex items-start gap-2 rounded-[var(--r-ctl)] border border-error p-4 text-error">
           <CircleAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
-          Your message didn&apos;t send. Please try again.
-        </p>
+          <p>
+            Your message didn&apos;t send. Please try again.
+            <br />
+            If it still fails, email us at{" "}
+            <a className="link !text-error" href={`mailto:${EMAIL}`}>
+              {EMAIL}
+            </a>
+            .
+          </p>
+        </div>
       )}
 
       <div className="grid gap-6 sm:grid-cols-2">
