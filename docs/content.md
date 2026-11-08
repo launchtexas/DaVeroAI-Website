@@ -34,8 +34,8 @@
 ---
 
 ## Home `/`
-- **SEO title:** DaveroAI | Own the Last Mile *(29)*
-- **Meta description:** DaveroAI turns your business platforms into finished, end-to-end workflows, run by AI agents, with your team approving every result. *(132)*
+- **SEO title:** DaveroAI | Own the Last Mile
+- **Meta description:** DaveroAI turns your business platforms into finished, end-to-end workflows, run by AI agents, with your team approving every result.
 
 ### Section 1 · Hero `#hero` *(deck slides 1, 2)*
 - Eyebrow: Agentic AI · Finished outcomes
@@ -145,8 +145,8 @@
 ---
 
 ## Agentic AI `/agentic-ai`
-- **SEO title:** What Is the Last Mile? | DaveroAI *(34)*
-- **Meta description:** The last mile is everything between "the software is live" and "the final outcome is delivered." Here is how agentic AI closes it. *(133)*
+- **SEO title:** What Is the Last Mile? | DaveroAI
+- **Meta description:** The last mile is everything between "the software is live" and "the final outcome is delivered." Here is how agentic AI closes it.
 
 ### Intro `#intro` *(slide 1)*
 - Eyebrow: Why agentic AI
@@ -199,8 +199,8 @@
 ---
 
 ## Services `/services`
-- **SEO title:** Services: Implement, Build, Run Agents | DaveroAI *(49)*
-- **Meta description:** Platform implementation through first close, agents for reconciliations, accruals and audit prep, and managed agents that improve after go-live. *(148)*
+- **SEO title:** Services: Implement, Build, Run Agents | DaveroAI
+- **Meta description:** Platform implementation through first close, agents for reconciliations, accruals and audit prep, and managed agents that improve after go-live.
 
 ### Intro `#intro` *(slide 11)*
 - Headline: "From first close to agents that keep getting better."
@@ -231,8 +231,8 @@
 ---
 
 ## Our Approach `/approach`
-- **SEO title:** Our Approach: How an Engagement Runs | DaveroAI *(47)*
-- **Meta description:** Five steps from the first conversation to a skill running inside the platform: engage, build, harden with a constitution, converge, review. *(141)*
+- **SEO title:** Our Approach: How an Engagement Runs | DaveroAI
+- **Meta description:** Five steps from the first conversation to a skill running inside the platform: engage, build, harden with a constitution, converge, review.
 
 ### How an engagement runs `#engagement` *(slide 12)*
 - Headline: "How an engagement runs"
@@ -274,8 +274,8 @@
 ---
 
 ## Technology & Governance `/governance`
-- **SEO title:** Governance: Humans Approve, Agents Do the Rest *(46)*
-- **Meta description:** Agents prepare the work; your team reviews and approves; every action sits in the platform with a full audit trail. *(116)*
+- **SEO title:** Governance: Humans Approve, Agents Do the Rest
+- **Meta description:** Agents prepare the work; your team reviews and approves; every action sits in the platform with a full audit trail.
 
 ### Human in the loop `#human-in-the-loop` *(slide 16)*
 - Headline: "Humans review and approve. Agents do the rest."
@@ -299,8 +299,8 @@
 ---
 
 ## Industries `/industries`
-- **SEO title:** Industries and Platforms | DaveroAI *(35)*
-- **Meta description:** Last-mile workflows in finance, procurement and supply chain, IT services and insurance, run by agents on AI-native platforms. *(127)*
+- **SEO title:** Industries and Platforms | DaveroAI
+- **Meta description:** Last-mile workflows in finance, procurement and supply chain, IT services and insurance, run by agents on AI-native platforms.
 
 ### Intro `#intro` *(slides 3, 9)*
 - Headline: Where the last mile lives
@@ -324,8 +324,8 @@
 ---
 
 ## Insights `/insights`
-- **SEO title:** Insights: The Market for the Last Mile | DaveroAI *(48)*
-- **Meta description:** Why services, not software, are the bigger prize: market size, the shift to agent arbitrage and where DaveroAI sits in the landscape. *(134)*
+- **SEO title:** Insights: The Market for the Last Mile | DaveroAI
+- **Meta description:** Why services, not software, are the bigger prize: market size, the shift to agent arbitrage and where DaveroAI sits in the landscape.
 
 ### Market for DaveroAI `#market` *(slide 9; market-size chart allowed here only)*
 - Headline: "Finance is one of the largest markets for DaVeroAI" → spelled "DaveroAI"
@@ -353,8 +353,8 @@
 ---
 
 ## About `/about`
-- **SEO title:** About DaveroAI | Founder Hemang Bhatt *(37)*
-- **Meta description:** DaveroAI delivers finished outcomes around AI-native platforms. Meet founder Hemang Bhatt and the pod that runs every engagement. *(130)*
+- **SEO title:** About DaveroAI | Founder Hemang Bhatt
+- **Meta description:** DaveroAI delivers finished outcomes around AI-native platforms. Meet founder Hemang Bhatt and the pod that runs every engagement.
 
 ### Mission `#mission` *(slides 1, 5)*
 - Headline: "An AI-agentic company that delivers finished outcomes around AI-native platforms."
@@ -388,8 +388,8 @@
 ---
 
 ## Contact `/contact`
-- **SEO title:** Start a Conversation | DaveroAI *(30)*
-- **Meta description:** Tell us the last-mile workflow you want finished. Expert help, your own workflows automated, AI at work under your approval. *(124)*
+- **SEO title:** Start a Conversation | DaveroAI
+- **Meta description:** Tell us the last-mile workflow you want finished. Expert help, your own workflows automated, AI at work under your approval.
 
 ### Intro `#intro` *(slide 22: contact value proposition)*
 - Headline: Start a conversation
