@@ -1,847 +1,357 @@
-/* DaVero AI Enterprise Ecosystem diagram (components/site/ecosystem.tsx).
-   Kit colours only (docs/brand-compliance.md): Midnight nodes, Orange as fill/stroke accent, never as text on light.
-   No glows, gradients (except the kit icon) or shadows. Motion: transforms and opacity only. */
+/* Enterprise Ecosystem: a compact radial graph (components/site/ecosystem.tsx).
+   Kit colours only; Orange is the accent for the selected path. No glows, gradients (beyond the kit mark) or shadows.
+   Graph units: the SVG viewBox is 560 x 460; --u is one viewBox unit in CSS pixels at the current width. */
+
+@media (min-width: 1024px) {
+  .eco-section {
+    padding-block: 80px;
+  }
+}
 
 .eco {
-  --T: 6s; /* one pulse cycle per pair; pairs are offset by T/5 */
-  --eco-line: var(--line-strong);
-  --eco-node: var(--midnight);
-  --eco-node-text: var(--white);
-  --eco-node-muted: var(--midnight-muted);
-  position: relative;
-  margin: 0;
-}
-.eco[data-paused] *,
-.eco[data-paused] *::before,
-.eco[data-paused] *::after {
-  animation-play-state: paused !important;
+  --eco-line: color-mix(in srgb, var(--slate) 28%, var(--bg));
+  --eco-ring: var(--paper-line);
+  display: flex;
+  flex-direction: column;
 }
 
-/* ---------- Shared pieces ---------- */
-.eco-item-icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  color: var(--text-muted);
+/* Intro: eyebrow, heading, one quiet sentence. */
+.eco-summary {
+  margin-top: 12px;
+  max-width: 54ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
 }
-.eco-dot {
+
+/* Graph */
+.eco-graph {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 32px auto 0;
+  --u: calc(100cqw / 560);
+}
+.eco-canvas {
+  position: relative;
+  aspect-ratio: 560 / 460;
+}
+.eco-svg {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
-.eco-dot-in {
-  background: var(--orange);
+.eco-ring {
+  fill: none;
+  stroke: var(--eco-ring);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
-.eco-dot-out {
-  background: var(--white);
-  border: 2px solid var(--midnight);
+.eco-spoke {
+  stroke: var(--eco-line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.4s ease;
 }
-
-/* ---------- Tablet + desktop map ---------- */
-.eco-map {
-  display: none;
+.eco-spoke.is-on {
+  stroke: var(--orange);
+  stroke-width: 1.5;
 }
-.eco-stack {
-  display: block;
-}
-.eco-sr {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .eco-stack {
-    display: none;
-  }
-  .eco-sr {
-    display: block;
-  }
-  .eco-map {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
-    grid-template-rows: auto 32px auto 40px auto 32px auto 40px auto 40px auto 40px auto;
-    grid-template-areas:
-      "core core core"
-      ".    stop ."
-      "a-ar sp1  a-ap"
-      "x-ar .    x-ap"
-      "d-ar .    d-ap"
-      ".    .    ."
-      "a-pr sp2  a-in"
-      "x-pr .    x-in"
-      "d-pr .    d-in"
-      ".    y-tx ."
-      "a-tx a-tx a-tx"
-      "x-tx x-tx x-tx"
-      "d-tx d-tx d-tx";
-  }
-}
-
-.eco-orbit {
-  display: none;
-}
-.eco-spine {
-  grid-column: 2;
-  grid-row: 2 / 10;
-  justify-self: center;
-  width: 2px;
-  background: var(--eco-line);
-}
-
-/* Core */
-.eco-core {
-  grid-area: core;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3em;
-  min-height: 112px;
-  border: 3px solid var(--orange);
-  border-radius: var(--r-card);
-  background: var(--eco-node);
-  color: var(--eco-node-text);
-  font-weight: 800;
-  font-size: clamp(2rem, 1.2rem + 2.2vw, 3.25rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-}
-.eco-core-word {
-  display: block;
-}
-
-/* Agents */
 .eco-agent {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  padding: 12px 16px;
-  border: 2px solid var(--orange);
-  border-radius: var(--r-box);
-  background: var(--eco-node);
-  color: var(--eco-node-text);
-  text-align: left;
-  cursor: pointer;
-  transition:
-    opacity 240ms var(--ease),
-    border-color 240ms var(--ease),
-    transform 240ms var(--ease);
+  fill: var(--bg);
+  stroke: var(--orange);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
-.eco-agent-mark {
-  width: 34px;
-  height: auto;
-  flex-shrink: 0;
+.eco-dom {
+  fill: var(--bg);
+  stroke: var(--eco-line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.4s ease;
 }
-.eco-agent-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+.eco-dom-icon {
+  color: var(--slate);
+  transition: color 0.4s ease;
 }
-.eco-agent-name {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  line-height: 1.25;
+.eco-node.is-on .eco-dom {
+  stroke: var(--orange);
+  stroke-width: 1.5;
 }
-.eco-agent-role {
-  margin-top: 2px;
-  font-size: 0.875rem;
-  line-height: 1.3;
-  color: var(--eco-node-muted);
+.eco-node.is-on .eco-dom-icon {
+  color: var(--midnight);
 }
-.eco-agent.is-on {
-  transform: translateY(-2px);
+.eco-node.is-on .eco-agent {
+  stroke-width: 1.5;
 }
-.eco-agent:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
+.eco-pulse {
+  fill: var(--orange);
+  transform: translate(var(--fx), var(--fy));
+  animation: eco-pulse 2.8s cubic-bezier(0.45, 0, 0.3, 1) infinite;
 }
-.eco-a-tx {
-  justify-self: center;
-  width: min(100%, 360px);
+@keyframes eco-pulse {
+  0% {
+    transform: translate(var(--fx), var(--fy));
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  64% {
+    opacity: 1;
+  }
+  72%,
+  100% {
+    transform: translate(var(--tx), var(--ty));
+    opacity: 0;
+  }
 }
 
-/* Domains */
-.eco-domain {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--r-card);
-  background: var(--surface);
-  transition:
-    opacity 240ms var(--ease),
-    border-color 240ms var(--ease),
-    transform 240ms var(--ease);
-}
-.band-paper .eco-domain {
-  background: var(--cloud);
-}
-.eco-domain.is-on {
-  border-color: var(--midnight);
-}
-.eco-domain:has(:focus-visible) {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-.eco-domain-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 52px;
-  padding: 12px 16px;
-  background: var(--eco-node);
-  color: var(--eco-node-text);
-  font-size: 1.0625rem;
-  font-weight: 700;
-  line-height: 1.25;
-}
-.eco-domain-head svg {
-  color: var(--orange);
-}
-.eco-domain-btn {
-  text-align: left;
-  cursor: pointer;
-}
-.eco-domain-btn:focus-visible {
-  outline: none;
-}
-.eco-items {
-  display: flex;
-  flex-direction: column;
-  padding: 6px 0;
-}
-.eco-items li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  font-size: 0.9375rem;
-  line-height: 1.35;
-}
-.eco-items li + li {
-  border-top: 1px solid var(--line);
-}
-.eco-d-tx .eco-items {
+.eco-core {
+  position: absolute;
+  left: 50%;
+  top: calc(232 / 460 * 100%);
+  width: max(64px, calc(84 * var(--u)));
+  aspect-ratio: 1;
+  translate: -50% -50%;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  padding: 0;
-}
-.eco-d-tx .eco-items li {
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 8px;
-  padding: 16px 8px;
+  place-content: center;
+  border-radius: 50%;
+  background: var(--midnight);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
   text-align: center;
 }
-.eco-d-tx .eco-items li + li {
-  border-top: 0;
-  border-left: 1px solid var(--line);
-}
 
-.is-dim {
-  opacity: 0.28;
-}
-
-/* Grid placement, shared by tablet and desktop (areas change per breakpoint). */
-.eco-a-ar { grid-area: a-ar; }
-.eco-a-ap { grid-area: a-ap; }
-.eco-a-pr { grid-area: a-pr; }
-.eco-a-in { grid-area: a-in; }
-.eco-a-tx { grid-area: a-tx; }
-.eco-d-ar { grid-area: d-ar; }
-.eco-d-ap { grid-area: d-ap; }
-.eco-d-pr { grid-area: d-pr; }
-.eco-d-in { grid-area: d-in; }
-.eco-d-tx { grid-area: d-tx; }
-.eco-x-ar { grid-area: x-ar; }
-.eco-x-ap { grid-area: x-ap; }
-.eco-x-pr { grid-area: x-pr; }
-.eco-x-in { grid-area: x-in; }
-.eco-x-tx { grid-area: x-tx; }
-.eco-y-tx { grid-area: y-tx; }
-/* Tablet: agent-to-ERP stubs run from the spine to each agent. */
-.eco-y-ar { grid-area: sp1; justify-self: start; width: 50%; }
-.eco-y-ap { grid-area: sp1; justify-self: end; width: 50%; }
-.eco-y-pr { grid-area: sp2; justify-self: start; width: 50%; }
-.eco-y-in { grid-area: sp2; justify-self: end; width: 50%; }
-
-/* ---------- Connectors ----------
-   Geometry and direction come from custom properties, so one element serves both orientations.
-   Inside .eco-flow, "forward" (0 → 100%) is always the inbound direction: domain → agent → ERP.
-   --sx / --sy mirror the flow when inbound runs left or up. */
-.eco-link {
-  position: relative;
-  pointer-events: none;
-  /* horizontal by default */
-  --ft: calc(50% - 1px);
-  --fb: calc(50% - 1px);
-  --fl: 0px;
-  --fr: 0px;
-  --org: 100% 50%;
-  --ax: 0;
-  --ay: 1;
-  --k-in-a: eco-in-a-h;
-  --k-in-b: eco-in-b-h;
-  --k-out-a: eco-out-a-h;
-  --k-out-b: eco-out-b-h;
-  --sx: 1;
-  --sy: 1;
-  transition: opacity 240ms var(--ease);
-}
-/* Tablet orientation and direction */
-.eco-x-ar,
-.eco-x-ap,
-.eco-x-pr,
-.eco-x-in,
-.eco-x-tx,
-.eco-y-tx {
-  --ft: 0px;
-  --fb: 0px;
-  --fl: calc(50% - 1px);
-  --fr: calc(50% - 1px);
-  --org: 50% 100%;
-  --ax: 1;
-  --ay: 0;
-  --k-in-a: eco-in-a-v;
-  --k-in-b: eco-in-b-v;
-  --k-out-a: eco-out-a-v;
-  --k-out-b: eco-out-b-v;
-  --sy: -1; /* domain sits below its agent; the spine sits above the tax agent */
-}
-.eco-y-ap,
-.eco-y-in {
-  --sx: -1;
-}
-
-.eco-flow {
+.eco-pause {
   position: absolute;
-  top: var(--ft);
-  bottom: var(--fb);
-  left: var(--fl);
-  right: var(--fr);
-  transform: scale(var(--sx), var(--sy));
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: var(--r-chip);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-muted);
 }
-.eco-line {
-  position: absolute;
-  inset: 0;
-  background: var(--eco-line);
-  transform-origin: var(--org);
-  transition:
-    transform 420ms var(--ease),
-    background-color 240ms var(--ease);
-}
-.eco-link.is-on .eco-line {
-  background: var(--orange);
-}
-.eco-run {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  animation-duration: var(--T);
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  animation-delay: calc(var(--start, 0.3s) + var(--i) * var(--T) / 5);
-}
-.eco-run .eco-dot {
-  left: -5px;
-  top: -4px;
-}
-.eco-x-ar .eco-run .eco-dot,
-.eco-x-ap .eco-run .eco-dot,
-.eco-x-pr .eco-run .eco-dot,
-.eco-x-in .eco-run .eco-dot,
-.eco-x-tx .eco-run .eco-dot,
-.eco-y-tx .eco-run .eco-dot {
-  left: -4px;
-  top: -5px;
-}
-/* Segment a (domain ↔ agent) runs first inbound and last outbound; segment b (agent ↔ ERP) in between.
-   One cycle: in-a 0–16%, in-b 17–33%, (ERP) , out-b 50–66%, out-a 67–83%. The mover is as large as the
-   segment, so translate(100%) carries the dot end to end. */
-.eco-link[class*="eco-x-"] .eco-run-in { animation-name: var(--k-in-a); }
-.eco-link[class*="eco-y-"] .eco-run-in { animation-name: var(--k-in-b); }
-.eco-link[class*="eco-y-"] .eco-run-out { animation-name: var(--k-out-b); }
-.eco-link[class*="eco-x-"] .eco-run-out { animation-name: var(--k-out-a); }
-
-@keyframes eco-in-a-h {
-  0% { transform: translateX(0); opacity: 0; }
-  1% { opacity: 1; }
-  15% { opacity: 1; }
-  16% { transform: translateX(100%); opacity: 0; }
-  100% { transform: translateX(100%); opacity: 0; }
+.eco-pause:hover {
+  color: var(--ink);
 }
 
-@keyframes eco-in-a-v {
-  0% { transform: translateY(0); opacity: 0; }
-  1% { opacity: 1; }
-  15% { opacity: 1; }
-  16% { transform: translateY(100%); opacity: 0; }
-  100% { transform: translateY(100%); opacity: 0; }
+/* Domain selector. Phones: a segmented row under the graph. */
+.eco-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+  border-bottom: 1px solid var(--paper-line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.eco-tab {
+  flex: none;
+  margin-bottom: -1px;
+  padding: 10px 2px;
+  border-bottom: 2px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.eco-tab:hover,
+.eco-tab.is-on {
+  color: var(--ink);
+}
+.eco-tab.is-on {
+  border-bottom-color: var(--orange);
+}
+.eco-tab:focus-visible,
+.eco-pause:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--r-chip);
+}
+.eco-tab-hit,
+.eco-tab-long {
+  display: none;
 }
 
-@keyframes eco-in-b-h {
-  0%, 17% { transform: translateX(0); opacity: 0; }
-  18% { opacity: 1; }
-  32% { opacity: 1; }
-  33% { transform: translateX(100%); opacity: 0; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-
-@keyframes eco-in-b-v {
-  0%, 17% { transform: translateY(0); opacity: 0; }
-  18% { opacity: 1; }
-  32% { opacity: 1; }
-  33% { transform: translateY(100%); opacity: 0; }
-  100% { transform: translateY(100%); opacity: 0; }
-}
-
-@keyframes eco-out-b-h {
-  0%, 50% { transform: translateX(100%); opacity: 0; }
-  51% { opacity: 1; }
-  65% { opacity: 1; }
-  66% { transform: translateX(0); opacity: 0; }
-  100% { transform: translateX(0); opacity: 0; }
-}
-
-@keyframes eco-out-b-v {
-  0%, 50% { transform: translateY(100%); opacity: 0; }
-  51% { opacity: 1; }
-  65% { opacity: 1; }
-  66% { transform: translateY(0); opacity: 0; }
-  100% { transform: translateY(0); opacity: 0; }
-}
-
-@keyframes eco-out-a-h {
-  0%, 67% { transform: translateX(100%); opacity: 0; }
-  68% { opacity: 1; }
-  82% { opacity: 1; }
-  83% { transform: translateX(0); opacity: 0; }
-  100% { transform: translateX(0); opacity: 0; }
-}
-
-@keyframes eco-out-a-v {
-  0%, 67% { transform: translateY(100%); opacity: 0; }
-  68% { opacity: 1; }
-  82% { opacity: 1; }
-  83% { transform: translateY(0); opacity: 0; }
-  100% { transform: translateY(0); opacity: 0; }
-}
-
-/* ---------- Entrance (only when the diagram starts off-screen and motion is allowed) ---------- */
-.eco[data-phase="armed"] .eco-core {
-  opacity: 0;
-  transform: scale(0.92);
-}
-.eco[data-phase="armed"] .eco-core-word {
-  opacity: 0;
-  transform: translateY(14px);
-}
-.eco[data-phase="armed"] .eco-core {
-  border-color: var(--midnight);
-}
-.eco[data-phase="armed"] .eco-line {
-  transform: scale(var(--ax), var(--ay));
-}
-.eco[data-phase="armed"] .eco-spine,
-.eco[data-phase="armed"] .eco-orbit {
-  opacity: 0;
-}
-.eco[data-phase="armed"] .eco-agent {
-  opacity: 0.35;
-  border-color: var(--midnight-line-strong);
-}
-.eco[data-phase="armed"] .eco-agent-mark {
-  opacity: 0.3;
-}
-.eco[data-phase="armed"] .eco-domain {
-  opacity: 0;
-  transform: translateY(16px);
-}
-.eco[data-phase="in"] .eco-core {
-  transition:
-    opacity 520ms var(--ease),
-    transform 620ms var(--ease),
-    border-color 400ms var(--ease) 700ms;
-}
-.eco[data-phase="in"] .eco-core-word {
-  transition:
-    opacity 420ms var(--ease) 180ms,
-    transform 520ms var(--ease) 180ms;
-}
-.eco[data-phase="in"] .eco-core-word + .eco-core-word {
-  transition-delay: 300ms;
-}
-.eco[data-phase="in"] .eco-spine,
-.eco[data-phase="in"] .eco-orbit {
-  transition: opacity 700ms var(--ease) 300ms;
-}
-.eco[data-phase="in"] .eco-link[class*="eco-y-"] .eco-line {
-  transition:
-    transform 420ms var(--ease) calc(520ms + var(--i) * 90ms),
-    background-color 240ms var(--ease);
-}
-.eco[data-phase="in"] .eco-link[class*="eco-x-"] .eco-line {
-  transition:
-    transform 420ms var(--ease) calc(1050ms + var(--i) * 90ms),
-    background-color 240ms var(--ease);
-}
-.eco[data-phase="in"] .eco-agent {
-  transition:
-    opacity 360ms var(--ease) calc(760ms + var(--i) * 140ms),
-    border-color 360ms var(--ease) calc(760ms + var(--i) * 140ms),
-    transform 240ms var(--ease);
-}
-.eco[data-phase="in"] .eco-agent-mark {
-  transition: opacity 360ms var(--ease) calc(820ms + var(--i) * 140ms);
-}
-.eco[data-phase="in"] .eco-domain {
-  transition:
-    opacity 520ms var(--ease) calc(1200ms + var(--i) * 100ms),
-    transform 620ms var(--ease) calc(1200ms + var(--i) * 100ms),
-    border-color 240ms var(--ease);
-}
-/* After the entrance, hover/dim must react at once, not after the entrance delays. */
-.eco[data-phase="in"] .eco-map:hover .eco-agent,
-.eco[data-phase="in"] .eco-map:focus-within .eco-agent,
-.eco[data-phase="in"] .eco-map:hover .eco-domain,
-.eco[data-phase="in"] .eco-map:focus-within .eco-domain,
-.eco[data-phase="in"] .eco-map:hover .eco-line,
-.eco[data-phase="in"] .eco-map:focus-within .eco-line {
-  transition-delay: 0ms;
-}
-
-/* ---------- Desktop: radial layout around the core ---------- */
-@media (min-width: 1024px) {
-  .eco-map {
-    grid-template-columns:
-      minmax(180px, 1fr) clamp(24px, 3vw, 48px) 132px clamp(28px, 4.2vw, 64px) minmax(150px, 0.9fr)
-      clamp(28px, 4.2vw, 64px) 132px clamp(24px, 3vw, 48px) minmax(180px, 1fr);
-    grid-template-rows: auto 24px auto 56px auto 48px auto;
-    grid-template-areas:
-      "d-ar x-ar a-ar y-ar core y-ap a-ap x-ap d-ap"
-      ".    .    .    .    core .    .    .    .   "
-      "d-pr x-pr a-pr y-pr core y-in a-in x-in d-in"
-      ".    .    .    .    y-tx .    .    .    .   "
-      ".    .    .    a-tx a-tx a-tx .    .    .   "
-      ".    .    .    .    x-tx .    .    .    .   "
-      ".    x0   d-tx d-tx d-tx d-tx d-tx x0b  .   ";
-    padding: 48px 8px 0;
-  }
-  .eco-orbit {
-    display: block;
+/* From 640 px: labels sit on the graph under (or over) each domain node. */
+@media (min-width: 640px) {
+  .eco-tabs {
     position: absolute;
-    inset: 0 -12px 36% -12px;
-    width: calc(100% + 24px);
-    height: 64%;
+    inset: 0;
+    margin: 0;
+    border: 0;
     overflow: visible;
     pointer-events: none;
-    fill: none;
-    stroke: var(--line);
-    stroke-width: 1.5;
   }
-  .eco-spine {
-    display: none;
-  }
-  .eco-core {
-    flex-direction: column;
-    min-height: 0;
-    /* Shorter than the two rows it spans; the agent links still meet it at each row's centre. */
-    margin-block: 44px;
-    font-size: clamp(2.5rem, 1rem + 2.6vw, 3.75rem);
-  }
-  .eco-agent {
-    align-self: center;
+  .eco-tab {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    translate: -50% calc(-18 * var(--u));
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 14px 10px;
-    text-align: center;
+    margin: 0;
+    padding: 0 4px 2px;
+    border: 0;
+    font-size: 0.9375rem;
+    pointer-events: auto;
   }
-  .eco-agent-text {
-    align-items: center;
+  .eco-tab.is-above {
+    flex-direction: column-reverse;
+    translate: -50% calc(-100% + 18 * var(--u));
   }
-  .eco-a-tx {
-    flex-direction: row;
-    gap: 12px;
-    width: auto;
-    min-width: 300px;
-    padding: 10px 20px;
-    text-align: left;
+  .eco-tab-hit {
+    display: block;
+    width: calc(36 * var(--u));
+    height: calc(36 * var(--u));
+    border-radius: 50%;
   }
-  .eco-a-tx .eco-agent-text {
-    align-items: flex-start;
+  .eco-tab-long {
+    display: inline;
   }
-  .eco-d-tx {
-    grid-column: 2 / 9;
-  }
-
-  .eco-y-ar,
-  .eco-y-ap,
-  .eco-y-pr,
-  .eco-y-in {
-    justify-self: stretch;
-    width: auto;
-  }
-  .eco-y-ar { grid-area: y-ar; }
-  .eco-y-ap { grid-area: y-ap; }
-  .eco-y-pr { grid-area: y-pr; }
-  .eco-y-in { grid-area: y-in; }
-
-  /* Desktop: domain ↔ agent connectors are horizontal. */
-  .eco-x-ar,
-  .eco-x-ap,
-  .eco-x-pr,
-  .eco-x-in {
-    --ft: calc(50% - 1px);
-    --fb: calc(50% - 1px);
-    --fl: 0px;
-    --fr: 0px;
-    --org: 100% 50%;
-    --ax: 0;
-    --ay: 1;
-    --k-in-a: eco-in-a-h;
-    --k-in-b: eco-in-b-h;
-    --k-out-a: eco-out-a-h;
-    --k-out-b: eco-out-b-h;
-    --sy: 1;
-    --sx: 1;
-  }
-  .eco-x-ap,
-  .eco-x-in {
-    --sx: -1;
-  }
-  .eco-x-ar .eco-run .eco-dot,
-  .eco-x-ap .eco-run .eco-dot,
-  .eco-x-pr .eco-run .eco-dot,
-  .eco-x-in .eco-run .eco-dot {
-    left: -5px;
-    top: -4px;
-  }
-}
-
-/* ---------- Mobile stack ---------- */
-.eco-stack {
-  position: relative;
-}
-.eco-m-core {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 76px;
-  border: 3px solid var(--orange);
-  border-radius: var(--r-card);
-  background: var(--midnight);
-  color: var(--white);
-  font-size: 1.75rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-.eco-m-spine {
-  position: absolute;
-  top: 76px;
-  bottom: 40px;
-  left: 23px;
-  width: 2px;
-  background: var(--eco-line);
-}
-.eco-m-run {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  animation: eco-in-v-up calc(var(--T) * 1.2) linear infinite;
-  animation-delay: var(--start, 0.3s);
-}
-.eco-m-run-out {
-  animation-name: eco-out-v-down;
-  animation-delay: calc(var(--start, 0.3s) + var(--T) * 0.6);
-}
-.eco-m-run .eco-dot {
-  left: -4px;
-  top: -5px;
-}
-@keyframes eco-in-v-up {
-  0% { transform: translateY(100%); opacity: 0; }
-  4%, 40% { opacity: 1; }
-  45%, 100% { transform: translateY(0); opacity: 0; }
-}
-@keyframes eco-out-v-down {
-  0% { transform: translateY(0); opacity: 0; }
-  4%, 40% { opacity: 1; }
-  45%, 100% { transform: translateY(100%); opacity: 0; }
-}
-.eco-m-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 24px;
-}
-.eco-m-item {
-  position: relative;
-  padding-left: 44px;
-}
-.eco-m-item::before {
-  content: "";
-  position: absolute;
-  left: 24px;
-  top: 36px;
-  width: 20px;
-  height: 2px;
-  background: var(--eco-line);
-}
-.eco-m-card {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--r-card);
-  background: var(--surface);
-}
-.band-paper .eco-m-card {
-  background: var(--cloud);
-}
-.eco-m-card summary {
-  display: block;
-  cursor: pointer;
-  list-style: none;
-}
-.eco-m-card summary::-webkit-details-marker {
-  display: none;
-}
-.eco-m-card summary:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: -2px;
-}
-.eco-m-agent {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 72px;
-  padding: 12px 14px;
-  background: var(--midnight);
-  color: var(--white);
-}
-.eco-m-mark {
-  width: 32px;
-  height: auto;
-  flex-shrink: 0;
-}
-.eco-m-agent-name {
-  display: block;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  line-height: 1.3;
-}
-.eco-m-agent-role {
-  display: block;
-  font-size: 0.875rem;
-  line-height: 1.35;
-  color: var(--midnight-muted);
-}
-.eco-m-domain {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 52px;
-  padding: 10px 14px;
-  font-size: 1.0625rem;
-  font-weight: 700;
-}
-.eco-m-domain-name {
-  flex: 1;
-}
-.eco-m-chev {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  transition: transform 200ms var(--ease);
-}
-.eco-m-card[open] .eco-m-chev {
-  transform: rotate(180deg);
-}
-.eco-m-items {
-  border-top: 1px solid var(--line);
-  padding: 4px 0;
-}
-.eco-m-items li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  font-size: 0.9375rem;
-  line-height: 1.4;
-}
-
-/* ---------- Solution bar and pause control ---------- */
-.eco-solution {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 32px;
-  padding: 20px;
-  border-radius: var(--r-card);
-  background: var(--midnight);
-  color: var(--white);
-}
-.eco-solution-name {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 1.1875rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.eco-solution-mark {
-  width: 34px;
-  height: auto;
-}
-.eco-solution-line {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--midnight-muted);
-}
-@media (min-width: 768px) {
-  .eco-solution {
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    margin-top: 40px;
-    padding: 20px 28px;
-  }
-  .eco-solution-line {
-    padding-left: 24px;
-    border-left: 1px solid var(--midnight-line-strong);
-  }
-}
-.eco-pause {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  margin-top: 12px;
-  margin-left: auto;
-  padding: 0 4px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-.eco-pause:hover {
-  color: var(--text);
-}
-.eco > .eco-pause {
-  display: flex;
-  width: fit-content;
-}
-
-/* Reduced motion: the complete static diagram (no pulses are rendered; this is a second guard). */
-@media (prefers-reduced-motion: reduce) {
-  .eco-run,
-  .eco-m-run {
+  .eco-tab-short {
     display: none;
+  }
+  .eco-tab:focus-visible {
+    outline-offset: 4px;
+  }
+}
+
+/* Detail panel: one domain at a time, as a light list with hairline dividers. */
+.eco-panels {
+  display: grid;
+  margin-top: 24px;
+}
+.eco-panel {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+.eco-panel.is-on {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+.eco-p-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.eco-p-agent {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+.eco-glyph {
+  flex: none;
+  width: 16px;
+  height: 11px;
+  translate: 0 1px;
+}
+.eco-p-items {
+  margin-top: 16px;
+  border-bottom: 1px solid var(--paper-line);
+}
+.eco-p-items li {
+  padding-block: 9px;
+  border-top: 1px solid var(--paper-line);
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+/* Desktop: text column (intro + panel) beside the graph. */
+@media (min-width: 1024px) {
+  .eco {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(48px, 6vw, 96px);
+  }
+  .eco-intro {
+    grid-area: 1 / 1;
+  }
+  .eco-panels {
+    grid-area: 2 / 1;
+    align-self: end;
+    max-width: 440px;
+    margin-top: 32px;
+  }
+  .eco-graph {
+    grid-area: 1 / 2 / 3 / 3;
+    align-self: center;
+    margin: 0;
+  }
+}
+
+/* Entrance, once: the orbit draws, spokes grow from the core, nodes and labels settle in. */
+.eco[data-phase="armed"] :is(.eco-ring, .eco-spoke) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.eco[data-phase="armed"] :is(.eco-node, .eco-tab, .eco-core) {
+  opacity: 0;
+}
+.eco[data-phase="in"] :is(.eco-ring, .eco-spoke) {
+  stroke-dasharray: 1;
+  animation: eco-draw 1.2s cubic-bezier(0.33, 0, 0.2, 1) both;
+}
+.eco[data-phase="in"] .eco-spoke {
+  animation-duration: 0.6s;
+  animation-delay: calc(0.5s + var(--i) * 0.08s);
+}
+.eco[data-phase="in"] .eco-core {
+  animation: eco-fade 0.5s ease-out both;
+}
+.eco[data-phase="in"] :is(.eco-node, .eco-tab) {
+  animation: eco-fade 0.5s ease-out both;
+  animation-delay: calc(0.8s + var(--i) * 0.08s);
+}
+@keyframes eco-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes eco-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.eco[data-paused] .eco-pulse {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco *,
+  .eco *::before {
+    animation: none !important;
+    transition: none !important;
   }
 }
