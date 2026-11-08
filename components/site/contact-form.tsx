@@ -109,12 +109,9 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
     return (
       <div role="status">
         <h2 ref={doneRef} tabIndex={-1} className="t-h3 outline-none">
-          Thanks. Your message has been sent.
+          Thank you. We will get back to you.
         </h2>
-        <p className="mt-3 text-muted-fg">We&apos;ll reply by email.</p>
-        <Button type="button" variant="secondary" className="mt-6" onClick={() => setStatus("idle")}>
-          Back to the form
-        </Button>
+        <p className="mt-3 text-muted-fg">Your message has been sent. We&apos;ll reply by email.</p>
       </div>
     );
   }

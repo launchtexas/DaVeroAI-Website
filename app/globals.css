@@ -183,6 +183,8 @@
     @apply font-sans;
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: calc(var(--header-h) + 16px);
+    /* No scroll anchoring: on a route change it kept the old scroll offset and left Home 100-250 px below the hero. */
+    overflow-anchor: none;
   }
   @media (prefers-reduced-motion: no-preference) {
     html {

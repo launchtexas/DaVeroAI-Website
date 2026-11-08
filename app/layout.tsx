@@ -40,12 +40,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to main content
         </a>
-        <ScrollReset />
         <Header />
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>
         <Footer />
+        {/* Last in the tree so its layout effect runs after Next.js scrolls the new page into view. */}
+        <ScrollReset />
         <Reveal />
       </body>
     </html>
