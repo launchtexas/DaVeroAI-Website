@@ -1,8 +1,12 @@
-// Visible marker for facts docs/content.md leaves open. Remove each one when the fact arrives.
-export function Tbd({ children }: { children?: React.ReactNode }) {
+// Visible marker for a fact still to be supplied (listed in docs/legal-review.md). Renders "[Label]".
+// Remove each one when the fact arrives: grep for data-tbd or <Tbd>.
+export function Tbd({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-sm border border-dashed border-line-strong px-1.5 py-0.5 text-[0.85em] whitespace-normal text-muted-foreground">
-      [TBD{children ? <>: {children}</> : null}]
+    <span
+      data-tbd=""
+      className="rounded-sm border border-dashed border-[var(--accent-deep)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] px-1.5 py-0.5 text-[0.9em] font-medium whitespace-normal text-fg"
+    >
+      [{children}]
     </span>
   );
 }

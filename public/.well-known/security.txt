@@ -1,0 +1,6 @@
+# DaVero AI security contact (RFC 9116). Policy and scope: https://daveroai.com/security
+Contact: mailto:ask@daveroai.com
+Expires: 2027-11-08T00:00:00.000Z
+Policy: https://daveroai.com/security
+Canonical: https://daveroai.com/.well-known/security.txt
+Preferred-Languages: en

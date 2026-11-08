@@ -35,6 +35,16 @@ export const footerCols = [
       { href: "/industries", label: "Industries" },
     ],
   },
+  {
+    title: "Legal",
+    links: [
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+      { href: "/cookies", label: "Cookies" },
+      { href: "/security", label: "Security" },
+      { href: "/legal", label: "Legal notice" },
+    ],
+  },
 ] as const;
 
 export type Stat = { value: string; spoken?: string; label: string; source: string };

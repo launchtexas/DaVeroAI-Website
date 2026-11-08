@@ -354,6 +354,131 @@
     transform: translateX(2px);
   }
 
+  /* Legal pages (components/site/legal-doc.tsx) */
+  .legal-toc {
+    display: grid;
+    gap: 2px;
+    font-size: 0.9375rem;
+  }
+  .legal-toc a {
+    display: flex;
+    gap: 0.5em;
+    min-height: 44px;
+    align-items: center;
+    color: var(--text-muted);
+    border-left: 2px solid var(--line);
+    padding-left: 12px;
+    transition: color 150ms ease-out, border-color 150ms ease-out;
+  }
+  .legal-toc a:hover {
+    color: var(--text);
+    border-left-color: var(--mark);
+  }
+  .legal-prose {
+    max-width: 68ch;
+    line-height: 1.7;
+  }
+  .legal-prose > section + section {
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+  .legal-prose h2 {
+    margin-bottom: 16px;
+  }
+  .legal-prose h3 {
+    margin-top: 28px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .legal-prose p + p,
+  .legal-prose p + ul,
+  .legal-prose ul + p,
+  .legal-prose p + .legal-table,
+  .legal-prose .legal-table + p,
+  .legal-prose ul + .legal-table {
+    margin-top: 14px;
+  }
+  .legal-prose ul {
+    list-style: disc;
+    padding-left: 1.25em;
+    display: grid;
+    gap: 8px;
+  }
+  .legal-prose ul ::marker {
+    color: var(--mark);
+  }
+  .legal-prose strong {
+    font-weight: 650;
+  }
+  .legal-anchor {
+    color: inherit;
+    text-decoration: none;
+  }
+  .legal-anchor:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--mark);
+    text-underline-offset: 4px;
+  }
+  .legal-table {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--r-box);
+  }
+  .legal-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .legal-table th,
+  .legal-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .legal-table tr:last-child td {
+    border-bottom: 0;
+  }
+  .legal-table th {
+    background: var(--surface);
+    font-weight: 650;
+  }
+  @media (max-width: 639px) {
+    .legal-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .legal-table tr,
+    .legal-table td {
+      display: block;
+    }
+    .legal-table tr {
+      padding: 6px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .legal-table tr:last-child {
+      border-bottom: 0;
+    }
+    .legal-table td {
+      border-bottom: 0;
+      padding: 6px 14px;
+    }
+    .legal-table td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 650;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+  }
+
   /* Logo lockup switch (components/site/logo.tsx) */
   .logo-light {
     display: none;

@@ -15,7 +15,7 @@ export async function Footer() {
   return (
     <footer className="overflow-hidden border-t border-line pt-16 lg:pt-20">
       <div className="container-x grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
-        <div className="sm:col-span-2 lg:col-span-6">
+        <div className="sm:col-span-2 lg:col-span-5">
           <Logo size="lg" />
           <p className="t-lead mt-4 max-w-[34ch]">{CLOSE_LINE}</p>
           <div className="mt-8">
@@ -23,7 +23,7 @@ export async function Footer() {
           </div>
         </div>
         {footerCols.map((col) => (
-          <nav key={col.title} aria-label={col.title} className="lg:col-span-3">
+          <nav key={col.title} aria-label={col.title} className="lg:col-span-2 lg:first-of-type:col-start-7">
             <h2 className="t-mono mb-3 text-faint">{col.title}</h2>
             <ul>
               {col.links.map((l) => (
@@ -38,21 +38,7 @@ export async function Footer() {
         ))}
       </div>
       <div className="container-x mt-12 flex flex-col gap-2 border-t border-line pt-4 text-sm text-faint sm:flex-row sm:items-center sm:gap-6">
-        <ul className="flex gap-6">
-          <li>
-            <Link href="/privacy" className={linkClass}>
-              Privacy
-            </Link>
-          </li>
-          <li>
-            <Link href="/terms" className={linkClass}>
-              Terms
-            </Link>
-          </li>
-        </ul>
-        <p>
-          &copy; {year} DaVero AI.
-        </p>
+        <p className="py-3">&copy; {year} DaVero AI. All rights reserved.</p>
       </div>
       {/* Kit stripes as the footer's closing edge (decorative). */}
       <div aria-hidden="true" className="mt-12 h-3 w-full bg-[linear-gradient(115deg,var(--brand)_0_62%,var(--white)_62%_63%,var(--midnight-3)_63%_100%)]" />
