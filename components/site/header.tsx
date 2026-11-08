@@ -29,8 +29,8 @@ export function Header() {
       className={cn(
         // Solid surfaces only (no translucency): transparent over the Midnight hero at the top,
         // solid White with the Primary_Color lockup once the page scrolls.
-        "sticky top-0 z-40 h-[var(--header-h)] border-b transition-[background-color,border-color,box-shadow] duration-200",
-        scrolled ? "band-paper border-line shadow-[0_1px_0_0_var(--line)]" : "border-transparent bg-transparent",
+        "sticky top-0 z-40 h-[var(--header-h)] border-b transition-[background-color,border-color] duration-200",
+        scrolled ? "band-paper border-line" : "border-transparent bg-transparent",
       )}
     >
       <div className="container-x flex h-full items-center justify-between gap-6">
