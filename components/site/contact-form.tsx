@@ -135,7 +135,8 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
   const nearLimit = data.message.length >= MESSAGE_MAX * 0.9;
 
   return (
-    <form noValidate onSubmit={onSubmit} aria-labelledby="form-title" className="space-y-6">
+    // method="post": if someone submits before JavaScript loads, the details go in the body, not the URL.
+    <form method="post" noValidate onSubmit={onSubmit} aria-labelledby="form-title" className="space-y-6">
       <h2 id="form-title" className="t-h3">
         Tell us your last-mile workflow
       </h2>
