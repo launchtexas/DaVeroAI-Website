@@ -1,0 +1,420 @@
+[
+  {
+    "verdict": "confirmed",
+    "fingerprint": "contact-cross-site-post",
+    "title": "Other websites could submit contact enquiries through visitors' browsers",
+    "description": "POST /api/contact read the body as text and parsed JSON without checking Content-Type or the request origin. A text/plain POST is a CORS simple request, so any site could make its visitors' browsers send enquiries, each from a different IP, which also sidesteps the per-IP limit.",
+    "root_cause": "No same-origin gate (Content-Type or Sec-Fetch-Site/Origin) before processing the body.",
+    "intended_behavior": "Only the site's own contact form should be able to submit an enquiry from a browser.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "app/api/contact/route.ts",
+        "line": 28,
+        "scope": "POST handler",
+        "description": "Accepts any Content-Type."
+      },
+      {
+        "kind": "propagation",
+        "file": "app/api/contact/route.ts",
+        "line": 30,
+        "scope": "body read",
+        "description": "request.text() then JSON.parse regardless of type."
+      },
+      {
+        "kind": "sink",
+        "file": "app/api/contact/route.ts",
+        "line": 75,
+        "scope": "Resend call",
+        "description": "Email sent for the cross-site request."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "app/api/contact/route.ts",
+        "line": 30,
+        "description": "Body read with no Content-Type check at 26427a8."
+      },
+      {
+        "file": "app/api/contact/route.ts",
+        "line": 75,
+        "description": "Mocked Resend received the payload for a text/plain cross-site request."
+      }
+    ],
+    "conditions": [
+      {
+        "kind": "user_interaction",
+        "description": "A visitor opens an attacker page while RESEND_API_KEY is configured."
+      }
+    ],
+    "execution": {
+      "attacker_perspective": "Unauthenticated third-party website.",
+      "payloads": [
+        "fetch('/api/contact',{method:'POST',mode:'no-cors',headers:{'content-type':'text/plain'},body:JSON.stringify({...valid fields})})"
+      ],
+      "instructions": [
+        "Start next start locally with a dummy key and the mock-resend.mjs fetch mock.",
+        "Send the POST with content-type text/plain and sec-fetch-site cross-site (see repro-contact.sh).",
+        "Observe 200 and a mocked email at baseline; 415/403 after the fix."
+      ],
+      "observed_result": "Baseline: {\"ok\":true} and an email payload built. Fixed: 415 unsupported_media_type and 403 forbidden."
+    },
+    "remediation": {
+      "strategy": "Reject Sec-Fetch-Site cross-site and require application/json (forces a CORS preflight that the route never approves). Commit ca03825."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "medium",
+        "reason": "Needs only a page the visitor opens."
+      },
+      "impact": {
+        "score": "low",
+        "reason": "Spam to one inbox and Resend quota use; no data exposure."
+      },
+      "overall_severity": "low"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Reproduced locally against the baseline build."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "contact-form-get-before-hydration",
+    "title": "Submitting the contact form before JavaScript loads put personal details in the URL",
+    "description": "The contact form is prerendered and had no method attribute. A submit before hydration (slow network, JS blocked) made the browser GET /contact?name=...&email=...&company=...&message=..., exposing the visitor's details in browser history, Vercel request logs and the Referer of later requests. Found by the independent verifier.",
+    "root_cause": "Form element without method relies on JavaScript preventDefault.",
+    "intended_behavior": "Personal details are only ever sent in a request body.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "components/site/contact-form.tsx",
+        "line": 138,
+        "scope": "form element",
+        "description": "No method/action; default GET."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "components/site/contact-form.tsx",
+        "line": 138,
+        "description": "<form noValidate onSubmit={onSubmit}> at 26427a8; inputs carry name attributes."
+      }
+    ],
+    "conditions": [
+      {
+        "kind": "timing_dependency",
+        "description": "Visitor submits before hydration or with JavaScript disabled."
+      }
+    ],
+    "execution": {
+      "attacker_perspective": "Anyone who can read URLs later (shared device history, log readers).",
+      "payloads": [
+        "Submit /contact with JavaScript disabled"
+      ],
+      "instructions": [
+        "Run nojs-submit.cjs (Playwright, javaScriptEnabled false) against a local build."
+      ],
+      "observed_result": "Fixed build: POST to /contact, URL stays /contact. Baseline default method is GET per HTML spec, putting fields in the query string."
+    },
+    "remediation": {
+      "strategy": "Add method=\"post\" to the form. Commit bcac652."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "low",
+        "reason": "Needs a submit inside the pre-hydration window."
+      },
+      "impact": {
+        "score": "low",
+        "reason": "Exposes one visitor's own contact details to logs/history."
+      },
+      "overall_severity": "low"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "HTML default method and local no-JS check."
+    }
+  },
+  {
+    "verdict": "needs_validation",
+    "fingerprint": "contact-rate-limit-per-instance",
+    "title": "Rate limit is per server instance, so total email volume depends on Vercel settings",
+    "description": "The 5-per-10-minutes limit lives in an in-memory Map, so each Vercel instance and each cold start has its own counter. A determined sender can exceed it across instances and flood ask@daveroai.com or use up Resend quota.",
+    "claimed_root_cause": "Per-process limiter with no shared store or platform rule.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "app/api/contact/route.ts",
+        "line": 45,
+        "scope": "limit check",
+        "description": "rateLimited(ip)."
+      },
+      {
+        "kind": "sink",
+        "file": "app/api/contact/route.ts",
+        "line": 12,
+        "scope": "store",
+        "description": "const hits = new Map() per instance."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "app/api/contact/route.ts",
+        "line": 12,
+        "description": "In-memory Map, documented as best-effort."
+      }
+    ],
+    "blockers": [
+      "Instance count and any Vercel Firewall/WAF rate-limit or BotID rules are deployment settings not in the repository."
+    ],
+    "validation_plan": {
+      "local": "Not reproducible meaningfully on one local process.",
+      "deployment": "Add a Vercel Firewall rate-limit rule on POST /api/contact (e.g. 5 per 10 minutes per IP, action deny) and optionally BotID; then the in-app limiter is a second layer."
+    }
+  },
+  {
+    "verdict": "rejected",
+    "fingerprint": "contact-replyto-address-list",
+    "title": "Email check accepted address lists used as reply_to",
+    "description": "The email regex allowed commas and angle brackets, e.g. 'a,victim@evil.example', which was sent as reply_to.",
+    "claimed_root_cause": "Permissive EMAIL_RE.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "lib/contact-rules.ts",
+        "line": 19,
+        "scope": "email check",
+        "description": "EMAIL_RE allows , ; < >."
+      },
+      {
+        "kind": "sink",
+        "file": "app/api/contact/route.ts",
+        "line": 81,
+        "scope": "reply_to",
+        "description": "data.email used as reply_to."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "lib/contact-rules.ts",
+        "line": 8,
+        "description": "EMAIL_RE /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/."
+      }
+    ],
+    "reason": "The sender already chooses reply_to freely, so a list crosses no new boundary: staff would see the addresses before replying. Tightened anyway in commit 9c909d3 as input hygiene."
+  },
+  {
+    "verdict": "needs_validation",
+    "fingerprint": "contact-subject-control-chars",
+    "title": "CR/LF in name or company reached the email subject sent to Resend",
+    "description": "validateField only trimmed and length-checked name and company, so CR/LF and other control characters were placed in the subject passed to Resend. Whether Resend turns them into extra headers (for example Bcc) is outside the repository.",
+    "claimed_root_cause": "No control-character rejection on single-line fields used in the subject.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "app/api/contact/route.ts",
+        "line": 52,
+        "scope": "validation",
+        "description": "validateField accepts CR/LF in name/company."
+      },
+      {
+        "kind": "sink",
+        "file": "app/api/contact/route.ts",
+        "line": 82,
+        "scope": "subject",
+        "description": "Subject built from data.name and data.company."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "lib/contact-rules.ts",
+        "line": 11,
+        "description": "Only trim and length checks at 26427a8."
+      },
+      {
+        "file": "app/api/contact/route.ts",
+        "line": 82,
+        "description": "Mocked Resend received subject 'Website enquiry from Eve\\r\\nBcc: x@evil.example, Acme'."
+      }
+    ],
+    "blockers": [
+      "How Resend's API encodes CR/LF in the subject field is not visible in source and must not be tested by sending real email."
+    ],
+    "validation_plan": {
+      "local": "Fixed in source anyway (commit 9c909d3): control characters now return 400 before any email is built.",
+      "deployment": "Owner can confirm with Resend documentation or support that the subject is header-encoded; no action needed after the fix."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "contact-unbounded-body-read",
+    "title": "Contact API buffered the whole request body before enforcing the 10 KB cap",
+    "description": "With no Content-Length (chunked upload) the route called request.text(), holding the full body in memory before the byteLength check.",
+    "root_cause": "Size check after a full read.",
+    "intended_behavior": "Reading stops as soon as 10 KB is exceeded.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "app/api/contact/route.ts",
+        "line": 29,
+        "scope": "size check",
+        "description": "Only checks the Content-Length header."
+      },
+      {
+        "kind": "sink",
+        "file": "app/api/contact/route.ts",
+        "line": 30,
+        "scope": "body read",
+        "description": "request.text() buffers everything."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "app/api/contact/route.ts",
+        "line": 30,
+        "description": "request.text() before the byteLength check at line 31."
+      }
+    ],
+    "conditions": [
+      {
+        "kind": "system_configuration",
+        "description": "Upper bound is the platform request body limit, so impact is memory per request, not unbounded."
+      }
+    ],
+    "execution": {
+      "attacker_perspective": "Unauthenticated client.",
+      "payloads": [
+        "2 MB body sent with Transfer-Encoding: chunked"
+      ],
+      "instructions": [
+        "Pipe 2 MB to POST /api/contact with chunked encoding (repro-contact.sh step 4)."
+      ],
+      "observed_result": "Baseline returned 413 only after reading the full body; fixed build cancels the stream at 10 KB."
+    },
+    "remediation": {
+      "strategy": "Stream the body with a capped reader and cancel past 10 KB. Commit ca03825."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "medium",
+        "reason": "Any client can send it."
+      },
+      "impact": {
+        "score": "low",
+        "reason": "Extra memory per request up to the platform body limit."
+      },
+      "overall_severity": "low"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Source and local check agree."
+    }
+  },
+  {
+    "verdict": "rejected",
+    "fingerprint": "contact-xff-spoofing",
+    "title": "Rate limit keyed on a spoofable X-Forwarded-For",
+    "description": "The limiter keys on the first X-Forwarded-For entry, which a client could forge if passed through.",
+    "claimed_root_cause": "Trusting a client header for identity.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "app/api/contact/route.ts",
+        "line": 44,
+        "scope": "client IP",
+        "description": "Reads x-forwarded-for first entry."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "app/api/contact/route.ts",
+        "line": 44,
+        "description": "IP taken from x-forwarded-for."
+      }
+    ],
+    "reason": "Vercel overwrites x-forwarded-for and does not forward client-supplied values (vercel.com/docs/headers/request-headers), so the value is the real client IP in the intended deployment."
+  },
+  {
+    "verdict": "rejected",
+    "fingerprint": "deps-dev-chain-advisories",
+    "title": "Dependency advisories (minimatch GHSA-g3hv-75wg-m249, deepmerge GHSA-gcqx-w48m-w2h4)",
+    "description": "npm audit reported 13 issues (11 moderate, 2 low) through eslint/typescript-eslint and the shadcn CLI (ts-morph, @shadcn/registry), and shadcn sat in runtime dependencies.",
+    "claimed_root_cause": "Vulnerable transitive packages; CLI listed as a runtime dependency.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "package.json",
+        "line": 19,
+        "scope": "dependencies",
+        "description": "shadcn ^4.23.0 under dependencies at 26427a8."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "package.json",
+        "line": 19,
+        "description": "shadcn in dependencies; site code imports only shadcn/tailwind.css at build time."
+      }
+    ],
+    "reason": "None of these packages is imported by shipped server or client code; they run only in lint or the shadcn CLI on developer input. Hygiene fixed anyway (commit 94769ae): shadcn moved to devDependencies, minimatch overridden to 11.0.5; npm audit now 3 low (deepmerge, no patched release exists), npm audit --omit=dev 0."
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "headers-missing-browser-hardening",
+    "title": "No browser security headers; any site could frame the pages",
+    "description": "next.config.ts set no headers. Responses had no CSP, X-Frame-Options or frame-ancestors, nosniff, Referrer-Policy or Permissions-Policy, and advertised X-Powered-By: Next.js.",
+    "root_cause": "No headers() config and poweredByHeader left on.",
+    "intended_behavior": "Pages refuse framing and send a restrictive baseline policy.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "next.config.ts",
+        "line": 3,
+        "scope": "nextConfig",
+        "description": "No headers() and no poweredByHeader:false."
+      }
+    ],
+    "evidence": [
+      {
+        "file": "next.config.ts",
+        "line": 3,
+        "description": "curl -I / at baseline showed only X-Powered-By among security headers."
+      }
+    ],
+    "conditions": [
+      {
+        "kind": "user_interaction",
+        "description": "Clickjacking needs a visitor on an attacker page that frames the site."
+      }
+    ],
+    "execution": {
+      "attacker_perspective": "Third-party website embedding the site in an iframe.",
+      "payloads": [
+        "<iframe src='https://daveroai.com/contact'>"
+      ],
+      "instructions": [
+        "curl -sI the home page and look for frame-ancestors / X-Frame-Options."
+      ],
+      "observed_result": "Baseline: none present. Fixed: CSP (frame-ancestors 'none'), X-Frame-Options DENY, HSTS, nosniff, Referrer-Policy, Permissions-Policy, COOP; X-Powered-By removed."
+    },
+    "remediation": {
+      "strategy": "Add headers() in next.config.ts with a no-nonce CSP (nonces would disable static prerendering/PPR) and poweredByHeader:false. Commit d38a31e."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "low",
+        "reason": "Needs a lure page and a click."
+      },
+      "impact": {
+        "score": "low",
+        "reason": "The only state-changing action is sending an enquiry."
+      },
+      "overall_severity": "low"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Observed on the local production build."
+    }
+  }
+]

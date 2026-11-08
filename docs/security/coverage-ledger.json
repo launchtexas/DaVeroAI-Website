@@ -1,0 +1,446 @@
+[
+  {
+    "coverage_id": "app%23pages::react%23escaping::app::CLIENT-SIDE.md%23XSS%20and%20open%20redirect",
+    "canonical_refs": {
+      "surface": "app#pages",
+      "boundary": "react#escaping",
+      "subsystem": "app",
+      "attack_class": "CLIENT-SIDE.md#XSS and open redirect"
+    },
+    "surface": "All pages and client components",
+    "boundary": "React output escaping",
+    "subsystem": "Site pages",
+    "attack_class": "Client-side XSS / open redirect",
+    "starting_paths": [
+      "app",
+      "components",
+      "lib/content.ts"
+    ],
+    "ordinary_attack_class_block": "CLIENT-SIDE.md#XSS and open redirect",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "app",
+      "components",
+      "lib/content.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "app",
+          "components",
+          "lib/content.ts"
+        ],
+        "invariant": "No user-controlled HTML or redirect targets.",
+        "method": "source",
+        "result": "No dangerouslySetInnerHTML, innerHTML, eval, location writes, redirect() or searchParams use; external links are static with rel=noopener noreferrer; form errors render as React text.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23POST::app%2Fapi%2Fcontact%2Froute.ts%23MAX_BYTES::app%2Fapi%2Fcontact::RESOURCE-EXHAUSTION-AND-AVAILABILITY.md%23Unbounded%20input",
+    "canonical_refs": {
+      "surface": "app/api/contact/route.ts#POST",
+      "boundary": "app/api/contact/route.ts#MAX_BYTES",
+      "subsystem": "app/api/contact",
+      "attack_class": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Unbounded input"
+    },
+    "surface": "Contact API POST",
+    "boundary": "10 KB body cap",
+    "subsystem": "Contact form API",
+    "attack_class": "Resource exhaustion",
+    "starting_paths": [
+      "app/api/contact/route.ts"
+    ],
+    "ordinary_attack_class_block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Unbounded input",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "candidate",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "app/api/contact/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "app/api/contact/route.ts"
+        ],
+        "invariant": "The route must stop reading at 10 KB even without Content-Length.",
+        "method": "local",
+        "result": "Baseline buffered a 2 MB chunked body before rejecting it; fixed build stops reading at 10 KB.",
+        "artifact": "agents/parent/artifacts/repro-contact.sh"
+      }
+    ],
+    "result_fingerprints": [
+      "contact-unbounded-body-read"
+    ],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23POST::app%2Fapi%2Fcontact%2Froute.ts%23fetch-and-errors::app%2Fapi%2Fcontact::ATTACK-CLASSES.md%23SSRF%20and%20information%20disclosure",
+    "canonical_refs": {
+      "surface": "app/api/contact/route.ts#POST",
+      "boundary": "app/api/contact/route.ts#fetch-and-errors",
+      "subsystem": "app/api/contact",
+      "attack_class": "ATTACK-CLASSES.md#SSRF and information disclosure"
+    },
+    "surface": "Contact API POST",
+    "boundary": "Outbound fetch target and error responses",
+    "subsystem": "Contact form API",
+    "attack_class": "SSRF / error leakage",
+    "starting_paths": [
+      "app/api/contact/route.ts",
+      "lib/contact.ts"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#SSRF and information disclosure",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "app/api/contact/route.ts",
+      "lib/contact.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "app/api/contact/route.ts",
+          "lib/contact.ts"
+        ],
+        "invariant": "Outbound URL is fixed; errors return generic codes; the API key never leaves the server.",
+        "method": "source",
+        "result": "fetch targets the constant https://api.resend.com/emails; recipient and sender come from env only; errors log status/name only and return generic JSON codes.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23POST::app%2Fapi%2Fcontact%2Froute.ts%23origin-and-content-type::app%2Fapi%2Fcontact::WEB-PROTOCOL-AND-AUTH.md%23Cross-site%20request%20forgery",
+    "canonical_refs": {
+      "surface": "app/api/contact/route.ts#POST",
+      "boundary": "app/api/contact/route.ts#origin-and-content-type",
+      "subsystem": "app/api/contact",
+      "attack_class": "WEB-PROTOCOL-AND-AUTH.md#Cross-site request forgery"
+    },
+    "surface": "Contact API POST",
+    "boundary": "Same-origin request gate",
+    "subsystem": "Contact form API",
+    "attack_class": "Cross-site request forgery",
+    "starting_paths": [
+      "app/api/contact/route.ts"
+    ],
+    "ordinary_attack_class_block": "WEB-PROTOCOL-AND-AUTH.md#Cross-site request forgery",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "candidate",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "app/api/contact/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "app/api/contact/route.ts"
+        ],
+        "invariant": "Only the site's own pages may submit enquiries.",
+        "method": "local",
+        "result": "Baseline accepted a text/plain cross-site POST (200, email built); fixed build returns 415 / 403.",
+        "artifact": "agents/parent/artifacts/repro-contact.sh"
+      }
+    ],
+    "result_fingerprints": [
+      "contact-cross-site-post"
+    ],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23POST::app%2Fapi%2Fcontact%2Froute.ts%23rateLimited::app%2Fapi%2Fcontact::RESOURCE-EXHAUSTION-AND-AVAILABILITY.md%23Abuse%20and%20quota",
+    "canonical_refs": {
+      "surface": "app/api/contact/route.ts#POST",
+      "boundary": "app/api/contact/route.ts#rateLimited",
+      "subsystem": "app/api/contact",
+      "attack_class": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Abuse and quota"
+    },
+    "surface": "Contact API POST",
+    "boundary": "Per-IP rate limit",
+    "subsystem": "Contact form API",
+    "attack_class": "Abuse / quota exhaustion",
+    "starting_paths": [
+      "app/api/contact/route.ts"
+    ],
+    "ordinary_attack_class_block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Abuse and quota",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "candidate",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "app/api/contact/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "app/api/contact/route.ts"
+        ],
+        "invariant": "Total email volume should be bounded per client across all instances.",
+        "method": "source",
+        "result": "Limiter is an in-memory Map per instance; x-forwarded-for is overwritten by Vercel so spoofing is not possible; global bound depends on Vercel WAF (not in repo).",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [
+      "contact-rate-limit-per-instance",
+      "contact-xff-spoofing"
+    ],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23POST::lib%2Fcontact-rules.ts%23validateField::app%2Fapi%2Fcontact::ATTACK-CLASSES.md%23Injection",
+    "canonical_refs": {
+      "surface": "app/api/contact/route.ts#POST",
+      "boundary": "lib/contact-rules.ts#validateField",
+      "subsystem": "app/api/contact",
+      "attack_class": "ATTACK-CLASSES.md#Injection"
+    },
+    "surface": "Contact API POST",
+    "boundary": "Field validation before email build",
+    "subsystem": "Contact form API",
+    "attack_class": "Email header / address injection",
+    "starting_paths": [
+      "app/api/contact/route.ts",
+      "lib/contact-rules.ts"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#Injection",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "candidate",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "app/api/contact/route.ts",
+      "lib/contact-rules.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "app/api/contact/route.ts",
+          "lib/contact-rules.ts"
+        ],
+        "invariant": "Single-line fields must not carry CR/LF into the email subject; reply_to must be one address.",
+        "method": "local",
+        "result": "Baseline passed CR/LF to the Resend subject and accepted comma lists as reply_to; fixed build returns 400 for both.",
+        "artifact": "agents/parent/artifacts/repro-contact.sh"
+      }
+    ],
+    "result_fingerprints": [
+      "contact-subject-control-chars",
+      "contact-replyto-address-list"
+    ],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "components%2Fsite%2Fcontact-form.tsx%23form::browser%23native-submit::components%2Fsite::CLIENT-SIDE.md%23Sensitive%20data%20in%20URLs",
+    "canonical_refs": {
+      "surface": "components/site/contact-form.tsx#form",
+      "boundary": "browser#native-submit",
+      "subsystem": "components/site",
+      "attack_class": "CLIENT-SIDE.md#Sensitive data in URLs"
+    },
+    "surface": "Contact form before hydration",
+    "boundary": "Native form submission",
+    "subsystem": "Site components",
+    "attack_class": "Personal data exposure",
+    "starting_paths": [
+      "components/site/contact-form.tsx"
+    ],
+    "ordinary_attack_class_block": "CLIENT-SIDE.md#Sensitive data in URLs",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "candidate",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "components/site/contact-form.tsx"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "components/site/contact-form.tsx"
+        ],
+        "invariant": "Personal details must never be placed in a URL.",
+        "method": "local",
+        "result": "Form had no method, so a pre-hydration submit was a GET with all fields in the query string; with method=post a no-JS submit stays at /contact.",
+        "artifact": "agents/parent/artifacts/nojs-submit.cjs"
+      }
+    ],
+    "result_fingerprints": [
+      "contact-form-get-before-hydration"
+    ],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "git%23history::.gitignore%23env::repository::SUPPLY-CHAIN-AND-RELEASE.md%23Secrets%20in%20source",
+    "canonical_refs": {
+      "surface": "git#history",
+      "boundary": ".gitignore#env",
+      "subsystem": "repository",
+      "attack_class": "SUPPLY-CHAIN-AND-RELEASE.md#Secrets in source"
+    },
+    "surface": "Git history and working tree",
+    "boundary": "Secret handling",
+    "subsystem": "Repository",
+    "attack_class": "Committed secrets",
+    "starting_paths": [
+      ".gitignore",
+      ".env.example"
+    ],
+    "ordinary_attack_class_block": "SUPPLY-CHAIN-AND-RELEASE.md#Secrets in source",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      ".gitignore",
+      ".env.example"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          ".gitignore",
+          ".env.example"
+        ],
+        "invariant": "No key or secret is committed.",
+        "method": "source",
+        "result": "git log --all -p shows no Resend key, token or private key; only .env.example (empty RESEND_API_KEY) is tracked; .env* and .vercel are ignored.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "next.config.ts%23headers::browser%23response-headers::deployment::CLOUD-AND-DEPLOYMENT.md%23Security%20headers",
+    "canonical_refs": {
+      "surface": "next.config.ts#headers",
+      "boundary": "browser#response-headers",
+      "subsystem": "deployment",
+      "attack_class": "CLOUD-AND-DEPLOYMENT.md#Security headers"
+    },
+    "surface": "Every HTML response",
+    "boundary": "Browser security headers",
+    "subsystem": "Next config / Vercel",
+    "attack_class": "Clickjacking / missing headers",
+    "starting_paths": [
+      "next.config.ts"
+    ],
+    "ordinary_attack_class_block": "CLOUD-AND-DEPLOYMENT.md#Security headers",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "candidate",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "next.config.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "next.config.ts"
+        ],
+        "invariant": "Pages must not be frameable and should send CSP, nosniff, referrer and permissions policies.",
+        "method": "local",
+        "result": "Baseline sent none (only X-Powered-By); fixed build sends CSP with frame-ancestors none, XFO DENY, HSTS, nosniff, Referrer-Policy, Permissions-Policy, COOP.",
+        "artifact": "agents/parent/artifacts/repro-contact.sh"
+      }
+    ],
+    "result_fingerprints": [
+      "headers-missing-browser-hardening"
+    ],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "package.json%23dependencies::npm%23runtime-vs-dev::dependencies::SUPPLY-CHAIN-AND-RELEASE.md%23Vulnerable%20dependencies",
+    "canonical_refs": {
+      "surface": "package.json#dependencies",
+      "boundary": "npm#runtime-vs-dev",
+      "subsystem": "dependencies",
+      "attack_class": "SUPPLY-CHAIN-AND-RELEASE.md#Vulnerable dependencies"
+    },
+    "surface": "npm dependency tree",
+    "boundary": "Runtime vs build-time packages",
+    "subsystem": "Dependencies",
+    "attack_class": "Vulnerable dependencies",
+    "starting_paths": [
+      "package.json",
+      "package-lock.json"
+    ],
+    "ordinary_attack_class_block": "SUPPLY-CHAIN-AND-RELEASE.md#Vulnerable dependencies",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "none",
+    "attempts": [],
+    "wave": 1,
+    "status": "candidate",
+    "agent_id": "parent",
+    "reviewed_paths": [
+      "package.json",
+      "package-lock.json"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "parent",
+        "reviewed_paths": [
+          "package.json",
+          "package-lock.json"
+        ],
+        "invariant": "Shipped code must not depend on vulnerable packages; CLIs belong in devDependencies.",
+        "method": "source",
+        "result": "Advisories sit only in eslint and the shadcn CLI chain, neither imported by site code; shadcn moved to devDependencies, minimatch overridden to 11.0.5; npm audit --omit=dev is 0.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [
+      "deps-dev-chain-advisories"
+    ],
+    "unresolved": []
+  }
+]
