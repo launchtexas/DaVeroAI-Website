@@ -54,6 +54,13 @@ npm run dev                  # http://localhost:3000
 | `RESEND_API_KEY` | Yes, for the form | Resend API key with sending access |
 | `CONTACT_TO` | No | Inbox that receives enquiries (default `ask@daveroai.com`) |
 | `CONTACT_FROM` | No | Sender address; its domain must be verified in Resend |
+| `FORM_SECRET` | Recommended in production | Signs the form's render-time token (time trap). Unset: the token is unsigned, timing is still checked |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | No | Cloudflare Turnstile site key. Turnstile is on only when this and `TURNSTILE_SECRET_KEY` are set |
+| `TURNSTILE_SECRET_KEY` | No | Cloudflare Turnstile secret key, used server-side to verify the token |
+| `UPSTASH_REDIS_REST_URL` | No | Upstash Redis REST URL. With the token below, adds rate limits shared across instances (5 per IP per 10 min, 20 per day) and cross-instance duplicate checks |
+| `UPSTASH_REDIS_REST_TOKEN` | No | Upstash Redis REST token |
+
+`NEXT_PUBLIC_TURNSTILE_SITE_KEY` is built into the page, so redeploy after changing it. Also add the Vercel Firewall rule in `docs/security/vercel-firewall.md`.
 
 Without `RESEND_API_KEY` the form endpoint returns `503` and the form shows its failure state with an email fallback. Never commit `.env.local`.
 

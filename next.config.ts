@@ -4,10 +4,12 @@ const isDev = process.env.NODE_ENV === "development";
 
 // Content Security Policy. Next.js inlines its bootstrap scripts and styles, and a nonce would force every
 // page to render dynamically (no static prerendering), so scripts are limited to this origin plus inline.
-// Dev mode also needs eval for React's debugging tools.
+// Dev mode also needs eval for React's debugging tools. Cloudflare Turnstile (contact form spam check) needs
+// its script and its challenge iframe from challenges.cloudflare.com; nothing else is allowed from there.
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://challenges.cloudflare.com`,
+  "frame-src 'self' https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",

@@ -11,6 +11,10 @@ const EMAIL_RE = /^[^\s@,;<>"()[\]\\]+@[^\s@,;<>"()[\]\\]+\.[^\s@,;<>"()[\]\\]{2
 const CONTROL_RE = /[\u0000-\u001f\u007f-\u009f\u2028\u2029]/;
 // The message is multi-line text: allow tab, LF and CR, block every other control character.
 const MESSAGE_CONTROL_RE = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f]/;
+// Links: anything starting with a scheme or "www.". Bare names like "Booking.com" are allowed.
+export const URL_RE = /\b(?:[a-z][a-z0-9+.-]*:\/\/|www\.)[^\s<>"']+/gi;
+export const MESSAGE_MAX_URLS = 2;
+export const countUrls = (v: string) => v.match(URL_RE)?.length ?? 0;
 
 export function validateField(field: Field, raw: string): string | undefined {
   const v = raw.trim();
@@ -19,6 +23,7 @@ export function validateField(field: Field, raw: string): string | undefined {
     case "name":
       if (v.length < 2) return "Please enter your name.";
       if (v.length > 100) return "Please keep this under 100 characters.";
+      if (countUrls(v)) return "Please remove the link.";
       return;
     case "email":
       if (!v) return "Please enter your work email.";
@@ -27,6 +32,7 @@ export function validateField(field: Field, raw: string): string | undefined {
     case "company":
       if (v.length < 2) return "Please enter your company.";
       if (v.length > 120) return "Please keep this under 120 characters.";
+      if (countUrls(v)) return "Please remove the link.";
       return;
     case "platform":
     case "domain":
@@ -36,6 +42,7 @@ export function validateField(field: Field, raw: string): string | undefined {
       if (!v) return "Please enter the workflow you want finished.";
       if (v.length < 20) return "Please add a little more detail (at least 20 characters).";
       if (v.length > MESSAGE_MAX) return `Please keep this under ${MESSAGE_MAX} characters.`;
+      if (countUrls(v) > MESSAGE_MAX_URLS) return `Please include no more than ${MESSAGE_MAX_URLS} links.`;
       return;
   }
 }

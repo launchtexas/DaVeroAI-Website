@@ -9,8 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { domains, EMAIL } from "@/lib/content";
-import { submitContact, type ContactData } from "@/lib/contact";
+import { getFormToken, prefetchFormToken, submitContact, type ContactData } from "@/lib/contact";
 import { FIELDS, MESSAGE_MAX, validateField, type Field } from "@/lib/contact-rules";
+import { Turnstile, TURNSTILE_SITE_KEY } from "./turnstile";
 
 type Errors = Partial<Record<Field, string>>;
 
@@ -43,10 +44,20 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
   const summaryRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef<HTMLHeadingElement>(null);
   const fid = (f: Field) => `${uid}-${f}`;
+  const captcha = useRef("");
+  const [captchaReset, setCaptchaReset] = useState(0);
 
   useEffect(() => {
     if (status === "sent") doneRef.current?.focus();
   }, [status]);
+  useEffect(prefetchFormToken, []);
+
+  // Waits up to 15 s for Turnstile to hand over a token (it usually has one already).
+  async function captchaToken(): Promise<string> {
+    for (let i = 0; i < 60 && !captcha.current; i++) await new Promise((r) => setTimeout(r, 250));
+    if (!captcha.current) throw new Error("No Turnstile token");
+    return captcha.current;
+  }
 
   const set = (field: Field) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const value = e.target.value;
@@ -74,16 +85,23 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
     }
     setStatus("sending");
     try {
-      await submitContact({
-        ...data,
-        name: data.name.trim(),
-        email: data.email.trim(),
-        company: data.company.trim(),
-        platform: data.platform.trim(),
-      });
+      const [t, turnstileToken] = await Promise.all([getFormToken(), TURNSTILE_SITE_KEY ? captchaToken() : undefined]);
+      await submitContact(
+        {
+          ...data,
+          name: data.name.trim(),
+          email: data.email.trim(),
+          company: data.company.trim(),
+          platform: data.platform.trim(),
+        },
+        { t, turnstileToken },
+      );
       setStatus("sent");
     } catch {
       setStatus("failed");
+    } finally {
+      // A Turnstile token works once; get a fresh one for the next submit.
+      if (TURNSTILE_SITE_KEY) setCaptchaReset((n) => n + 1);
     }
   }
 
@@ -230,6 +248,8 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
         <label htmlFor={`${uid}-website`}>Website</label>
         <input id={`${uid}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
+
+      {TURNSTILE_SITE_KEY && <Turnstile resetKey={captchaReset} onToken={(t) => (captcha.current = t)} />}
 
       <div>
         <Button type="submit" className="w-full" disabled={sending}>

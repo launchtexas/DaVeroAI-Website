@@ -57,3 +57,15 @@ Also checked with no issue: SSRF (fixed Resend URL), XSS (no raw HTML anywhere; 
 This is the first run; no prior ledger exists. Ten coverage units (`coverage-ledger.json`) cover the contact API, the form, pages, headers, secrets and dependencies. Profile `quick`: one hunting pass by the parent and one independent source verifier that also acted as coverage critic (it found finding 4). This does not prove the site has no other issues. Out of scope: the Vercel project settings, DNS, the Resend account and GitHub repository settings.
 
 Files: `findings.json` (validated), `coverage-ledger.json` (validated), `FINDINGS-DETAIL.md`, `NEEDS-VALIDATION.md`, `architecture.md`, `run-metadata.json`, local repro scripts in `agents/parent/artifacts/`.
+
+## Addendum: contact form spam shield (2026-11-08)
+
+Added in `app/api/contact/route.ts` and `lib/contact-shield.ts` (shared rules in `lib/contact-rules.ts`):
+
+- **Time trap:** the form fetches a token from `GET /api/contact` holding its render time, signed with HMAC-SHA256 using `FORM_SECRET` (unsigned when the secret is unset). A POST without a valid token, under 3 seconds or over 2 hours old gets a silent 200 and sends nothing. The form waits out the 3 seconds and refreshes a token near 2 hours, so people are not caught.
+- **Content rules:** a link in name or company, or more than 2 links in the message, is a field error (400), mirrored in the form, since a real person can fix it. HTML tags, BBCode, a message that is mostly links, and the same email + message within 10 minutes of a sent one get a silent 200.
+- **Cloudflare Turnstile:** on only when `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` are set; the server checks the token at `challenges.cloudflare.com/turnstile/v0/siteverify` before sending (403 on failure). The CSP allows `https://challenges.cloudflare.com` in `script-src` and `frame-src` only.
+- **Durable rate limits:** when `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are set, fixed windows of 5 per IP per 10 minutes and 20 per IP per day are shared by all instances (duplicate checks too). The in-memory limit stays. If Upstash is unreachable the check fails open to the in-memory limit.
+- **Edge:** the Vercel Firewall rule for finding 6 is written out in `vercel-firewall.md`.
+
+**No SQL-keyword filtering, on purpose.** The site has no database. Form data only goes into a plain-text email body sent through Resend's JSON API, so there is no query to inject into, and keyword filters would only reject real messages (for example someone describing a "SELECT ... FROM" report workflow).
