@@ -20,15 +20,41 @@ function rateLimited(ip: string): boolean {
   recent.push(now);
   hits.set(ip, recent);
   if (hits.size > 5000) for (const [k, v] of hits) if (v.every((t) => now - t >= WINDOW_MS)) hits.delete(k);
+  // Hard cap so the map cannot grow without bound; drop the oldest entries (insertion order).
+  while (hits.size > 10000) hits.delete(hits.keys().next().value!);
   return false;
+}
+
+// Reads the body but stops at MAX_BYTES, so a chunked upload without Content-Length is never fully buffered.
+async function readCapped(request: Request): Promise<string | null> {
+  if (!request.body) return "";
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > MAX_BYTES) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  return Buffer.concat(chunks).toString("utf8");
 }
 
 const json = (body: object, status: number) => Response.json(body, { status });
 
 export async function POST(request: Request) {
+  // Same-origin JSON only. A JSON content type forces a CORS preflight (which this route never approves),
+  // so other sites cannot post enquiries through their visitors' browsers; Sec-Fetch-Site blocks the rest.
+  if (request.headers.get("sec-fetch-site") === "cross-site") return json({ error: "forbidden" }, 403);
+  if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json"))
+    return json({ error: "unsupported_media_type" }, 415);
   if (Number(request.headers.get("content-length") ?? 0) > MAX_BYTES) return json({ error: "too_large" }, 413);
-  const raw = await request.text();
-  if (Buffer.byteLength(raw) > MAX_BYTES) return json({ error: "too_large" }, 413);
+  const raw = await readCapped(request);
+  if (raw === null) return json({ error: "too_large" }, 413);
 
   let input: Record<string, unknown>;
   try {
