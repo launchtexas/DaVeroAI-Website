@@ -9,7 +9,7 @@
 1. Display name is **DaVero AI** everywhere (titles, copy, alt text), per the brand kit. The logo is always a kit lockup, never typed text. `docs/content.md` still spells "DaVero AI"; read it as "DaVero AI".
 2. Third-party stats appear **only with their source named** next to the number (visible, not tooltip-only).
 3. Third-party quotes (Sequoia, Goldberg, Nick Kopp/Rillet) appear **only attributed** (name + organisation) or are rephrased as our own words without quote marks.
-4. **No logos** of partners, clients or platforms. Platforms (Rillet, Tabs, Maxio, Campfire) are named in plain text only, and only as "platforms we work around", never "partners".
+4. **No logos** of partners, clients or platforms. The site carries no list of platforms (removed 2026-11-08); Rillet appears only in attributed quotes and Rillet/Tabs only in the founder's advisory roles, never as "partners".
 5. **No competitor names.** The landscape 2×2 shows axes and DaVero AI only, unnamed categories elsewhere.
 6. **No pricing, margins or market-size charts on Home.** Those live on Insights only. Engagement models show names only, no prices or margin logic.
 7. Methodology: **4-step model on Home** (Embed → Develop skill → Harvest → Scale); **5-step engagement on Our Approach** (Engage → Build the skill → Harden with a constitution → Converge into the platform → Review and approve). Services links to Our Approach, it does not show a third variant.
@@ -53,7 +53,7 @@ Footer: logo + close line "The last mile is where software, services and context
 | 3 | Business challenges | `challenges` | ★ Last-mile three-state explainer, compact (Ref 02) · ★ six stat tiles with sources (Ref 07) + line "Delivery, not models, is the bottleneck." · five challenge → our answer cards (Ref 08). |
 | 4 | Services | `services` | Three service cards: Implement · Build agents · Run & tune, each with its outcome (Ref 12). Link → `/services`. |
 | 5 | Agentic AI in action | `in-action` | ★ Human-in-the-loop demo Prepare → Review → Approve → Record (Ref 16). Line "Humans review and approve. Agents do the rest." Link → `/governance`. |
-| 6 | Business outcomes | `outcomes` | Four outcome items, left column of Ref 21 only · ecosystem strip: client journey Platform referral → Embed and prove → Expand → Replicate (Ref 22), platforms named in text as "platforms we work around". Link → `/industries`. |
+| 6 | Business outcomes | `outcomes` | Four outcome items, left column of Ref 21 only · ecosystem strip: client journey Platform referral → Embed and prove → Expand → Replicate (Ref 22). Link → `/industries`. |
 | 7 | Methodology | `methodology` | ★ 4-step journey Embed → Develop skill → Harvest → Scale + Golden Rule (Ref 11). Link → `/approach`. |
 | 8 | Why partner with us | `why-us` | Four differentiators: Context captured · Platform-native · Human-validated · Compounding library (Ref 19) · Where/What/How strip (Ref 04). |
 | 9 | Insights | `insights` | Three latest Insights cards → `/insights`. Hidden (not rendered, not empty) when fewer than 1 published item. |
@@ -67,7 +67,7 @@ Footer: logo + close line "The last mile is where software, services and context
 | **Services** `/services` | `hero` · `service-lines` three service lines in depth: Implement (ledger live), Build agents (agents running the close; examples reconciliations, accruals, flux analysis, AR/collections, audit prep), Run & tune (agents that keep getting better) (Ref 12) · `challenges` five challenge → answer pairs (Ref 08) · `engagement-models` "How we engage": Deployment (6–10 week embed) · Agent subscription · Managed outcome (close-as-a-service), names + one line each, no prices (Ref 14) · `approach-link` one-line bridge to `/approach` · `cta` |
 | **Our Approach** `/approach` | `hero` · `engagement` ★ 5-step engagement (Ref 13) with the constitution called out · `golden-rule` (Ref 11 Golden Rule) · `skill-factory` ★ Develop → Reuse → Redeploy loop, "Every engagement adds to the library, so the next client starts further ahead." (Ref 15) · `pod` delivery pod, three roles, "One pod per client." (Ref 18) · `actors` five actors summary, link to `/governance#actors` (Ref 17) · `cta` |
 | **Technology & governance** `/governance` | `hero` ("Humans review and approve. Agents do the rest.") · `hitl` ★ full Prepare → Review → Approve → Record demo with audit trail (Ref 16) · `actors` five actors around every agent: Subject expert, Forward Deployed Agent Engineer (builds), Validator, Operator, Owner — Operator and Owner = DaVero AI; client defines and approves (Ref 17) · `constitution` what "harden with a constitution" means (Ref 13) · `platform-native` agents run inside the client's platform, data stays there (Ref 19 "Platform-native") · `cta` |
-| **Industries & ecosystem** `/industries` | `hero` · `domains` four domains: Finance (lead), Procurement & Supply Chain, IT Services, Insurance, each with a last-mile example (Ref 02) · `journey` Platform referral → Embed and prove → Expand → Replicate (Ref 22) · `platforms` text list "AI-native platforms we work around: Rillet, Tabs, Maxio, Campfire" + note that these are platforms, not partners; no logos (Ref 22) · `cta` |
+| **Industries & ecosystem** `/industries` | `hero` · `domains` four domains: Finance (lead), Procurement & Supply Chain, IT Services, Insurance, each with a last-mile example (Ref 02) · `journey` Platform referral → Embed and prove → Expand → Replicate (Ref 22) · `cta`. The animated Enterprise Ecosystem diagram (`ecosystem`) sits directly under the hero. |
 | **Insights** `/insights` | `hero` · `market-shift` ★ $0.5T software vs $2T services bar, sourced (Ref 05) · `market` $80–115B outsourced US accounting, audit and tax work, sourced (Ref 10) · `stats` all six stat tiles with sources (Ref 07) · `landscape` 2×2 "sells the tool ↔ sells the work" × "depth of platform context", DaVero AI dot only, no other names, + "Our edge" bullets (Ref 20) · `articles` list of posts (card grid; empty state "First articles coming soon." until content exists) · `cta` |
 | **About** `/about` | `hero` positioning (Ref 01 positioning + concept) · `mission` "Not software seats. Not billable hours." · `strategy` Where / What / How (Ref 04) · `pod` delivery pod short (Ref 18) · `founder` Hemang Bhatt, Founder & CEO, bio + headshot placeholder (Ref 23) · `cta` |
 | **Contact** `/contact` | `intro` heading + what you get: four outcome items (Ref 21 left column) · `form` contact form (§7) · `next` "What happens next" three short steps (reply → conversation → scoping). No email address, no phone. |
@@ -216,7 +216,7 @@ Desktop (≥1024) described; responsive changes in §8. Every page: header, `mai
 | 3 Challenges `challenges` | **Paper band.** (a) ★ last-mile three-state explainer, compact variant (§6.1). (b) Stat intro centred line "Delivery, not models, is the bottleneck." then ★ six stat tiles, 3×2 (§6.5). (c) Five challenge → answer cards: 5 columns would be too narrow, so a 2-column list of rows: left "Challenge" (h3, `--ink`), right "Our answer" (body), mono index; rows separated by rules. |
 | 4 Services `services` | Header + 3 cards in a row, each: mono index, title (Implement / Build agents / Run & tune), outcome line in `lead`, 2–3 example chips (Build agents: reconciliations, accruals, flux analysis, AR/collections, audit prep). Link "Explore services" → `/services`. |
 | 5 In action `in-action` | Header H2 "Humans review and approve. Agents do the rest." ★ HITL demo, compact variant (§6.3), full container width. Link → `/governance`. |
-| 6 Outcomes `outcomes` | Split 5/7: left header + lead; right 2×2 outcome items (icon, h3, small). Below: ecosystem strip, 4 connected nodes Platform referral → Embed and prove → Expand → Replicate (static horizontal line with arrow heads, mono labels), then one text line naming the platforms we work around. Link → `/industries`. |
+| 6 Outcomes `outcomes` | Split 5/7: left header + lead; right 2×2 outcome items (icon, h3, small). Below: ecosystem strip, 4 connected nodes Platform referral → Embed and prove → Expand → Replicate (static horizontal line with arrow heads, mono labels). Link → `/industries`. |
 | 7 Methodology `methodology` | ★ Sticky story (§6.4 model A): left sticky H2 + Golden Rule as a quote card; right the four steps. |
 | 8 Why us `why-us` | 4 cards (icon, h3, small) in a row. Below, a 3-column Where / What / How strip: mono label, h3, small; separated by vertical rules. |
 | 9 Insights `insights` | Header row (H2 left, "View all insights" link right), 3 insight cards. Not rendered if no posts. |
@@ -240,7 +240,7 @@ hero → `hitl` ★ full HITL demo (§6.3 full variant with audit trail) → `ac
 
 ### 5.6 Industries & ecosystem `/industries`
 
-hero → `domains` 4 large cards 2×2: domain name, "The last mile here" example, 3 example workflows as chips; Finance card marked with "Where we start" chip → `journey` 4-step horizontal sequence (as Home §6 strip, larger, each step with one line) → `platforms` a bordered `--surface` panel (dark band): H3 "Platforms we work around", platform names as plain text separated by middots, note line "Named for context. These are platforms our clients use, not commercial partners." → `cta`.
+hero → `ecosystem` the Enterprise Ecosystem diagram (§6.10) → `domains` 4 large cards 2×2: domain name, "The last mile here" example, 3 example workflows as chips; Finance card marked with "Where we start" chip → `journey` 4-step horizontal sequence (as Home §6 strip, larger, each step with one line) → `cta`.
 
 ### 5.7 Insights `/insights`
 
@@ -335,6 +335,14 @@ Abstract, structural, on-brand: diagonal stripes, blocks, steps; Midnight steps 
 
 - Square plot: x "Sells the tool ↔ Sells the work", y "Depth of platform context". Quadrant labels in mono describe categories generically (e.g., "Software vendors", "Generalist service firms") with **no company names**. One orange dot "DaVero AI" top-right. Caption: "Our own assessment." Text alternative: a list of the four quadrants and where DaVero AI sits.
 
+### 6.10 Enterprise Ecosystem diagram (`Ecosystem`, components/site/ecosystem.tsx + ecosystem.css)
+Client image `docs/source/enterprise-ecosystem.png` redrawn natively in kit colours (HTML + CSS grid + inline SVG; no image, no new dependency). Home §3a (after the last-mile explainer, White band) and /industries directly under the hero (Cloud band).
+- **Structure:** CORE ERP (Midnight, 3 px Orange ring) at the centre; five agent badges (Midnight, kit icon from `DaVero_Icon_OnDark.svg`, "DaVero AI Agent" + function) link it to five domain cards (Midnight header with lucide icon, item rows with lucide icons). Tax sits below the core. Bottom bar "DaVero AI Solution" + summary line.
+- **Layouts:** ≥1024 radial 9-column grid (domain · link · agent · link · core · link · agent · link · domain), faint orbit ellipse behind. 768–1023: core on top, a vertical spine, two columns of agent-over-domain pairs, Tax full width. <768: core, then each pair as a `<details>` card on a spine (agent strip + domain row; items open on tap). Connectors are grid cells, so nothing is measured in JS.
+- **Motion (allowed only):** if the diagram starts off-screen, on entering view the core assembles (scale/fade, words rise, ring turns Orange), connectors draw outward from the core, agents light up in sequence, domains fade up (~2 s). Then a calm loop: an Orange dot travels domain → agent → ERP and an outlined dot ERP → agent → domain, one pair at a time (6 s cycle, pairs offset 1.2 s). Pause/Play button (loop > 5 s); paused off-screen (IntersectionObserver).
+- **Interaction:** hovering, focusing or pressing a domain or agent (buttons, `aria-pressed`) highlights its path in Orange and dims the rest to 28%. Visible focus ring.
+- **Accessibility:** a visually hidden text version (summary + list) at ≥768; the mobile layout is itself a text list. Reduced motion: the complete static diagram, no dots, no entrance.
+
 ## 7. Contact form
 
 Reuses the existing `components/site/contact-form.tsx` structure; update to this spec.
@@ -345,7 +353,7 @@ Reuses the existing `components/site/contact-form.tsx` structure; update to this
 | Work email | email, `email` | yes | valid format |
 | Company | text, `organization` | yes | 2–120 |
 | Role | text, `organization-title` | no | ≤100 |
-| Platform you use | select: Rillet, Tabs, Maxio, Campfire, Other, Not sure | no | — |
+| Platform you use | free text, hint "e.g. ERP, CRM, procurement" | no | — |
 | What's your last mile? | textarea, 5 rows, label hint "The workflow that still needs people after the software is live." | yes | 20–2000, live count announced only at 90% |
 | Consent | checkbox "I agree to the Privacy Policy" (link) | yes | checked |
 | Honeypot `website` | hidden, `tabindex=-1`, `aria-hidden` | — | empty |

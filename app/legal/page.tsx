@@ -46,12 +46,12 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          The website refers to other companies, products and organisations, including Rillet, Tabs, Maxio, Campfire, Oracle
+          The website refers to other companies, products and organisations, including Rillet, Tabs, Oracle
           NetSuite, Sequoia Capital, Gartner, Reuters, Controllers Council, insightsoftware, Wakefield Research, NIST, ISO and
           AICPA &amp; CIMA. Their names and marks belong to their respective owners.
         </p>
         <p>
-          We use these names only to identify the platforms we work with, the sources we cite and our team&apos;s past employers. Their use does not mean that
+          We use these names only to identify the sources we cite, our team&apos;s advisory roles and our team&apos;s past employers. Their use does not mean that
           any of these organisations endorses DaVero AI, or that we are partnered or affiliated with them, unless we say so
           expressly.
         </p>

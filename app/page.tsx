@@ -16,6 +16,7 @@ import {
 } from "@/components/site/blocks";
 import { Arbitrage } from "@/components/site/arbitrage";
 import { HeroArt, HeroStripes, StripeBand } from "@/components/site/art";
+import { EcosystemSection } from "@/components/site/ecosystem-section";
 import { HitlDemo } from "@/components/site/hitl-demo";
 import { LastMile } from "@/components/site/last-mile";
 import { StatTiles } from "@/components/site/stat-tiles";
@@ -24,7 +25,6 @@ import {
   HITL_BAND,
   HITL_HEADLINE,
   LIBRARY_LINE,
-  PLATFORMS,
   POD_LINE,
   STATS_KEY_LINE,
   STATS_TAKEAWAY,
@@ -99,6 +99,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 3a Enterprise ecosystem: where the agents sit between the domains and the ERP */}
+      <EcosystemSection />
+
       {/* 3b Why-now numbers: full-bleed Midnight moment */}
       <StripeBand id="why-now" aria-labelledby="why-now-title" className="section">
         <div className="container-x">
@@ -170,10 +173,7 @@ export default function Home() {
           <div className="mt-20">
             <h3 className="t-mono mb-8 text-faint">How a client starts</h3>
             <Journey />
-            <p className="t-small mt-8 text-muted-fg">
-              Platforms we work around: {PLATFORMS.join(" · ")}.
-            </p>
-            <ArrowLink href="/industries" className="mt-4">
+            <ArrowLink href="/industries" className="mt-8">
               Industries and platforms
             </ArrowLink>
           </div>

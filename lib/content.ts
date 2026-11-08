@@ -198,9 +198,6 @@ export const journey = [
   { title: "Replicate", body: "Library agents reused across the platform's customer base." },
 ];
 
-export const PLATFORMS = ["Rillet", "Tabs", "Maxio", "Campfire"];
-export const PLATFORMS_FOOTNOTE =
-  "DaVero AI has no commercial partnership with these platforms. Names are used to describe the platforms we work around.";
 
 export const GOLDEN_RULE = ["The client identifies the gap.", "We build.", "The client validates.", "We own, run and improve the agent."];
 export const ADVISORY_FOOTNOTE = "Consultants and auditors keep their advisory and assurance roles.";
@@ -257,3 +254,41 @@ export const closingQuotes = [
 
 export const WEDGE =
   "Mid-market and enterprise companies moving onto AI-native platforms (ERP, CRM, procurement, etc.), where the last mile is new, unowned and budgeted.";
+
+/* Enterprise ecosystem diagram (client image docs/source/enterprise-ecosystem.png). */
+export const ECOSYSTEM_TAGLINE = "Enterprise agents for the last mile";
+export const ECOSYSTEM_TITLE = "DaVero AI Enterprise Ecosystem";
+export const ECOSYSTEM_SUMMARY =
+  "AI agents that automate and orchestrate the last-mile work across AR, AP, Procurement, Inventory, and Tax, seamlessly connecting your enterprise ecosystem to ERP.";
+export const ecosystem = [
+  {
+    id: "ar",
+    name: "Accounts Receivable",
+    agent: "AR Operations & Reconciliation",
+    items: ["Contract Management", "Alternate AR Application", "Customer Payments", "Collections Workflow", "Customer Portal"],
+  },
+  {
+    id: "ap",
+    name: "Accounts Payable",
+    agent: "AP Processing & Validation",
+    items: ["Automated AP", "Vendor Bill Capture", "Employee Expenses", "Corporate Cards", "Payroll Journal Entry"],
+  },
+  {
+    id: "pr",
+    name: "Procurement",
+    agent: "Sourcing, PO & Vendor Readiness",
+    items: ["Supplier Onboarding", "Purchase Requisitions", "Purchase Orders", "Approvals & Controls"],
+  },
+  {
+    id: "in",
+    name: "Inventory",
+    agent: "Inventory Sync & Optimization",
+    items: ["Item Master", "Warehouse Inventory", "Order Fulfilment", "Stock Movements & Valuation"],
+  },
+  {
+    id: "tx",
+    name: "Tax",
+    agent: "Tax Computation & Compliance",
+    items: ["Tax Engine", "Tax Rates", "Sales Tax / VAT", "Tax Computation", "Filing & Compliance"],
+  },
+] as const;

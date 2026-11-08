@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand, Journey, PageHero, SectionHead } from "@/components/site/blocks";
 import { PageArt } from "@/components/site/art";
-import { CLOSE_LINE, PLATFORMS, PLATFORMS_FOOTNOTE, WEDGE, domains } from "@/lib/content";
+import { EcosystemSection } from "@/components/site/ecosystem-section";
+import { CLOSE_LINE, WEDGE, domains } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -14,6 +15,8 @@ export default function IndustriesPage() {
   return (
     <>
       <PageHero art={<PageArt kind="tiles" />} eyebrow="Industries & ecosystem" title="Where the last mile lives" lead={<p>Our focus: {WEDGE}</p>} />
+
+      <EcosystemSection band="band-cloud" />
 
       <section id="domains" aria-labelledby="domains-title" className="section band-paper">
         <div className="container-x">
@@ -45,19 +48,6 @@ export default function IndustriesPage() {
         <div className="container-x">
           <SectionHead id="journey-title" eyebrow="Client journey" title="How a client starts" />
           <Journey large />
-        </div>
-      </section>
-
-      <section id="platforms" aria-labelledby="platforms-title" className="section band-cloud">
-        <div className="container-x">
-          <div data-reveal className="rounded-[var(--r-card)] border border-line bg-surface p-6 sm:p-12">
-            <h2 id="platforms-title" className="t-h3">
-              Platforms we work around
-            </h2>
-            <p className="t-h2 mt-6 max-w-none">{PLATFORMS.join(" · ")}</p>
-            <p className="mt-6 text-muted-fg">We build agents around AI-native platforms, including Rillet, Tabs, Maxio and Campfire.</p>
-            <p className="t-small mt-3 text-faint">{PLATFORMS_FOOTNOTE}</p>
-          </div>
         </div>
       </section>
 

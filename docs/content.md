@@ -5,7 +5,7 @@
 > Owner: Writer 2. Source: the client's content deck (`docs/source/content-brief.pptx`, text in `content-brief.txt`, slide images in `docs/source/media/`). Every line below comes from the deck; nothing is invented.
 > **Structure:** pages and sections follow the deck's WEBSITE PLACEMENT lines. `docs/design.md` §1 is being rewritten; when it is locked, re-map section ids and routes to it. Routes below are provisional.
 > **Conventions:** "quoted" = deck line used verbatim. Unquoted = tightened heading/button or a minimal rewording forced by a CAUTION (marked *(adapted)*). Every stat carries its source. **[TBD]** = missing from the deck; do not fill in.
-> **Defaults applied (from god, until the client answers):** brand spelled "DaveroAI"; third-party quotes only attributed; third-party stats only with source; no partner, client or platform logos; Rillet, Tabs, Maxio, Campfire named only as platforms we work around, never as partners; no competitor names; no pricing, margins or market-size charts on Home (Insights only); 4-step model on Home, 5-step engagement on Our Approach; one role vocabulary (Forward Deployed Consultant, Solutions Engineer, Forward Deployed Agent Engineer); DaveroAI owns and runs the agents; no personal email; every CTA is "Start a conversation" → `/contact`.
+> **Defaults applied (from god, until the client answers):** brand spelled "DaveroAI"; third-party quotes only attributed; third-party stats only with source; no partner, client or platform logos; no list of platforms we work around (removed 2026-11-08); Rillet named only in attributed quotes and Tabs/Rillet only in the founder's advisory roles, never as partners; no competitor names; no pricing, margins or market-size charts on Home (Insights only); 4-step model on Home, 5-step engagement on Our Approach; one role vocabulary (Forward Deployed Consultant, Solutions Engineer, Forward Deployed Agent Engineer); DaveroAI owns and runs the agents; no personal email; every CTA is "Start a conversation" → `/contact`.
 > SEO title ≤ 60 characters, meta description ≤ 155.
 
 ---
@@ -77,6 +77,15 @@
   3. **"Stretched finance teams"** · 61% "of finance leaders report accounting talent shortages" (Controllers Council, 2026) · Our pod does the build work, so lean teams gain capacity, not more load.
   4. **"AI bought, not used"** · 12% "of finance teams run AI in core processes" (insightsoftware, 2026) · Our pod develops skills and deploys working agents in days.
   5. **"Product gaps (client-specific gaps)"** · #1 · ""Missing features" still tops G2 complaints" (G2 **[TBD: report and date]**) · Real client gaps become product candidates, and our pod is the bridge between them.
+
+### Section 3a · Enterprise ecosystem `#ecosystem` *(client image)*
+- Diagram *(client image `docs/source/enterprise-ecosystem.png`; animated, `components/site/ecosystem.tsx`)*: eyebrow "Enterprise agents for the last mile", headline "DaVero AI Enterprise Ecosystem". CORE ERP at the centre; five DaVero AI Agents link it to five domains:
+  - Accounts Receivable (Contract Management, Alternate AR Application, Customer Payments, Collections Workflow, Customer Portal) via "AR Operations & Reconciliation"
+  - Accounts Payable (Automated AP, Vendor Bill Capture, Employee Expenses, Corporate Cards, Payroll Journal Entry) via "AP Processing & Validation"
+  - Procurement (Supplier Onboarding, Purchase Requisitions, Purchase Orders, Approvals & Controls) via "Sourcing, PO & Vendor Readiness"
+  - Inventory (Item Master, Warehouse Inventory, Order Fulfilment, Stock Movements & Valuation) via "Inventory Sync & Optimization"
+  - Tax (Tax Engine, Tax Rates, Sales Tax / VAT, Tax Computation, Filing & Compliance) via "Tax Computation & Compliance"
+  - Bar: "DaVero AI Solution" · "AI agents that automate and orchestrate the last-mile work across AR, AP, Procurement, Inventory, and Tax, seamlessly connecting your enterprise ecosystem to ERP."
 
 ### Section 4 · Services `#services` *(deck slide 11)*
 - Headline: What we do
@@ -314,11 +323,11 @@
 - `#it-services` **IT Services** · "Access reviews, license true-ups, system-to-ledger data feeds"
 - `#insurance` **Insurance** · "Claims exceptions, bordereaux reconciliation, premium and commission accruals"
 
-### Platforms we work around `#ecosystem` *(slide 23; text only, no logos, not partners)*
-- Headline: Platforms we work around
-- Body: We build agents around AI-native platforms, including Rillet, Tabs, Maxio and Campfire.
-- Footnote (required): DaveroAI has no commercial partnership with these platforms. Names are used to describe the platforms we work around.
-- Client journey: as Home Section 6 (Referral · Embed and prove · Expand · Replicate).
+### Enterprise ecosystem `#ecosystem` *(directly under the hero; replaces the removed "Platforms we work around" block)*
+- As Home Section 3a.
+
+### Client journey `#journey`
+- As Home Section 6 (Referral · Embed and prove · Expand · Replicate).
 
 ### CTA `#cta`
 - Primary CTA: Start a conversation → `/contact`
@@ -444,7 +453,7 @@
 
 ## Open questions for the client (from the deck's CAUTION notes)
 1. Methodology: 4-step model (Home) and 5-step engagement (Our Approach) used; brief's 7 steps dropped. Confirm.
-2. Scope: Rillet only, or multi-platform (Rillet, Tabs, Maxio, Campfire)? Copy is platform-neutral.
+2. Scope: one platform or several? Copy is platform-neutral; the site no longer lists platforms.
 3. "Runs the agent" conflict: client Operator vs "We own, run and improve the agent."
 4. Sources missing: 70%+ ERP stat (no source), G2 "missing features" (report/date), "Goldberg" quote (full name/source), core-strategy pull-quote (speaker).
 5. "Referred by it" / "Platform referral": implies a referral relationship that is not signed.
