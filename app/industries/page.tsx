@@ -7,8 +7,8 @@ import { CLOSE_LINE, WEDGE, domains } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Industries and Platforms | DaVero AI",
-  description: "Last-mile workflows in finance, procurement and supply chain, IT services and insurance, run by agents on AI-native platforms.",
+  title: "Industries | DaVero AI",
+  description: "Last-mile workflows in finance, procurement and supply chain, IT services and insurance, run by DaVero AI agents connected to your ERP.",
 };
 
 export default function IndustriesPage() {

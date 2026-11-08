@@ -2,6 +2,10 @@
 // (brand guidelines p.8: diagonal stripes, tight colour control). No AI-brain motifs, circuitry, glows,
 // photos of people or deck images. All decorative art is aria-hidden; the home hero art has a caption.
 import { cn } from "@/lib/utils";
+import { Boxes, Calculator, FileText, Landmark, Percent, Receipt, Server, ShieldCheck, ShoppingCart, Truck, Wallet, Workflow } from "lucide-react";
+
+// Industries hero: the four domains first (finance lead), then the workflows agents run.
+const TILE_ICONS = [Landmark, Truck, Server, ShieldCheck, Receipt, Wallet, ShoppingCart, Boxes, Percent, FileText, Workflow, Calculator];
 
 const label = { fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em" } as const;
 
@@ -182,12 +186,17 @@ const ART: Record<ArtKind, React.ReactNode> = {
   // Industries: a grid of domains; finance lit first, the rest outlined.
   tiles: (
     <>
-      {Array.from({ length: 12 }).map((_, i) => {
+      {TILE_ICONS.map((Icon, i) => {
         const x = 20 + (i % 4) * 94;
         const y = 24 + Math.floor(i / 4) * 94;
-        return <rect key={i} x={x} y={y} width="80" height="80" rx="12" fill={i === 0 ? S.brand : i < 4 ? S.s2 : S.surface} stroke={i === 0 ? "none" : S.line} />;
+        const lead = i === 0;
+        return (
+          <g key={i}>
+            <rect x={x} y={y} width="80" height="80" rx="12" fill={lead ? S.brand : i < 4 ? S.s2 : S.surface} stroke={lead ? "none" : S.line} />
+            <Icon x={x + 26} y={y + 26} width={28} height={28} strokeWidth={1.75} color={lead ? "var(--midnight)" : "var(--white)"} opacity={lead ? 1 : 0.85} />
+          </g>
+        );
       })}
-      <polygon points="20,24 100,24 30,104 20,104" fill={S.white} opacity="0.9" />
     </>
   ),
   // Insights: market bars, one highlighted.
