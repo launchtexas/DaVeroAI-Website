@@ -1,0 +1,628 @@
+[
+ {
+  "coverage_id": "app%23pages::react%23escaping::app::CLIENT-SIDE.md%23XSS%20and%20open%20redirect",
+  "canonical_refs": {
+   "surface": "app#pages",
+   "boundary": "react#escaping",
+   "subsystem": "app",
+   "attack_class": "CLIENT-SIDE.md#XSS and open redirect"
+  },
+  "surface": "All pages and client components",
+  "boundary": "React output escaping",
+  "subsystem": "Site pages",
+  "attack_class": "Client-side XSS / open redirect",
+  "starting_paths": [
+   "app",
+   "components",
+   "lib/content.ts"
+  ],
+  "ordinary_attack_class_block": "CLIENT-SIDE.md#XSS and open redirect",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_covered_changed_source",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "app",
+   "components",
+   "lib/content.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "app",
+     "components",
+     "lib/content.ts"
+    ],
+    "invariant": "No user-controlled HTML, script or redirect target.",
+    "method": "source",
+    "result": "Ecosystem, legal-doc and the five legal pages: no dangerouslySetInnerHTML or innerHTML; links are static or encodeURIComponent; handlers only set local state; ?domain only selects from a fixed list; external links use rel=noopener noreferrer.",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23GET::lib%2Fcontact-shield.ts%23checkFormToken::lib%2Fcontact-shield.ts::WEB-PROTOCOL-AND-AUTH.md%23Auth%20and%20session",
+  "canonical_refs": {
+   "surface": "app/api/contact/route.ts#GET",
+   "boundary": "lib/contact-shield.ts#checkFormToken",
+   "subsystem": "lib/contact-shield.ts",
+   "attack_class": "WEB-PROTOCOL-AND-AUTH.md#Auth and session"
+  },
+  "surface": "Form token endpoint and check",
+  "boundary": "HMAC time-trap token",
+  "subsystem": "Spam shield",
+  "attack_class": "Token forgery, replay, timing",
+  "starting_paths": [
+   "app/api/contact/route.ts",
+   "lib/contact-shield.ts"
+  ],
+  "ordinary_attack_class_block": "WEB-PROTOCOL-AND-AUTH.md#Auth and session",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "new",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "app/api/contact/route.ts",
+   "lib/contact-shield.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "app/api/contact/route.ts",
+     "lib/contact-shield.ts"
+    ],
+    "invariant": "Only tokens issued by the server, 3 s to 2 h old, pass when FORM_SECRET is set.",
+    "method": "local",
+    "result": "Forged signature, unsigned and too-fast tokens all get a silent 200 with no email; compare is timingSafeEqual. Replay and unsigned fallback rejected (tokens are free from GET).",
+    "artifact": "agents/parent/artifacts/repro-run2.sh"
+   }
+  ],
+  "result_fingerprints": [
+   "contact-token-replay",
+   "contact-token-signature-timing",
+   "contact-token-unsigned-without-secret"
+  ],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23POST::app%2Fapi%2Fcontact%2Froute.ts%23same-origin::app%2Fapi%2Fcontact::WEB-PROTOCOL-AND-AUTH.md%23CSRF",
+  "canonical_refs": {
+   "surface": "app/api/contact/route.ts#POST",
+   "boundary": "app/api/contact/route.ts#same-origin",
+   "subsystem": "app/api/contact",
+   "attack_class": "WEB-PROTOCOL-AND-AUTH.md#CSRF"
+  },
+  "surface": "Contact API POST",
+  "boundary": "Same-origin JSON gate and body cap",
+  "subsystem": "Contact form API",
+  "attack_class": "Cross-site submit, unbounded body (run-1 fixes)",
+  "starting_paths": [
+   "app/api/contact/route.ts"
+  ],
+  "ordinary_attack_class_block": "WEB-PROTOCOL-AND-AUTH.md#CSRF",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_confirmed_changed_source",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "app/api/contact/route.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "app/api/contact/route.ts"
+    ],
+    "invariant": "Run-1 fixes still hold after the spam shield changes.",
+    "method": "local",
+    "result": "text/plain 415, Sec-Fetch-Site cross-site 403, 2 MB chunked body 413. Run-1 confirmed records no longer reproduce.",
+    "artifact": "agents/parent/artifacts/repro-run2.sh"
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23POST::lib%2Fcontact-shield.ts%23rateLimitKey::app%2Fapi%2Fcontact::RESOURCE-EXHAUSTION-AND-AVAILABILITY.md%23Rate%20limits",
+  "canonical_refs": {
+   "surface": "app/api/contact/route.ts#POST",
+   "boundary": "lib/contact-shield.ts#rateLimitKey",
+   "subsystem": "app/api/contact",
+   "attack_class": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Rate limits"
+  },
+  "surface": "Contact API POST",
+  "boundary": "Per-IP rate limit key",
+  "subsystem": "Contact form API",
+  "attack_class": "Rate-limit bypass",
+  "starting_paths": [
+   "app/api/contact/route.ts",
+   "lib/contact-shield.ts"
+  ],
+  "ordinary_attack_class_block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Rate limits",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_needs_validation",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "app/api/contact/route.ts",
+   "lib/contact-shield.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "app/api/contact/route.ts",
+     "lib/contact-shield.ts"
+    ],
+    "invariant": "One sender gets at most 5 sends per 10 minutes and 20 per day.",
+    "method": "local",
+    "result": "Before c44422d six sends from one IPv6 /64 all went out; after, the 6th gets 429. Per-instance limit carried as needs_validation.",
+    "artifact": "agents/parent/artifacts/repro-run2.sh"
+   }
+  ],
+  "result_fingerprints": [
+   "contact-rate-limit-per-instance",
+   "contact-ratelimit-ipv6-rotation"
+  ],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "app%2Fapi%2Fcontact%2Froute.ts%23responses::http%23status::app%2Fapi%2Fcontact::WEB-PROTOCOL-AND-AUTH.md%23Error%20handling",
+  "canonical_refs": {
+   "surface": "app/api/contact/route.ts#responses",
+   "boundary": "http#status",
+   "subsystem": "app/api/contact",
+   "attack_class": "WEB-PROTOCOL-AND-AUTH.md#Error handling"
+  },
+  "surface": "Contact API responses and logs",
+  "boundary": "Error output",
+  "subsystem": "Contact form API",
+  "attack_class": "Information leakage",
+  "starting_paths": [
+   "app/api/contact/route.ts",
+   "lib/contact-shield.ts"
+  ],
+  "ordinary_attack_class_block": "WEB-PROTOCOL-AND-AUTH.md#Error handling",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_covered_changed_source",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "app/api/contact/route.ts",
+   "lib/contact-shield.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "app/api/contact/route.ts",
+     "lib/contact-shield.ts"
+    ],
+    "invariant": "Responses carry generic codes only; logs never hold secrets.",
+    "method": "local",
+    "result": "Responses: ok, invalid (field messages), rate_limited, challenge_failed, unavailable (503 without RESEND_API_KEY, rechecked), send_failed. Logs print status codes or error names only.",
+    "artifact": "agents/parent/artifacts/repro-run2.sh"
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "components%2Fsite%2Fcontact-form.tsx%23form::html%23form-method::components%2Fsite::CLIENT-SIDE.md%23Data%20exposure",
+  "canonical_refs": {
+   "surface": "components/site/contact-form.tsx#form",
+   "boundary": "html#form-method",
+   "subsystem": "components/site",
+   "attack_class": "CLIENT-SIDE.md#Data exposure"
+  },
+  "surface": "Contact form",
+  "boundary": "Form method",
+  "subsystem": "Site pages",
+  "attack_class": "Personal data in URLs (run-1 fix)",
+  "starting_paths": [
+   "components/site/contact-form.tsx",
+   "lib/contact.ts"
+  ],
+  "ordinary_attack_class_block": "CLIENT-SIDE.md#Data exposure",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_confirmed_changed_source",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "components/site/contact-form.tsx",
+   "lib/contact.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "components/site/contact-form.tsx",
+     "lib/contact.ts"
+    ],
+    "invariant": "The form posts; details never go in the URL.",
+    "method": "local",
+    "result": "form method=post still present; browser test: empty submit shows 5 field errors, valid submit reaches 'sent' with one mocked email.",
+    "artifact": "agents/parent/artifacts/repro-run2.sh"
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "git%23history::repo%23secrets::repo::SUPPLY-CHAIN-AND-RELEASE.md%23Secrets",
+  "canonical_refs": {
+   "surface": "git#history",
+   "boundary": "repo#secrets",
+   "subsystem": "repo",
+   "attack_class": "SUPPLY-CHAIN-AND-RELEASE.md#Secrets"
+  },
+  "surface": "Git history",
+  "boundary": "Secrets in source control",
+  "subsystem": "Repository",
+  "attack_class": "Secret exposure",
+  "starting_paths": [
+   ".gitignore",
+   ".env.example"
+  ],
+  "ordinary_attack_class_block": "SUPPLY-CHAIN-AND-RELEASE.md#Secrets",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_covered_changed_source",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   ".gitignore",
+   ".env.example"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     ".gitignore",
+     ".env.example"
+    ],
+    "invariant": "No real secret in any commit.",
+    "method": "source",
+    "result": "git log -p over all refs for Resend, Turnstile, Upstash, FORM_SECRET, private-key and token patterns: none (only Cloudflare public test keys in docs). Only .env.example is tracked; .env* and .vercel ignored.",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "lib%2Fcontact-shield.ts%23claimSubmission::lib%2Fcontact-shield.ts%23contentHash::lib%2Fcontact-shield.ts::DATA-ISOLATION-AND-LIFECYCLE.md%23Retention",
+  "canonical_refs": {
+   "surface": "lib/contact-shield.ts#claimSubmission",
+   "boundary": "lib/contact-shield.ts#contentHash",
+   "subsystem": "lib/contact-shield.ts",
+   "attack_class": "DATA-ISOLATION-AND-LIFECYCLE.md#Retention"
+  },
+  "surface": "Duplicate check",
+  "boundary": "Content hash store",
+  "subsystem": "Spam shield",
+  "attack_class": "Data exposure, blocking real senders",
+  "starting_paths": [
+   "lib/contact-shield.ts",
+   "app/privacy/page.tsx"
+  ],
+  "ordinary_attack_class_block": "DATA-ISOLATION-AND-LIFECYCLE.md#Retention",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "new",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "lib/contact-shield.ts",
+   "app/privacy/page.tsx"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "lib/contact-shield.ts",
+     "app/privacy/page.tsx"
+    ],
+    "invariant": "A third party cannot block or read another person's enquiry through the duplicate store.",
+    "method": "source",
+    "result": "SHA-256 of email+message, 10-minute TTL, released when the send fails; blocking needs the exact message. Matches the privacy page ('one-way fingerprint').",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "lib%2Fcontact-shield.ts%23pipeline::upstash%23rest::lib%2Fcontact-shield.ts::CLOUD-AND-DEPLOYMENT.md%23Managed%20services",
+  "canonical_refs": {
+   "surface": "lib/contact-shield.ts#pipeline",
+   "boundary": "upstash#rest",
+   "subsystem": "lib/contact-shield.ts",
+   "attack_class": "CLOUD-AND-DEPLOYMENT.md#Managed services"
+  },
+  "surface": "Upstash REST calls",
+  "boundary": "Upstash Redis REST API",
+  "subsystem": "Spam shield",
+  "attack_class": "Injection, fail-open, secret leakage",
+  "starting_paths": [
+   "lib/contact-shield.ts"
+  ],
+  "ordinary_attack_class_block": "CLOUD-AND-DEPLOYMENT.md#Managed services",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "new",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "lib/contact-shield.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "lib/contact-shield.ts"
+    ],
+    "invariant": "Upstash commands cannot be altered by request data and errors leak nothing.",
+    "method": "source",
+    "result": "Commands sent as a JSON array (no key or command injection); 2 s timeout; errors log only status or 'command error'; fail-open to the in-memory limit is documented and carried in contact-rate-limit-per-instance.",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [
+   "contact-rate-limit-per-instance"
+  ],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "lib%2Fcontact-shield.ts%23verifyTurnstile::challenges.cloudflare.com%23siteverify::lib%2Fcontact-shield.ts::WEB-PROTOCOL-AND-AUTH.md%23Auth%20and%20session",
+  "canonical_refs": {
+   "surface": "lib/contact-shield.ts#verifyTurnstile",
+   "boundary": "challenges.cloudflare.com#siteverify",
+   "subsystem": "lib/contact-shield.ts",
+   "attack_class": "WEB-PROTOCOL-AND-AUTH.md#Auth and session"
+  },
+  "surface": "Turnstile verification",
+  "boundary": "Cloudflare siteverify",
+  "subsystem": "Spam shield",
+  "attack_class": "Challenge bypass",
+  "starting_paths": [
+   "lib/contact-shield.ts",
+   "components/site/turnstile.tsx",
+   "components/site/contact-form.tsx"
+  ],
+  "ordinary_attack_class_block": "WEB-PROTOCOL-AND-AUTH.md#Auth and session",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "new",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "lib/contact-shield.ts",
+   "components/site/turnstile.tsx",
+   "components/site/contact-form.tsx"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "lib/contact-shield.ts",
+     "components/site/turnstile.tsx",
+     "components/site/contact-form.tsx"
+    ],
+    "invariant": "With both keys set, no email is sent without a token Cloudflare accepts.",
+    "method": "source",
+    "result": "Fails closed on errors and non-JSON; token length capped; secret server-only; verified after the rate limit so bots cannot burn verify calls. Hostname check absent (rejected, defense in depth).",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [
+   "turnstile-hostname-not-checked"
+  ],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "next.config.ts%23headers::browser%23csp::next.config.ts::CLIENT-SIDE.md%23Security%20headers",
+  "canonical_refs": {
+   "surface": "next.config.ts#headers",
+   "boundary": "browser#csp",
+   "subsystem": "next.config.ts",
+   "attack_class": "CLIENT-SIDE.md#Security headers"
+  },
+  "surface": "Response headers",
+  "boundary": "CSP and browser hardening",
+  "subsystem": "Site config",
+  "attack_class": "Headers and CSP",
+  "starting_paths": [
+   "next.config.ts"
+  ],
+  "ordinary_attack_class_block": "CLIENT-SIDE.md#Security headers",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_covered_changed_source",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "next.config.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "next.config.ts"
+    ],
+    "invariant": "All routes send the run-1 headers; challenges.cloudflare.com is allowed only for scripts and frames.",
+    "method": "local",
+    "result": "CSP, HSTS, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP present; no X-Powered-By; no CSP console errors on 14 pages in Chrome.",
+    "artifact": "agents/parent/artifacts/repro-run2.sh"
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "package-lock.json%23deps::npm%23advisories::repo::SUPPLY-CHAIN-AND-RELEASE.md%23Dependencies",
+  "canonical_refs": {
+   "surface": "package-lock.json#deps",
+   "boundary": "npm#advisories",
+   "subsystem": "repo",
+   "attack_class": "SUPPLY-CHAIN-AND-RELEASE.md#Dependencies"
+  },
+  "surface": "Dependencies",
+  "boundary": "Known advisories",
+  "subsystem": "Repository",
+  "attack_class": "Vulnerable dependencies",
+  "starting_paths": [
+   "package.json",
+   "package-lock.json"
+  ],
+  "ordinary_attack_class_block": "SUPPLY-CHAIN-AND-RELEASE.md#Dependencies",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_covered_changed_source",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "package.json",
+   "package-lock.json"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "package.json",
+     "package-lock.json"
+    ],
+    "invariant": "No runtime dependency has a known advisory.",
+    "method": "local",
+    "result": "npm audit: 3 low (deepmerge via shadcn CLI, dev only), 0 with --omit=dev. GitHub Dependabot: 1 open low (deepmerge, development), minimatch alert fixed. No new dependencies in this range.",
+    "artifact": "agents/parent/artifacts/npm-audit-run2.txt"
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "public%2F.well-known%2Fsecurity.txt::rfc9116::public::SUPPLY-CHAIN-AND-RELEASE.md%23Disclosure",
+  "canonical_refs": {
+   "surface": "public/.well-known/security.txt",
+   "boundary": "rfc9116",
+   "subsystem": "public",
+   "attack_class": "SUPPLY-CHAIN-AND-RELEASE.md#Disclosure"
+  },
+  "surface": "security.txt",
+  "boundary": "Vulnerability disclosure contact",
+  "subsystem": "Public files",
+  "attack_class": "Disclosure hygiene",
+  "starting_paths": [
+   "public/.well-known/security.txt",
+   "app/security/page.tsx"
+  ],
+  "ordinary_attack_class_block": "SUPPLY-CHAIN-AND-RELEASE.md#Disclosure",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "new",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   "public/.well-known/security.txt",
+   "app/security/page.tsx"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     "public/.well-known/security.txt",
+     "app/security/page.tsx"
+    ],
+    "invariant": "security.txt is valid and served as text/plain.",
+    "method": "local",
+    "result": "Contact, Expires 2027-11-08, Policy, Canonical, Preferred-Languages; served 200 text/plain. Renew before expiry.",
+    "artifact": "agents/parent/artifacts/repro-run2.sh"
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "vercel%23project::vercel%23settings::deployment::CLOUD-AND-DEPLOYMENT.md%23Platform%20config",
+  "canonical_refs": {
+   "surface": "vercel#project",
+   "boundary": "vercel#settings",
+   "subsystem": "deployment",
+   "attack_class": "CLOUD-AND-DEPLOYMENT.md#Platform config"
+  },
+  "surface": "Vercel deployment",
+  "boundary": "Project settings",
+  "subsystem": "Deployment",
+  "attack_class": "Deployment misconfiguration",
+  "starting_paths": [
+   ".gitignore",
+   "next.config.ts"
+  ],
+  "ordinary_attack_class_block": "CLOUD-AND-DEPLOYMENT.md#Platform config",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [],
+  "prior_status": "prior_out_of_scope",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "parent",
+  "reviewed_paths": [
+   ".gitignore",
+   "next.config.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "parent",
+    "reviewed_paths": [
+     ".gitignore",
+     "next.config.ts"
+    ],
+    "invariant": "Deployment config in the repository is safe.",
+    "method": "source",
+    "result": "No vercel.json or vercel.ts; config is next.config.ts only. Dashboard settings (env vars, Firewall, protection) are not in the repo and were not queried; see contact-rate-limit-per-instance.",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [
+   "contact-rate-limit-per-instance"
+  ],
+  "unresolved": []
+ }
+]

@@ -1,5 +1,7 @@
 # DaVero AI website: security audit (run-1)
 
+> A second run (2026-11-08, baseline `d60262d`) is in [`run-2/REPORT.md`](run-2/REPORT.md).
+
 **Date:** 2026-11-08 · **Baseline:** `26427a8` (main, clean) · **Fixes:** `9c909d3`..`bcac652` · **Profile:** quick (whole repo, one hunting pass, one independent verifier/critic pass) · **Method:** source review plus local checks against `next start` with a dummy key and a mocked Resend `fetch`. No real email was sent and no live endpoint was probed.
 
 ## Result

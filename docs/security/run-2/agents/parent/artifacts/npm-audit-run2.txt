@@ -1,0 +1,27 @@
+# npm audit at d60262d and after c44422d (no dependency changes in this run)
+# npm audit report
+
+deepmerge  
+deepmerge mergeObject() allows prototype poisoning of returned objects - https://github.com/advisories/GHSA-gcqx-w48m-w2h4
+No fix available
+node_modules/deepmerge
+  @shadcn/registry  
+  Depends on vulnerable versions of deepmerge
+  node_modules/@shadcn/registry
+  shadcn  
+  Depends on vulnerable versions of @shadcn/registry
+  Depends on vulnerable versions of deepmerge
+  node_modules/shadcn
+
+3 low severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+Some issues need review, and may require choosing
+a different dependency.
+# npm audit --omit=dev
+found 0 vulnerabilities
+# GitHub Dependabot alerts (gh api, 2026-11-08)
+2 fixed medium minimatch GHSA-g3hv-75wg-m249 runtime
+1 open low deepmerge GHSA-gcqx-w48m-w2h4 development

@@ -1,0 +1,38 @@
+{
+  "run_id": "run-2",
+  "repo": "launchtexas/DaVeroAI-Website",
+  "target": "/Users/vishvapatel/Desktop/DaVeroAI",
+  "source_ref": "d60262d (clean worktree); fix c44422d on main",
+  "profile": "quick",
+  "scope_paths": [
+    "app",
+    "components",
+    "lib",
+    "public",
+    "next.config.ts",
+    "package.json",
+    "package-lock.json",
+    ".gitignore",
+    ".env.example",
+    "git history"
+  ],
+  "focus": "Changes since run-1 (7836299..d60262d): contact spam shield, CSP for Turnstile, security.txt, legal pages, brand changes, ecosystem component; then whole-app recheck.",
+  "budget": null,
+  "execution_policy": "sandboxed-source-and-local-only",
+  "companion_files": [
+    "CLIENT-SIDE.md",
+    "CLOUD-AND-DEPLOYMENT.md",
+    "WEB-PROTOCOL-AND-AUTH.md",
+    "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md",
+    "SUPPLY-CHAIN-AND-RELEASE.md",
+    "DATA-ISOLATION-AND-LIFECYCLE.md"
+  ],
+  "prior_runs": [
+    "docs/security/ (run-1)"
+  ],
+  "shared_file_owners": {
+    "*": "parent (worker-davero-security2)"
+  },
+  "output_directory_note": "Written inside the target at docs/security/run-2/ because the requester (god, for the human) selected it; committed on purpose, no secrets.",
+  "run_status": "complete"
+}

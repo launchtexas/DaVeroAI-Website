@@ -1,0 +1,247 @@
+[
+ {
+  "verdict": "needs_validation",
+  "fingerprint": "contact-rate-limit-per-instance",
+  "title": "Total email volume still depends on production settings (Upstash, Turnstile, Vercel Firewall)",
+  "description": "Carried from run-1. The in-memory limit is per server instance. Since run-1 the code can use Upstash for shared limits and Turnstile for a per-submission challenge, but both are off unless their keys are set, and Upstash fails open to the in-memory limit if it errors. Whether production has them, and the Vercel Firewall rule, is not in the repository.",
+  "claimed_root_cause": "Shared limits and bot checks are opt-in through environment variables and platform settings.",
+  "trace": [
+   {
+    "kind": "entrypoint",
+    "file": "app/api/contact/route.ts",
+    "line": 97,
+    "scope": "limit check",
+    "description": "In-memory then Upstash limit."
+   },
+   {
+    "kind": "sink",
+    "file": "lib/contact-shield.ts",
+    "line": 116,
+    "scope": "durableRateLimited",
+    "description": "Returns false (allow) when Upstash is unset or fails."
+   }
+  ],
+  "evidence": [
+   {
+    "file": "app/api/contact/route.ts",
+    "line": 28,
+    "description": "Per-instance Map."
+   },
+   {
+    "file": "lib/contact-shield.ts",
+    "line": 99,
+    "description": "pipeline() returns null on any Upstash error (fail open, logged)."
+   }
+  ],
+  "blockers": [
+   "Production environment variables (UPSTASH_*, TURNSTILE_*, FORM_SECRET) and Vercel Firewall rules are not visible in the repository."
+  ],
+  "validation_plan": {
+   "local": "Not meaningful on one local process.",
+   "deployment": "Owner: in Vercel check that UPSTASH_REDIS_REST_URL/TOKEN and both Turnstile keys are set, add the rule in docs/security/vercel-firewall.md, then confirm the logs show no 'contact: Upstash request failed' lines after a test enquiry."
+  }
+ },
+ {
+  "verdict": "confirmed",
+  "fingerprint": "contact-ratelimit-ipv6-rotation",
+  "title": "IPv6 senders could rotate addresses to skip the contact form rate limits",
+  "description": "Both per-IP limits (in-memory 5 per 10 minutes, and the Upstash 5 per 10 minutes / 20 per day when configured) were keyed on the full client address. One IPv6 user normally holds a whole /64 (2^64 addresses), so a sender could use a new address per request and never reach either limit. Without Turnstile, nothing else caps the number of emails sent to the enquiries inbox through Resend.",
+  "root_cause": "The rate-limit key was the raw x-forwarded-for address, with no IPv6 prefix aggregation.",
+  "intended_behavior": "One sender (one network allocation) gets at most 5 sends per 10 minutes and 20 per day.",
+  "trace": [
+   {
+    "kind": "entrypoint",
+    "file": "app/api/contact/route.ts",
+    "line": 95,
+    "scope": "POST handler",
+    "description": "Client IP from the first x-forwarded-for entry."
+   },
+   {
+    "kind": "propagation",
+    "file": "app/api/contact/route.ts",
+    "line": 97,
+    "scope": "limit check",
+    "description": "rateLimited(ip) and durableRateLimited(ip) used the full address (before fix)."
+   },
+   {
+    "kind": "sink",
+    "file": "lib/contact-shield.ts",
+    "line": 110,
+    "scope": "durableRateLimited",
+    "description": "Upstash key contact:rl:<window>:<bucket>:<ip> per full address."
+   }
+  ],
+  "evidence": [
+   {
+    "file": "app/api/contact/route.ts",
+    "line": 97,
+    "description": "Before c44422d the limits were keyed on the full address."
+   },
+   {
+    "file": "lib/contact-shield.ts",
+    "line": 61,
+    "description": "rateLimitKey() added in c44422d: IPv6 keyed by /64, IPv4 per address."
+   }
+  ],
+  "conditions": [
+   {
+    "kind": "system_configuration",
+    "description": "Turnstile is off (the default unless both Turnstile keys are set) and the sender has IPv6 connectivity with a /64."
+   }
+  ],
+  "execution": {
+   "attacker_perspective": "Unauthenticated internet sender with an IPv6 /64 (home line or VPS).",
+   "payloads": [
+    "Six POST /api/contact requests with a valid form token, each from a different address in 2001:db8:1:2::/64."
+   ],
+   "instructions": [
+    "Build, then run next start with RESEND_API_KEY=re_dummy, FORM_SECRET=test-secret and the mock-resend.mjs fetch mock (no real email).",
+    "Run repro-run2.sh; it sets x-forwarded-for per request to simulate the address Vercel would record.",
+    "Compare the IPv4 line (6th request 429) with the IPv6 line."
+   ],
+   "observed_result": "Before the fix: IPv6 200 x6 and 6 mocked emails, while IPv4 got 429 on the 6th. After c44422d: IPv6 200 x5 then 429; a different /64 is still allowed."
+  },
+  "remediation": {
+   "strategy": "Key both limits on rateLimitKey(ip): the /64 prefix for IPv6, the address for IPv4 and IPv4-mapped IPv6. Commit c44422d. Turnstile in production is the stronger control (owner action)."
+  },
+  "severity": {
+   "likelihood": {
+    "score": "medium",
+    "reason": "IPv6 /64s are common and the bypass needs no skill beyond address rotation."
+   },
+   "impact": {
+    "score": "low",
+    "reason": "Spam to one inbox and Resend quota use; no data exposure or code execution."
+   },
+   "overall_severity": "low"
+  },
+  "confidence": {
+   "score": "high",
+   "reason": "Reproduced locally before and after the fix; independently confirmed from source by a second agent."
+  }
+ },
+ {
+  "verdict": "rejected",
+  "fingerprint": "contact-token-replay",
+  "title": "Form token can be reused for 2 hours",
+  "description": "The time-trap token is a signed timestamp, not single-use or tied to an IP, so one token works for many POSTs.",
+  "claimed_root_cause": "No nonce store for tokens.",
+  "trace": [
+   {
+    "kind": "entrypoint",
+    "file": "app/api/contact/route.ts",
+    "line": 92,
+    "scope": "time trap",
+    "description": "checkFormToken(input.t)."
+   },
+   {
+    "kind": "sink",
+    "file": "lib/contact-shield.ts",
+    "line": 22,
+    "scope": "checkFormToken",
+    "description": "Checks signature and age only."
+   }
+  ],
+  "evidence": [
+   {
+    "file": "lib/contact-shield.ts",
+    "line": 22,
+    "description": "No single-use check."
+   }
+  ],
+  "reason": "GET /api/contact hands a fresh valid token to anyone, so reuse gives an attacker nothing they could not get with one extra request. The time trap is meant to stop naive bots, not to cap volume; the rate limits and Turnstile do that."
+ },
+ {
+  "verdict": "rejected",
+  "fingerprint": "contact-token-signature-timing",
+  "title": "Timing attack on the form token signature compare",
+  "description": "Checked whether the HMAC compare leaks the expected signature through timing.",
+  "claimed_root_cause": "Non-constant-time compare.",
+  "trace": [
+   {
+    "kind": "entrypoint",
+    "file": "lib/contact-shield.ts",
+    "line": 22,
+    "scope": "checkFormToken",
+    "description": "Splits the token."
+   },
+   {
+    "kind": "sink",
+    "file": "lib/contact-shield.ts",
+    "line": 31,
+    "scope": "compare",
+    "description": "Length check then timingSafeEqual."
+   }
+  ],
+  "evidence": [
+   {
+    "file": "lib/contact-shield.ts",
+    "line": 31,
+    "description": "crypto.timingSafeEqual on equal-length buffers; only the fixed 43-character length is checked first."
+   }
+  ],
+  "reason": "The compare is constant-time and the length it checks first is public. Forging a token would also gain nothing, since valid tokens are free from GET."
+ },
+ {
+  "verdict": "rejected",
+  "fingerprint": "contact-token-unsigned-without-secret",
+  "title": "Form tokens are unsigned when FORM_SECRET is not set",
+  "description": "Without FORM_SECRET a token is a bare timestamp a script can compute, and production only logs a warning.",
+  "claimed_root_cause": "Fail-open fallback when the secret is missing.",
+  "trace": [
+   {
+    "kind": "entrypoint",
+    "file": "lib/contact-shield.ts",
+    "line": 26,
+    "scope": "checkFormToken",
+    "description": "key = FORM_SECRET or empty."
+   },
+   {
+    "kind": "sink",
+    "file": "lib/contact-shield.ts",
+    "line": 37,
+    "scope": "age check",
+    "description": "Only timing is checked when unsigned."
+   }
+  ],
+  "evidence": [
+   {
+    "file": "lib/contact-shield.ts",
+    "line": 16,
+    "description": "issueFormToken returns the bare timestamp without a secret."
+   }
+  ],
+  "reason": "A signed token is free from GET /api/contact, so signing only spares a bot one request; no control is defeated. Setting FORM_SECRET is still listed as an owner action."
+ },
+ {
+  "verdict": "rejected",
+  "fingerprint": "turnstile-hostname-not-checked",
+  "title": "Turnstile check ignores the hostname in the siteverify reply",
+  "description": "verifyTurnstile trusts success without comparing the reply's hostname to the site's domains.",
+  "claimed_root_cause": "No hostname allow-list.",
+  "trace": [
+   {
+    "kind": "entrypoint",
+    "file": "app/api/contact/route.ts",
+    "line": 110,
+    "scope": "Turnstile",
+    "description": "verifyTurnstile(input.turnstileToken, ip)."
+   },
+   {
+    "kind": "sink",
+    "file": "lib/contact-shield.ts",
+    "line": 158,
+    "scope": "verifyTurnstile",
+    "description": "Returns out.success only."
+   }
+  ],
+  "evidence": [
+   {
+    "file": "lib/contact-shield.ts",
+    "line": 158,
+    "description": "Only success is checked."
+   }
+  ],
+  "reason": "Cloudflare only issues tokens for this site key on the hostnames the owner allowed, and each token works once, so a token from another hostname needs one of the owner's own allowed domains. Defense in depth only; no boundary crossed."
+ }
+]
