@@ -51,7 +51,7 @@ export default function AgenticAiPage() {
           <div className="mt-16 grid gap-10 lg:grid-cols-2">
             <div data-reveal className="card">
               <p className="t-mono text-faint">Where DaVero AI wins first</p>
-              <p className="t-h3 mt-4 !font-medium">
+              <p className="t-h3 mt-4">
                 Close, reconciliations, billing and collections are rules-heavy, outsourced and already budgeted. That is the wedge Sequoia
                 describes, and it is where we start.
               </p>
@@ -98,7 +98,7 @@ export default function AgenticAiPage() {
         <div className="container-x">
           <SectionHead id="strategy-title" eyebrow="Strategy" title="Our core strategy" />
           <blockquote data-reveal className="mb-16 max-w-[56ch] border-l-2 border-mark pl-6">
-            <p className="t-h3 !font-medium">{strategy.quote}</p>
+            <p className="t-h3">{strategy.quote}</p>
           </blockquote>
           <WhereWhatHow large />
         </div>

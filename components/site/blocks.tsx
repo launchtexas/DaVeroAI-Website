@@ -126,7 +126,7 @@ export function CtaBand({ title, lead }: { title: string; lead?: string }) {
 export function Quote({ text, by, size = "h2" }: { text: string; by?: string; size?: "h2" | "h3" }) {
   return (
     <figure>
-      <blockquote className={cn(size === "h2" ? "t-h2" : "t-h3 !font-medium", "max-w-none")}>
+      <blockquote className={cn(size === "h2" ? "t-h2" : "t-h3", "max-w-none")}>
         <p>&ldquo;{text}&rdquo;</p>
       </blockquote>
       {by && (
@@ -311,7 +311,7 @@ export function Journey({ large }: { large?: boolean }) {
             <ArrowRight aria-hidden="true" className="absolute -top-[9px] right-0 hidden size-4 text-line-strong lg:block" />
           )}
           <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
-          <h3 className={large ? "t-h3 mt-2" : "mt-2 font-medium"}>{s.title}</h3>
+          <h3 className={large ? "t-h3 mt-2" : "mt-2 font-bold"}>{s.title}</h3>
           <p className="t-small mt-2 text-muted-fg">
             {s.body}
           </p>
@@ -329,7 +329,7 @@ export function GoldenRule({ withFootnote }: { withFootnote?: boolean }) {
         {GOLDEN_RULE.map((l, i) => (
           <li key={l} className="flex gap-4">
             <span className="t-mono pt-1 text-mark">{String(i + 1).padStart(2, "0")}</span>
-            <span className="t-h3 !font-medium">{l}</span>
+            <span className="t-h3">{l}</span>
           </li>
         ))}
       </ol>

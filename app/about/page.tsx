@@ -80,7 +80,7 @@ export default function AboutPage() {
             <ul className="mt-10 border-t border-line">
               {experience.map((e) => (
                 <li key={e.org} className="grid gap-1 border-b border-line py-5 sm:grid-cols-12 sm:gap-6">
-                  <h3 className="font-medium sm:col-span-5">
+                  <h3 className="font-bold sm:col-span-5">
                     {e.org}
                     {e.note && <span className="t-small block text-faint">{e.note}</span>}
                   </h3>
@@ -88,7 +88,7 @@ export default function AboutPage() {
                 </li>
               ))}
               <li className="grid gap-1 border-b border-line py-5 sm:grid-cols-12 sm:gap-6">
-                <h3 className="font-medium sm:col-span-5">Advisory boards (advisory)</h3>
+                <h3 className="font-bold sm:col-span-5">Advisory boards (advisory)</h3>
                 <div className="sm:col-span-7">
                   <p className="text-muted-fg">Founding member, Rillet PAB (1 of 22). Tabs Advisory Board (1 of 13).</p>
                   <p className="t-small mt-2 text-faint">Advisory board roles are non-commercial.</p>

@@ -95,9 +95,9 @@ Footer: logo + close line "The last mile is where software, services and context
 | **Sticky left column, scrolling right column** for step stories (left sticks at top on ≥1024px, static on mobile) | Methodology (Home §7), 5-step engagement (Approach), HITL demo (Governance). |
 | **Stacked sticky cards** that pile up as you scroll | Service lines on `/services`. |
 | **Big-number result tiles** with a one-line caption | Stat tiles, but every tile carries a named source line (rule 0.2). |
-| **Micro-labels** for categories, dates, step numbers | Inter SemiBold 12–13px caps, 0.08em tracking (class `.t-mono`, name kept). Eyebrows are orange with a short skewed orange bar, as the kit's section labels. |
+| **Micro-labels** for categories, dates, step numbers | Inter Bold 12–13px caps, 0.08em tracking (class `.t-mono`, name kept). Eyebrows are orange with a short skewed orange bar, as the kit's section labels. |
 | **Alternating dark and light bands** to pace a long page | Every page: Midnight hero → alternating White (`.band-paper`), Cloud (`.band-cloud`) and Midnight sections → full-bleed Deep Midnight stripe band for the CTA (`StripeBand`). Home adds a full-bleed stripe band for the "why now" numbers. Never two adjacent bands of the same colour. |
-| **One accent colour** | DaVero Orange `#FF6500`: CTA fills, eyebrows, key word, agent marks, chart highlight, stripes. Small orange text on light bands uses `--orange-deep`. |
+| **One accent colour** | DaVero Orange `#FF6500`: CTA fills, eyebrows, key word, agent marks, chart highlight, stripes. Orange is never text on White/Cloud: on light bands eyebrows and marks are Midnight; Orange stays a fill (brand compliance C-3). |
 | **Small radius scale** (chip 6 / control 8 / box 10 / card 14) | Same four steps (values in §3.4). |
 | **Insights cards** with category · date · author line | Home §9 and `/insights` card. |
 | **Closing CTA band** that restates the promise, then one action | Home §10 and every page `cta`. |
@@ -118,49 +118,50 @@ Source: `docs/source/brand-kit/04_Design_Tokens` and the guidelines PDF. All tex
   --orange: #ff6500;    --amber: #ff962e;
   --cloud: #f3f6fa;     --mist: #e6eaf0;   --slate: #536378;
   --white: #ffffff;     --ink-kit: #111827;
-  /* Derived, documented exceptions */
-  --orange-deep: #b34700;      /* small orange text on White 5.5:1, Cloud 5.1:1, Mist 4.6:1 */
-  --midnight-2: #0e1e3d;       /* cards on Midnight */
-  --midnight-3: #13284d;       /* raised panels, navy stripe */
-  --midnight-line: #223658;    /* decorative borders */
-  --midnight-line-strong: #6b7c98; /* inputs, axes: 4.3:1 on Midnight, 3.5:1 on --midnight-3 */
+  /* No other hex anywhere (docs/brand-compliance.md C-3). Tints = Mist mixed into Midnight: */
+  --midnight-2: color-mix(in srgb, var(--mist) 5%, var(--midnight));   /* cards on Midnight */
+  --midnight-3: color-mix(in srgb, var(--mist) 9%, var(--midnight));   /* raised panels, navy stripe */
+  --midnight-line: color-mix(in srgb, var(--mist) 15%, var(--midnight)); /* decorative borders */
+  --midnight-line-strong: color-mix(in srgb, var(--mist) 45%, var(--midnight)); /* inputs, axes: ≥3:1 */
+  --midnight-muted: color-mix(in srgb, var(--mist) 85%, var(--midnight)); /* secondary text ≈10:1 */
+  --midnight-faint: color-mix(in srgb, var(--mist) 66%, var(--midnight)); /* tertiary text ≈7:1 */
 
   /* Dark (default, Midnight) */
-  --bg: Midnight; --text: White (17.4:1); --text-muted: #c3ccda (11.1:1, 9.0:1 on --midnight-3);
-  --text-faint: #9aa7bc (7.4:1, 6.0:1 on --midnight-3);
-  --accent: Orange (CTA fill; 6.1:1 as text on Midnight, 4.95:1 on --midnight-3);
-  --on-accent: Midnight (6.1:1 on Orange); --human: Cloud; --error: #ff8a80.
+  --bg: Midnight; --text: White (17.4:1); --text-muted: --midnight-muted; --text-faint: --midnight-faint;
+  --accent: Orange (CTA fill; 6.1:1 as text on Midnight); hover Amber, press Orange;
+  --on-accent: Midnight (6.1:1 on Orange); --human: Cloud; --error: Amber (8:1).
 
   /* Light (.band-paper = White, .band-cloud = Cloud) */
   --text: Midnight (16.6:1 on Cloud); --text-muted/--text-faint: Slate (6.1 White, 5.7 Cloud, 5.1 Mist);
-  --line: #dce2ea (decorative); --line-strong: #7a889b (3.6:1, inputs/axes);
-  --mark: --orange-deep; --mark-human: Midnight; --error: #b42318.
+  --line: Mist (decorative); --line-strong: Slate (6:1, inputs/axes);
+  --mark: Midnight; --mark-human: Midnight; --error: Midnight (always with icon + message).
 }
 ```
 
 Rules:
-- **Orange text never on White/Cloud** (2.95:1, fails even large text): use `--orange-deep` for small orange text on light bands, or Midnight. Orange **fills** are fine everywhere (buttons, bars, stripes) because their text is Midnight (6.1:1).
+- **Orange text never on White/Cloud** (2.95:1, fails even large text): use Midnight (`--mark` on light bands). `--orange-deep` (#B34700) was removed: not a kit colour. Orange **fills** are fine everywhere (buttons, bars, stripes) because their text is Midnight (6.1:1).
 - Buttons: primary = Orange fill + Midnight text on every band. Secondary = outline `--line-strong`.
 - `--brand` is always pure Orange (fills, stripes, eyebrow bar, chart highlight); `--mark` is the accessible text/mark colour for the current band.
 - Agent = Orange, human = Cloud on dark / Midnight on light, record = outlined; **always with an icon and a text label** (never colour alone).
 - `.band-deep` = Deep Midnight (CTA stripe bands). `.band-dark` re-asserts Midnight inside a light band.
-- No gradients except inside the kit's own logo/icon art. No glass, glows, shadows on the logo, or text shadows.
+- No gradients except inside the kit's own logo/icon art. No glass, glows, blurs, drop shadows or text shadows anywhere (guide p.8, p.10).
+- Kit has no red: errors use Amber on dark and Midnight on light, always with an icon and a text message.
 
 ### 3.2 Type
 
-**Inter** (kit typeface) self-hosted with `next/font/local`: `app/fonts/InterVariable-latin.woff2` (variable 100–900, Latin, from `@fontsource-variable/inter` 5.3.0, OFL licence alongside), `display: swap`, fallback Arial. Geist removed. One family for everything, including labels and SVG text.
+**Inter** (kit typeface) self-hosted with `next/font/local`: `app/fonts/InterVariable-latin.woff2` (variable 100–900, Latin, from `@fontsource-variable/inter` 5.3.0, OFL licence alongside), `display: swap`, fallback `Arial, sans-serif` (guide p.6; next/font adds a size-adjusted Arial fallback face). Geist removed. One family for everything, including labels and SVG text. **Weights in use: 400, 500 (body, UI) and 700, 800 (headlines, labels) only**, as the guide prescribes; no 600/650.
 
 | Token | Size | Weight | Line height | Tracking | Use |
 |---|---|---|---|---|---|
-| `display` | `clamp(2.75rem, 1.7rem + 4.6vw, 5rem)` | 800 | 1.02 | -0.04em | Home hero H1 |
-| `h1` | `clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem)` | 800 | 1.06 | -0.035em | page heroes, CTA band |
-| `h2` | `clamp(1.875rem, 1.4rem + 1.9vw, 2.875rem)` | 700 | 1.12 | -0.03em | section titles |
-| `h3` | `clamp(1.1875rem, 1.08rem + .45vw, 1.4375rem)` | 700 | 1.3 | -0.015em | cards, steps (quote-style h3 lines use 500) |
-| `stat` | `clamp(2.5rem, 1.8rem + 3vw, 4.25rem)` | 800 | 1 | -0.04em, tabular | stat tiles |
-| `lead` | `clamp(1.125rem, 1.05rem + .35vw, 1.3125rem)` | 400 | 1.55 | -0.005em | intros, max 60ch |
+| `display` | `clamp(3rem, 2.2rem + 3.4vw, 4.5rem)` (48–72, guide Display) | 800 | 1.02 | -0.04em | Home hero H1 |
+| `h1` | `clamp(2.25rem, 1.9rem + 1.5vw, 3rem)` (36–48, guide H1) | 800 | 1.06 | -0.035em | page heroes, CTA band |
+| `h2` | `clamp(1.5rem, 1.2rem + 1.1vw, 2rem)` (24–32, guide H2) | 700 | 1.12 | -0.03em | section titles |
+| `h3` | `clamp(1.1875rem, 1.08rem + .45vw, 1.4375rem)` | 700 | 1.3 | -0.015em | cards, steps, pull lines and quotes (Bold, as the guide p.6 quote card) |
+| `stat` | `clamp(3rem, 2.2rem + 3vw, 4.25rem)` (Display range) | 800 | 1 | -0.04em, tabular | stat tiles |
+| `lead` | `1.125rem` (Body 16–18) | 400 | 1.55 | -0.005em | intros, max 60ch |
 | `body` | 1rem (1.0625rem ≥1024) | 400 | 1.6 | 0 | body, max 68ch |
 | `small` | 0.9375rem | 400 | 1.55 | 0 | card body, captions |
-| label (`.t-mono`) | 0.75rem → 0.8125rem ≥1024 | 650 | 1.4 | 0.08em caps | eyebrows, indices, sources, chips |
+| label (`.t-mono`) | 0.75rem → 0.8125rem ≥1024 | 700 | 1.4 | 0.08em caps | eyebrows, indices, sources, chips |
 
 ### 3.3 Spacing and layout
 
@@ -173,7 +174,7 @@ Rules:
 ### 3.4 Shape and elevation
 
 - Radii: `--r-chip 6px`, `--r-ctl 8px` (buttons, inputs), `--r-box 10px` (small panels, tiles), `--r-card 14px` (cards, demo stage).
-- Borders do the separation: 1px `--line`. No drop shadows on dark; on paper, cards may use `0 1px 2px rgb(13 18 16 / .06)`.
+- Borders do the separation: 1px `--line`. No drop shadows anywhere (guide p.10).
 - Header: transparent over the Midnight hero with the Primary_Reversed lockup; after 24px scroll it becomes **solid White** (`.band-paper`, no translucency) with the Primary_Color lockup, Midnight nav text and a 1px `--line` rule. Height 76px (64 mobile).
 
 ### 3.5 Logo and icons (brand kit rules)
@@ -186,10 +187,10 @@ Rules:
 
 | Component | Spec |
 |---|---|
-| **Button primary** | Fill `--accent`, text `--on-accent` 15px/500, padding 12×20, min-height 44, radius `--r-ctl`, trailing arrow icon 16px that shifts 2px right on hover. Hover `--accent-hover`; active `--accent-press`. On paper: fill `--ink`, text `--paper`. |
+| **Button primary** | Fill `--accent`, text `--on-accent` 15px/500 (Medium, guide UI weight), padding 12×20, min-height 44, radius `--r-ctl`, trailing arrow icon 16px that shifts 2px right on hover. Hover `--accent-hover`; active `--accent-press`. On paper: fill `--ink`, text `--paper`. |
 | **Button secondary** | Transparent, 1px `--line-strong`, text `--text`. Hover border `--text-muted`. |
 | **Text link** | `--text` with 1px underline `--line-strong` offset 4px; hover underline `--accent`. Inline links in body always underlined. |
-| **Eyebrow** | label token in `--mark` (Orange on dark, `--orange-deep` on light), preceded by a 16×8 skewed `--brand` bar (decorative). |
+| **Eyebrow** | label token in `--mark` (Orange on dark, Midnight on light), preceded by a 16×8 skewed `--brand` bar (decorative). |
 | **Section header** | Eyebrow → H2 → optional lead. Left aligned (centre only for CTA band and stat intro). |
 | **Card** | `--surface`, 1px `--line`, radius `--r-card`, padding 32 (24 mobile). Optional mono index top-left ("01"). Whole card clickable only when it has one link (link on the title, stretched with `::after`). Hover: border `--line-strong`, translateY(-2px). |
 | **Stat tile** | See §6.5. |

@@ -39,7 +39,7 @@ export default function ApproachPage() {
               </>
             }
             steps={engagement.map((s, i) => ({ ...s, highlight: i === 2 }))}
-            footer={<p className="t-h3 mt-10 !font-medium">{ENGAGEMENT_RESULT}</p>}
+            footer={<p className="t-h3 mt-10">{ENGAGEMENT_RESULT}</p>}
           />
         </div>
       </section>
@@ -67,7 +67,7 @@ export default function ApproachPage() {
               title="Built to scale: the skill factory"
               lead="Capacity grows with the skill library, not linear headcount."
             />
-            <p id="loop-cap" className="t-h3 !font-medium">
+            <p id="loop-cap" className="t-h3">
               {LIBRARY_LINE}
             </p>
             <ol className="mt-8 border-t border-line">
@@ -90,7 +90,7 @@ export default function ApproachPage() {
         <div className="container-x">
           <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Consultant" />
           <PodCards />
-          <p className="t-h3 mt-10 !font-medium">{POD_LINE}</p>
+          <p className="t-h3 mt-10">{POD_LINE}</p>
         </div>
       </section>
 

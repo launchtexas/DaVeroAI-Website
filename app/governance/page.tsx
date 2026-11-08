@@ -113,7 +113,7 @@ export default function GovernancePage() {
               <ActorCard key={a.key} a={a} />
             ))}
           </ul>
-          <p className="t-h3 mt-12 !font-medium">{ACTORS_KEY}</p>
+          <p className="t-h3 mt-12">{ACTORS_KEY}</p>
         </div>
       </section>
 

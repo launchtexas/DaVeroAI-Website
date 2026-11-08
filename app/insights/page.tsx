@@ -46,7 +46,7 @@ export default function InsightsPage() {
             <p className="t-mono mt-4 text-faint">
               Sources: Nick Kopp, CEO, Rillet (Nasdaq, Oct 2026); Sequoia, via Matt Baskovc (Oct 2026)
             </p>
-            <p className="t-h3 mt-8 !font-medium">The last mile is the bigger prize.</p>
+            <p className="t-h3 mt-8">The last mile is the bigger prize.</p>
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
             <BarChart

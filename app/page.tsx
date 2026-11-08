@@ -218,7 +218,7 @@ export default function Home() {
           <div className="mt-20">
             <WhereWhatHow />
           </div>
-          <p className="t-h3 mt-16 max-w-[40ch] !font-medium">{LIBRARY_LINE}</p>
+          <p className="t-h3 mt-16 max-w-[40ch]">{LIBRARY_LINE}</p>
         </div>
       </section>
 
