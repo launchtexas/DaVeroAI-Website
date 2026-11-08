@@ -1,0 +1,27 @@
+{
+  "brand": {
+    "midnight": "#081630",
+    "deep_midnight": "#061126",
+    "orange": "#FF6500",
+    "amber": "#FF962E"
+  },
+  "neutral": {
+    "white": "#FFFFFF",
+    "cloud": "#F3F6FA",
+    "mist": "#E6EAF0",
+    "slate": "#536378",
+    "ink": "#111827"
+  },
+  "recommended_usage": {
+    "midnight": "foundational background and text",
+    "orange": "brand accent and primary calls-to-action",
+    "white": "clean primary surfaces",
+    "cloud": "secondary interface surfaces"
+  },
+  "font_family": {
+    "brand": "Inter",
+    "fallback": "Arial, sans-serif"
+  },
+  "logo_clear_space": "Minimum surrounding clearance equals approximately one quarter of the icon height.",
+  "avoid": "effects, extra shadows, AI-brain motifs, unapproved colors, narrow stretching, gradient backgrounds behind small marks"
+}

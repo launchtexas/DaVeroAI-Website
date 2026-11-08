@@ -1,0 +1,15 @@
+/* DaVero AI - official starter design tokens */
+:root {
+  --davero-midnight: #081630;
+  --davero-dark: #061126;
+  --davero-orange: #FF6500;
+  --davero-amber: #FF962E;
+  --davero-cloud: #F3F6FA;
+  --davero-mist: #E6EAF0;
+  --davero-slate: #536378;
+  --davero-white: #FFFFFF;
+  --davero-ink: #111827;
+  --davero-font: 'Inter', Arial, sans-serif;
+  --davero-radius-sm: 8px;
+  --davero-radius-md: 14px;
+}
