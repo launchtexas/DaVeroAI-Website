@@ -1,28 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/inter";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
 
 export const metadata: Metadata = {
-  title: "Davero AI | Enterprise Intelligence, Delivered.",
+  title: { default: "DaveroAI | Own the Last Mile", template: "%s" },
   description:
-    "Davero AI builds and deploys multi-agent AI systems, enterprise automation, and last-mile AI solutions.",
+    "DaveroAI turns your business platforms into finished, end-to-end workflows, run by AI agents, with your team approving every result.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#080b0a",
+  themeColor: "#0a0d0c",
   colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
-          className="sr-only z-50 rounded-sm bg-accent px-4 py-3 font-semibold text-on-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-50 rounded-md bg-accent px-4 py-3 font-medium text-on-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to main content
         </a>

@@ -1,57 +1,104 @@
 import type { Metadata } from "next";
-import { CtaBand } from "@/components/site/cta-band";
-import { SectionHead } from "@/components/site/section-head";
+import { CtaBand, PageHero, PodCards, SectionHead, WhereWhatHow } from "@/components/site/blocks";
+import { Tbd } from "@/components/site/tbd";
+import { CLOSE_LINE, POD_LINE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: { absolute: "About Davero AI | Enterprise Agentic AI Engineering" },
+  title: "About DaveroAI | Founder Hemang Bhatt",
   description:
-    "Davero AI bridges the last mile of enterprise AI, taking intelligent systems from prototype into production across real operations.",
+    "DaveroAI delivers finished outcomes around AI-native platforms. Meet founder Hemang Bhatt and the pod that runs every engagement.",
 };
 
-const principles = [
-  ["Production, not prototypes.", "We build for real systems, processes and decisions, not demos."],
-  [
-    "Designed around your operations.",
-    "AI engineering, enterprise consulting and systems integration, shaped to how you work.",
-  ],
-  ["People stay in control.", "Human oversight and human-in-the-loop are part of the design."],
-  ["Secure by design.", "Access controls, auditability and policy enforcement from day one."],
+const experience = [
+  { org: "Consero Global", note: "BV Investment Partners", line: "EVP, Client Services and Product Modernization. $48M P&L, 310 people." },
+  { org: "Oracle NetSuite", line: "Senior Director, Customer Success. Grew professional services revenue $10M → $36M." },
+  { org: "Gordian", note: "Warburg Pincus", line: "Director, SaaS product. Subscription model across $120M+ ARR." },
+  { org: "JPMorgan Chase · American Express", line: "Technology product and strategic programs; legacy-to-SaaS transformation." },
 ];
 
-// #team is hidden until real names and photos are supplied (docs/design.md §7).
 export default function AboutPage() {
   return (
     <>
+      <PageHero
+        eyebrow="About"
+        title="An AI-agentic company that delivers finished outcomes around AI-native platforms."
+        lead={<p>Everything between &ldquo;the software is live&rdquo; and &ldquo;the final outcome is delivered.&rdquo;</p>}
+      />
+
       <section id="mission" aria-labelledby="mission-title" className="section">
-        <div className="container-narrow" data-reveal>
-          <h1 id="mission-title" className="t-h1">
-            Intelligence is easy. <span className="text-accent">Execution is everything.</span>
-          </h1>
-          <div className="t-lead mt-6 space-y-4">
-            <p>We bridge the last mile of enterprise AI.</p>
-            <p>
-              The hardest part is not the demo. It is integrating intelligence into real systems, processes and
-              decisions. That is the part we do.
+        <div className="container-x">
+          <h2 id="mission-title" className="t-h2" data-reveal>
+            Not software seats. Not billable hours.
+          </h2>
+          <p className="t-lead mt-5">Platforms deliver the capability. DaveroAI delivers the finished outcome.</p>
+        </div>
+      </section>
+
+      <section id="strategy" aria-labelledby="strategy-title" className="section">
+        <div className="container-x">
+          <SectionHead id="strategy-title" eyebrow="Strategy" title="Our core strategy" />
+          <WhereWhatHow />
+        </div>
+      </section>
+
+      <section id="pod" aria-labelledby="pod-title" className="section">
+        <div className="container-x">
+          <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Accountant" />
+          <PodCards compact />
+          <p className="mt-8 text-muted-fg">
+            <span className="t-mono mr-3 text-faint">The unit of delivery</span>
+            {POD_LINE}
+          </p>
+        </div>
+      </section>
+
+      <section id="founder" aria-labelledby="founder-title" className="section">
+        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-4">
+            <div className="flex aspect-square max-w-80 items-center justify-center rounded-[var(--r-card)] border border-line bg-surface-2">
+              <span aria-hidden="true" className="t-display text-faint">
+                HB
+              </span>
+            </div>
+            <p className="mt-3">
+              <Tbd>headshot: placeholder until Hemang supplies one</Tbd>
+            </p>
+          </div>
+          <div className="lg:col-span-7 lg:col-start-6">
+            <p className="eyebrow t-mono mb-5">Leadership</p>
+            <h2 id="founder-title" className="t-h2">
+              Hemang Bhatt
+            </h2>
+            <p className="t-mono mt-3 text-faint">Founder &amp; CEO</p>
+            <p className="t-lead mt-6">
+              20+ years scaling SaaS, FinTech and professional services. Led 300+ people across North America, EMEA, LATAM and APAC.
+            </p>
+            <ul className="mt-10 border-t border-line">
+              {experience.map((e) => (
+                <li key={e.org} className="grid gap-1 border-b border-line py-5 sm:grid-cols-12 sm:gap-6">
+                  <h3 className="font-medium sm:col-span-5">
+                    {e.org}
+                    {e.note && <span className="t-small block text-faint">{e.note}</span>}
+                  </h3>
+                  <p className="text-muted-fg sm:col-span-7">{e.line}</p>
+                </li>
+              ))}
+              <li className="grid gap-1 border-b border-line py-5 sm:grid-cols-12 sm:gap-6">
+                <h3 className="font-medium sm:col-span-5">Advisory boards (advisory)</h3>
+                <div className="sm:col-span-7">
+                  <p className="text-muted-fg">Founding member, Rillet PAB (1 of 22). Tabs Advisory Board (1 of 13).</p>
+                  <p className="t-small mt-2 text-faint">Advisory board roles are non-commercial.</p>
+                </div>
+              </li>
+            </ul>
+            <p className="mt-6">
+              <Tbd>bio wording and headshot approved by Hemang</Tbd>
             </p>
           </div>
         </div>
       </section>
 
-      <section id="principles" aria-labelledby="principles-title" className="section">
-        <div className="container-x">
-          <SectionHead id="principles-title" eyebrow="Principles" title="How we work" />
-          <ul className="mt-12 grid gap-4 sm:gap-6 md:grid-cols-2">
-            {principles.map(([title, body]) => (
-              <li key={title} data-reveal className="card p-6 sm:p-8">
-                <h3 className="t-h3">{title}</h3>
-                <p className="mt-2 text-muted-foreground">{body}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <CtaBand title="Let's Build Together" />
+      <CtaBand title={CLOSE_LINE} />
     </>
   );
 }

@@ -1,124 +1,116 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Plus } from "lucide-react";
-import { CtaBand } from "@/components/site/cta-band";
-import { SectionHead } from "@/components/site/section-head";
-import { Steps } from "@/components/site/steps";
+import { Check } from "lucide-react";
+import { ArrowLink, ChallengeRows, CtaBand, PageHero, SectionHead } from "@/components/site/blocks";
 import { Tbd } from "@/components/site/tbd";
 import { services } from "@/lib/content";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: { absolute: "AI Engineering Services | Davero AI" },
+  title: "Services: Implement, Build, Run Agents | DaveroAI",
   description:
-    "Multi-agent systems, intelligent automation, AI strategy, integration, platform engineering and AI security & governance for the enterprise.",
+    "Platform implementation through first close, agents for reconciliations, accruals and audit prep, and managed agents that improve after go-live.",
 };
 
-const faq: { q: string; a: React.ReactNode }[] = [
-  {
-    q: "What does Davero AI do?",
-    a: "We design, build and deploy multi-agent AI systems and enterprise automation, and take them from prototype to production.",
-  },
-  { q: "How does an engagement work?", a: "Four steps: Discover, Architect, Deploy, Optimize." },
-  {
-    q: "Can you work with our existing systems?",
-    a: "Yes. Enterprise Integration connects agents to your existing APIs, data platforms, cloud and business applications.",
-  },
-  {
-    q: "How do you handle security and governance?",
-    a: "With access controls, auditability, policy enforcement and human-in-the-loop oversight.",
-  },
-  {
-    q: "What does it cost?",
-    a: (
-      <>
-        <Tbd /> Every engagement is scoped to your needs. Start a conversation to talk it through.
-      </>
-    ),
-  },
+const models = [
+  { name: "Deployment", line: "A 6–10 week embed per workflow set." },
+  { name: "Agent subscription", line: "Agents we own and run, for your team." },
+  { name: "Managed outcome", line: "“Close-as-a-service” and revenue ops." },
 ];
 
 export default function ServicesPage() {
   return (
     <>
-      <section id="intro" aria-labelledby="intro-title" className="section">
+      <PageHero
+        eyebrow="Services"
+        title="From first close to agents that keep getting better."
+        lead={
+          <p>
+            One platform and one partner, from first close to agents that keep getting better.{" "}
+            <Tbd>scope: Rillet only or multi-platform; copy here is platform-neutral</Tbd>
+          </p>
+        }
+      />
+
+      <section id="service-lines" aria-labelledby="lines-title" className="section">
         <div className="container-x">
-          <SectionHead
-            as="h1"
-            id="intro-title"
-            title="From strategy to production systems"
-            lead="We combine AI engineering, enterprise consulting, and systems integration to deliver intelligent solutions designed around your operations."
-          />
-          <nav aria-label="Services on this page" className="mt-10">
-            <ul className="flex flex-wrap gap-2">
-              {services.map((s) => (
-                <li key={s.id}>
-                  <a href={`#${s.id}`} className="tag">
-                    {s.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </section>
-
-      {services.map(({ id, title, body, eyebrow, icon: Icon }, i) => (
-        <section key={id} id={id} aria-labelledby={`${id}-title`} className="section">
-          <div className="container-x grid items-center gap-8 lg:grid-cols-12 lg:gap-6" data-reveal>
-            <div className={cn("lg:col-span-5", i % 2 === 1 && "lg:order-2 lg:col-start-8")}>
-              {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
-              <h2 id={`${id}-title`} className="t-h2">
-                {title}
-              </h2>
-              <p className="t-lead mt-5">{body}</p>
-            </div>
-            <div
-              aria-hidden="true"
-              className={cn(
-                "card hidden aspect-[7/4] items-center justify-center lg:col-span-6 lg:flex",
-                i % 2 === 0 ? "lg:col-start-7" : "lg:order-1 lg:col-start-1",
-              )}
-              style={{ background: "var(--glow), var(--surface)" }}
-            >
-              <span className="flex size-20 items-center justify-center rounded-md bg-surface-2">
-                <Icon strokeWidth={1.5} className="size-10 text-accent" />
-              </span>
-            </div>
-          </div>
-        </section>
-      ))}
-
-      <section id="approach" aria-labelledby="approach-title" className="section">
-        <div className="container-x">
-          <SectionHead id="approach-title" eyebrow="Approach" title="How we work" />
-          <div className="mt-12">
-            <Steps variant="short" />
-          </div>
-          <Link href="/#approach" className="link mt-10 inline-flex min-h-11 items-center font-semibold">
-            See the full approach
-          </Link>
-        </div>
-      </section>
-
-      <section id="faq" aria-labelledby="faq-title" className="section">
-        <div className="container-narrow">
-          <SectionHead id="faq-title" eyebrow="FAQ" title="Questions" />
-          <div className="faq mt-10 border-t border-line">
-            {faq.map((f) => (
-              <details key={f.q} className="border-b border-line">
-                <summary>
-                  <h3>{f.q}</h3>
-                  <Plus aria-hidden="true" className="size-5 shrink-0 text-accent" />
-                </summary>
-                <p className="prose-body pb-6 text-muted-foreground">{f.a}</p>
-              </details>
+          <SectionHead id="lines-title" eyebrow="Service lines" title="Implement · Build agents · Run and tune" />
+          <ol>
+            {services.map((s, i) => (
+              <li
+                key={s.id}
+                id={s.id}
+                className="mb-6 motion-safe:lg:sticky"
+                style={{ top: `calc(var(--header-h) + 32px + ${i * 16}px)` }}
+              >
+                <article className="card grid gap-10 lg:min-h-[480px] lg:grid-cols-12 lg:gap-6 lg:p-12">
+                  <div className="lg:col-span-7">
+                    <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
+                    <h3 className="t-h2 mt-6">{s.title}</h3>
+                    <p className="t-lead mt-6">{s.line}</p>
+                    <p className="mt-8 flex gap-2 text-lg font-medium">
+                      <Check aria-hidden="true" className="mt-1.5 size-5 shrink-0 text-mark" />
+                      <span>
+                        <span className="sr-only">Outcome: </span>
+                        {s.outcome}
+                      </span>
+                    </p>
+                  </div>
+                  {s.agents && (
+                    <div className="self-end rounded-[var(--r-box)] border border-line bg-surface-2 p-6 lg:col-span-4 lg:col-start-9">
+                      <h4 className="t-mono text-faint">Agents we build</h4>
+                      <ul className="mt-4">
+                        {s.agents.map((a) => (
+                          <li key={a} className="flex items-center gap-3 border-b border-line py-3 last:border-0">
+                            <span aria-hidden="true" className="dot bg-mark" />
+                            {a}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </article>
+              </li>
             ))}
+          </ol>
+        </div>
+      </section>
+
+      <section id="challenges" aria-labelledby="challenges-title" className="section">
+        <div className="container-x">
+          <SectionHead id="challenges-title" eyebrow="Why it matters" title="Top five challenges and our response" />
+          <ChallengeRows />
+        </div>
+      </section>
+
+      <section id="engagement-models" aria-labelledby="models-title" className="section">
+        <div className="container-x">
+          <SectionHead id="models-title" eyebrow="Engagement models" title="How we engage" />
+          <ul className="grid gap-6 lg:grid-cols-3">
+            {models.map((m, i) => (
+              <li key={m.name} data-reveal className="card">
+                <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="t-h3 mt-6">{m.name}</h3>
+                <p className="mt-3 text-muted-fg">{m.line}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="t-small mt-6 text-muted-fg">Scope and terms agreed per engagement.</p>
+        </div>
+      </section>
+
+      <section id="approach-link" aria-labelledby="approach-link-title" className="pb-[var(--section-y)]">
+        <div className="container-x">
+          <div className="flex flex-col gap-4 border-y border-line py-8 md:flex-row md:items-center md:justify-between">
+            <h2 id="approach-link-title" className="t-h3">
+              Five steps from the first conversation to a skill running inside the platform.
+            </h2>
+            <ArrowLink href="/approach" className="shrink-0">
+              See how an engagement runs
+            </ArrowLink>
           </div>
         </div>
       </section>
 
-      <CtaBand title="Build with Davero" />
+      <CtaBand title="Tell us your last-mile workflow" />
     </>
   );
 }

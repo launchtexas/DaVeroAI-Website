@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "./logo";
-import { CTA_LABEL, nav } from "@/lib/content";
+import { CTA_HREF, CTA_LABEL, nav } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -16,7 +16,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -27,21 +27,21 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b transition-colors duration-150",
-        scrolled ? "border-line bg-[rgba(var(--bg-rgb),.85)] backdrop-blur-md" : "border-transparent",
+        "sticky top-0 z-40 h-[var(--header-h)] border-b transition-colors duration-200",
+        scrolled ? "border-line bg-surface/92" : "border-transparent",
       )}
     >
-      <div className="container-x flex h-16 items-center justify-between gap-6 nav:h-[72px]">
+      <div className="container-x flex h-full items-center justify-between gap-6">
         <Logo />
-        <nav aria-label="Main" className="hidden items-center gap-8 nav:flex">
-          <ul className="flex items-center gap-8">
+        <nav aria-label="Main" className="hidden items-center gap-7 nav:flex">
+          <ul className="flex items-center gap-6">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "relative inline-flex min-h-11 items-center text-[15px] font-medium transition-colors duration-150 hover:text-fg",
+                    "relative inline-flex min-h-11 items-center text-[15px] transition-colors duration-150 hover:text-fg",
                     isActive(item.href)
                       ? "text-fg after:absolute after:inset-x-0 after:bottom-1.5 after:h-0.5 after:bg-accent"
                       : "text-muted-foreground",
@@ -53,7 +53,7 @@ export function Header() {
             ))}
           </ul>
           <Button asChild>
-            <Link href="/contact" aria-current={pathname === "/contact" ? "page" : undefined}>
+            <Link href={CTA_HREF} aria-current={pathname === "/contact" ? "page" : undefined}>
               {CTA_LABEL}
             </Link>
           </Button>
@@ -61,14 +61,15 @@ export function Header() {
 
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="nav:hidden" aria-label="Open menu">
-              <Menu className="size-6" aria-hidden="true" />
+            <Button variant="ghost" className="nav:hidden" aria-label="Open menu">
+              <Menu className="size-5" aria-hidden="true" />
+              <span aria-hidden="true">Menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="top" showCloseButton={false} className="gap-0 border-line bg-bg p-0">
+          <SheetContent side="top" showCloseButton={false} className="h-dvh gap-0 overflow-y-auto border-0 bg-bg p-0">
             <SheetTitle className="sr-only">Menu</SheetTitle>
             <SheetDescription className="sr-only">Site navigation</SheetDescription>
-            <div className="container-x flex h-16 items-center justify-between">
+            <div className="container-x flex h-[var(--header-h)] items-center justify-between">
               <Logo onClick={() => setOpen(false)} />
               <SheetClose asChild>
                 <Button variant="ghost" size="icon" aria-label="Close menu">
@@ -85,7 +86,7 @@ export function Header() {
                         href={item.href}
                         aria-current={isActive(item.href) ? "page" : undefined}
                         className={cn(
-                          "flex h-14 items-center text-xl font-semibold",
+                          "flex min-h-14 items-center text-2xl font-light tracking-[-0.02em]",
                           isActive(item.href) ? "text-accent" : "text-fg",
                         )}
                       >
@@ -97,7 +98,7 @@ export function Header() {
               </ul>
               <SheetClose asChild>
                 <Button asChild className="mt-6 w-full">
-                  <Link href="/contact">{CTA_LABEL}</Link>
+                  <Link href={CTA_HREF}>{CTA_LABEL}</Link>
                 </Button>
               </SheetClose>
             </nav>

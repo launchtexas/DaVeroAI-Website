@@ -1,75 +1,67 @@
 import Link from "next/link";
 import { Logo } from "./logo";
-import { EMAIL } from "@/lib/content";
+import { CLOSE_LINE, footerCols } from "@/lib/content";
 import { Tbd } from "./tbd";
+import { CtaButton } from "./blocks";
 
 async function currentYear() {
   "use cache";
   return new Date().getFullYear();
 }
 
-const company = [
-  { href: "/services", label: "Services" },
-  { href: "/industries", label: "Industries" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
-const legal = [
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
-];
-
-function Col({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <h2 className="mb-3 text-sm font-semibold text-fg">{title}</h2>
-      {children}
-    </div>
-  );
-}
-
-const linkClass = "inline-flex min-h-11 items-center text-muted-foreground transition-colors duration-150 hover:text-fg";
+const linkClass = "inline-flex min-h-11 items-center text-muted-fg transition-colors duration-150 hover:text-fg";
 
 export async function Footer() {
   const year = await currentYear();
   return (
-    <footer className="border-t border-line pt-16 pb-8">
-      <div className="container-x grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
+    <footer className="overflow-hidden border-t border-line pt-16">
+      <div className="container-x grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="sm:col-span-2 lg:col-span-6">
           <Logo />
-          <p className="mt-2 text-sm text-muted-foreground">Enterprise Intelligence, Delivered.</p>
+          <p className="t-lead mt-4 max-w-[34ch]">{CLOSE_LINE}</p>
+          <div className="mt-8">
+            <CtaButton />
+          </div>
         </div>
-        <Col title="Company">
-          <ul>
-            {company.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className={linkClass}>
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Col>
-        <Col title="Legal">
-          <ul>
-            {legal.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className={linkClass}>
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Col>
-        <Col title="Contact">
-          <a href={`mailto:${EMAIL}`} className={linkClass}>
-            {EMAIL}
-          </a>
-        </Col>
+        {footerCols.map((col) => (
+          <nav key={col.title} aria-label={col.title} className="lg:col-span-3">
+            <h2 className="t-mono mb-3 text-faint">{col.title}</h2>
+            <ul>
+              {col.links.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={linkClass}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
       </div>
-      <p className="container-x mt-12 text-sm text-faint">
-        © {year} Davero AI. <Tbd>legal entity name, if different</Tbd>
-      </p>
+      <div className="container-x mt-12 flex flex-col gap-2 border-t border-line pt-4 text-sm text-faint sm:flex-row sm:items-center sm:gap-6">
+        <ul className="flex gap-6">
+          <li>
+            <Link href="/privacy" className={linkClass}>
+              Privacy
+            </Link>
+          </li>
+          <li>
+            <Link href="/terms" className={linkClass}>
+              Terms
+            </Link>
+          </li>
+        </ul>
+        <p>
+          &copy; {year} DaveroAI. <Tbd>legal entity name</Tbd>
+        </p>
+      </div>
+      <div aria-hidden="true" className="container-x mt-10">
+        <svg viewBox="0 0 1000 214" className="-mb-[2%] block h-auto w-full select-none">
+          <text x="-8" y="206" fontSize="290" fontWeight="300" letterSpacing="-18" fill="var(--line)">
+            DaveroAI
+          </text>
+        </svg>
+      </div>
     </footer>
   );
 }

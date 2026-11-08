@@ -1,43 +1,51 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { CheckList, Eyebrow } from "@/components/site/blocks";
 import { ContactForm, ContactFormWithParams } from "@/components/site/contact-form";
 import { Tbd } from "@/components/site/tbd";
-import { EMAIL } from "@/lib/content";
+import { outcomes } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: { absolute: "Contact Davero AI | Start a Conversation" },
+  title: "Start a Conversation | DaveroAI",
   description:
-    "Tell us about the AI workflow you want in production. Contact Davero AI through the form or at hello@davero.ai.",
+    "Tell us the last-mile workflow you want finished. Expert help, your own workflows automated, AI at work under your approval.",
 };
+
+const next = ["We reply", "We talk through your last mile", "We scope a first agent"];
 
 export default function ContactPage() {
   return (
-    <section className="section" style={{ background: "var(--glow)" }}>
+    <div className="hero">
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
-        <div className="lg:col-span-5">
-          <div id="intro">
-            <h1 className="t-h1">Start a Conversation</h1>
-            <p className="t-lead mt-5">
-              Tell us what you want to build. We&apos;ll reply by email. Reply time: <Tbd />.
-            </p>
+        <section id="intro" aria-labelledby="intro-title" className="lg:col-span-5">
+          <Eyebrow className="mb-6">Contact</Eyebrow>
+          <h1 id="intro-title" className="t-h1">
+            Start a conversation
+          </h1>
+          <p className="t-lead mt-6">
+            Tell us the workflow your platform doesn&apos;t finish. We reply by email. Reply time: <Tbd />
+          </p>
+          <h2 className="t-mono mt-12 mb-5 text-faint">What you get</h2>
+          <CheckList items={outcomes} />
+
+          <div id="next" className="mt-12">
+            <h2 className="t-mono mb-5 text-faint">What happens next</h2>
+            <ol className="border-t border-line">
+              {next.map((n, i) => (
+                <li key={n} className="flex gap-4 border-b border-line py-4">
+                  <span className="t-mono pt-1 text-mark">{String(i + 1).padStart(2, "0")}</span>
+                  {n}
+                </li>
+              ))}
+            </ol>
           </div>
-          <div id="email" className="mt-12 border-t border-line pt-8">
-            <h2 className="t-h3">Prefer email?</h2>
-            <p className="mt-2 text-muted-foreground">
-              Write to{" "}
-              <a className="link" href={`mailto:${EMAIL}`}>
-                {EMAIL}
-              </a>
-              . <Tbd>confirm this address works; the brief could not load davero.ai</Tbd>
-            </p>
-          </div>
-        </div>
-        <div id="form" className="card p-6 sm:p-10 lg:col-span-7">
+        </section>
+        <section id="form" aria-label="Contact form" className="card self-start lg:col-span-7 lg:p-10">
           <Suspense fallback={<ContactForm />}>
             <ContactFormWithParams />
           </Suspense>
-        </div>
+        </section>
       </div>
-    </section>
+    </div>
   );
 }

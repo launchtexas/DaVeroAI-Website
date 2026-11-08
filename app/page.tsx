@@ -1,141 +1,240 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CtaBand } from "@/components/site/cta-band";
-import { Diagram } from "@/components/site/diagram";
-import { SectionHead } from "@/components/site/section-head";
-import { Steps } from "@/components/site/steps";
-import { IndustryTiles } from "@/components/site/industry-tiles";
-import { CTA_LABEL, proofPoints, services } from "@/lib/content";
+import {
+  ArrowLink,
+  ChallengeRows,
+  ClosingCta,
+  ComparisonTable,
+  CtaButton,
+  Differentiators,
+  Eyebrow,
+  GoldenRule,
+  Journey,
+  SectionHead,
+  WhereWhatHow,
+} from "@/components/site/blocks";
+import { Arbitrage } from "@/components/site/arbitrage";
+import { HeroLine } from "@/components/site/hero-line";
+import { HitlDemo } from "@/components/site/hitl-demo";
+import { LastMile } from "@/components/site/last-mile";
+import { StatTiles } from "@/components/site/stat-tiles";
+import { StepStory } from "@/components/site/step-story";
+import {
+  HITL_BAND,
+  HITL_HEADLINE,
+  LIBRARY_LINE,
+  PLATFORMS,
+  POD_LINE,
+  STATS_KEY_LINE,
+  STATS_TAKEAWAY,
+  arbitrage,
+  methodology,
+  outcomes,
+  services,
+  stats,
+} from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: { absolute: "Davero AI | Enterprise Intelligence, Delivered." },
-  description:
-    "Davero AI builds and deploys multi-agent AI systems, enterprise automation, and last-mile AI solutions.",
-};
+// Home §9 (Insights teaser) renders only when posts exist (design.md §1.2). None are published yet.
+const posts: { title: string }[] = [];
 
 export default function Home() {
   return (
     <>
-      <section
-        id="hero"
-        aria-labelledby="hero-title"
-        className="relative -mt-16 flex min-h-[min(88vh,820px)] items-center pt-16 pb-16 nav:-mt-[72px] nav:pt-[72px]"
-        style={{ background: "var(--glow)" }}
-      >
-        <div className="container-x grid items-center gap-12 lg:grid-cols-12">
+      {/* 1 Hero */}
+      <section id="hero" aria-labelledby="hero-title" className="hero flex min-h-[min(860px,100svh)] flex-col">
+        <div className="container-x grid flex-1 items-center gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className="eyebrow mb-5">Enterprise Agentic AI Engineering</p>
+            <Eyebrow className="mb-6">Agentic AI &middot; Finished outcomes</Eyebrow>
             <h1 id="hero-title" className="t-display">
-              Intelligence is easy. <span className="block text-accent">Execution is everything.</span>
+              Own the <span className="text-mark">Last Mile</span>
             </h1>
-            <p className="t-lead mt-6">
-              We bridge the last mile of enterprise AI. From multi-agent orchestration to production deployment, Davero
-              AI transforms complex business challenges into autonomous, intelligent workflows.
+            <p className="t-lead mt-8">
+              DaveroAI is an agentic AI company that turns your business platforms into finished, end-to-end workflows, built, run and
+              continuously improved by AI agents, with your team approving every result.
             </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Button asChild className="w-full sm:w-auto">
-                <Link href="/contact">
-                  {CTA_LABEL}
-                  <ArrowRight aria-hidden="true" className="transition-transform duration-150 group-hover/button:translate-x-[3px]" />
-                </Link>
-              </Button>
-              <Button asChild variant="secondary" className="w-full sm:w-auto">
-                <Link href="/services">See our services</Link>
+            <p className="mt-4 font-medium">Not software seats. Not billable hours.</p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <CtaButton />
+              <Button asChild variant="secondary" className="max-sm:w-full">
+                <Link href="/agentic-ai">What is the last mile?</Link>
               </Button>
             </div>
-            <ul className="mt-12 grid gap-6 sm:grid-cols-3">
-              {proofPoints.map(({ title, body, icon: Icon }) => (
-                <li key={title} className="flex gap-3">
-                  <Icon aria-hidden="true" strokeWidth={1.5} className="mt-0.5 size-5 shrink-0 text-accent" />
-                  <div>
-                    <p className="text-[15px] font-semibold">{title}</p>
-                    <p className="text-sm text-muted-foreground">{body}</p>
-                  </div>
+          </div>
+          <div className="lg:col-span-5">
+            <HeroLine />
+          </div>
+        </div>
+        <p className="container-x t-mono mt-12 text-faint">Built, run and improved by agents &middot; Approved by your team</p>
+      </section>
+
+      {/* 2 Evolution */}
+      <section id="evolution" aria-labelledby="evolution-title" className="section">
+        <div className="container-x">
+          <SectionHead id="evolution-title" eyebrow="The shift" title="Platforms deliver the capability. DaveroAI delivers the finished outcome" />
+          <div data-reveal>
+            <ComparisonTable />
+          </div>
+          <h3 className="t-h3 mt-24 mb-8">{arbitrage.title}</h3>
+          <Arbitrage />
+        </div>
+      </section>
+
+      {/* 3 Challenges (paper band) */}
+      <section id="challenges" aria-labelledby="challenges-title" className="section band-paper">
+        <div className="container-x">
+          <SectionHead
+            id="challenges-title"
+            eyebrow="Why now"
+            title="Demand is rising and DIY AI is stalling"
+            lead={<>Everything between &ldquo;the software is live&rdquo; and &ldquo;the final outcome is delivered.&rdquo;</>}
+          />
+          <LastMile variant="compact" />
+
+          <div className="mt-24">
+            <p className="t-h3 mx-auto mb-10 max-w-[30ch] text-center !font-light">{STATS_KEY_LINE}</p>
+            <StatTiles stats={stats} />
+            <p className="t-small mt-6 text-muted-fg">{STATS_TAKEAWAY}</p>
+          </div>
+
+          <div className="mt-24">
+            <h3 className="t-h3 mb-8">Top five challenges and our response</h3>
+            <ChallengeRows />
+          </div>
+        </div>
+      </section>
+
+      {/* 4 Services */}
+      <section id="services" aria-labelledby="services-title" className="section">
+        <div className="container-x">
+          <SectionHead id="services-title" eyebrow="What we do" title="From first close to agents that keep getting better." />
+          <ul className="grid gap-6 lg:grid-cols-3">
+            {services.map((s, i) => (
+              <li key={s.id} data-reveal className="card flex flex-col">
+                <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="t-h3 mt-6">{s.title}</h3>
+                <p className="t-small mt-3 text-muted-fg">{s.line}</p>
+                <p className="mt-6 flex gap-2 border-t border-line pt-6 font-medium">
+                  <Check aria-hidden="true" className="mt-1 size-4 shrink-0 text-mark" />
+                  {s.outcome}
+                </p>
+                {s.agents && (
+                  <ul className="mt-4 flex flex-wrap gap-2" aria-label="Agent examples">
+                    {s.agents.map((a) => (
+                      <li key={a} className="chip t-mono">
+                        {a}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+          <ArrowLink href="/services" className="mt-8">
+            See our services
+          </ArrowLink>
+        </div>
+      </section>
+
+      {/* 5 In action */}
+      <section id="in-action" aria-labelledby="in-action-title" className="section">
+        <div className="container-x">
+          <SectionHead id="in-action-title" eyebrow="Agentic AI in action" title={HITL_HEADLINE} lead={`${HITL_BAND.title}. ${HITL_BAND.body}`} />
+          <HitlDemo variant="compact" />
+          <ArrowLink href="/governance" className="mt-8">
+            How we govern agents
+          </ArrowLink>
+        </div>
+      </section>
+
+      {/* 6 Outcomes */}
+      <section id="outcomes" aria-labelledby="outcomes-title" className="section">
+        <div className="container-x">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
+            <div className="lg:col-span-5">
+              <SectionHead id="outcomes-title" eyebrow="Business outcomes" title="What you get" />
+            </div>
+            <ul className="grid gap-px self-start overflow-hidden rounded-[var(--r-card)] border border-line bg-line sm:grid-cols-2 lg:col-span-7">
+              {outcomes.map((o, i) => (
+                <li key={o} data-reveal className="bg-bg p-6 sm:p-8">
+                  <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="t-h3 mt-4">{o}</h3>
                 </li>
               ))}
             </ul>
           </div>
-          <Diagram compact className="hidden sm:block lg:col-span-5" />
-        </div>
-      </section>
-
-      <section id="problem" aria-labelledby="problem-title" className="section">
-        <SectionHead
-          id="problem-title"
-          className="container-narrow text-center [&_.t-lead]:mx-auto"
-          title="Beyond prototypes. Into production."
-          lead="The hardest part of enterprise AI is not building a demo. It's integrating intelligence into real systems, processes, and decisions."
-        />
-      </section>
-
-      <section id="services" aria-labelledby="services-title" className="section">
-        <div className="container-x">
-          <SectionHead
-            id="services-title"
-            eyebrow="Services"
-            title="What we do"
-            lead="We combine AI engineering, enterprise consulting, and systems integration to deliver intelligent solutions designed around your operations."
-          />
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {services.map(({ id, title, short, icon: Icon }) => (
-              <li key={id} data-reveal className="card card-link flex flex-col p-6 sm:p-8">
-                <span className="flex size-11 items-center justify-center rounded-sm bg-surface-2">
-                  <Icon aria-hidden="true" strokeWidth={1.5} className="size-6 text-accent" />
-                </span>
-                <h3 className="t-h3 mt-6">{title}</h3>
-                <p className="mt-2 flex-1 text-muted-foreground">{short}</p>
-                <Link href={`/services#${id}`} className="stretched mt-6 inline-flex items-center gap-1 font-semibold text-accent">
-                  Learn more<span className="sr-only"> about {title}</span>
-                  <ArrowRight aria-hidden="true" className="size-4" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Link href="/services" className="link mt-10 inline-flex min-h-11 items-center font-semibold">
-            Explore services
-          </Link>
-        </div>
-      </section>
-
-      <section id="approach" aria-labelledby="approach-title" className="section">
-        <div className="container-x">
-          <SectionHead
-            id="approach-title"
-            eyebrow="Approach"
-            title="The Davero Approach"
-            lead="Four steps from first conversation to running system."
-          />
-          <div className="mt-12">
-            <Steps />
+          <div className="mt-20">
+            <h3 className="t-mono mb-8 text-faint">How a client starts</h3>
+            <Journey />
+            <p className="t-small mt-8 text-muted-fg">
+              Platforms we work around: {PLATFORMS.join(" · ")}.
+            </p>
+            <ArrowLink href="/industries" className="mt-4">
+              Industries and platforms
+            </ArrowLink>
           </div>
-          <figure className="mx-auto mt-16 max-w-[960px]">
-            <Diagram />
-            <figcaption className="mt-4 text-center text-sm text-muted-foreground">
-              An Enterprise AI Orchestrator coordinates Research, Operations, Security and Analytics agents, which
-              connect to Enterprise APIs, Cloud &amp; Data, and Business Systems.
-            </figcaption>
-          </figure>
         </div>
       </section>
 
-      <section id="industries" aria-labelledby="industries-title" className="section">
+      {/* 7 Methodology */}
+      <section id="methodology" aria-labelledby="methodology-title" className="section">
         <div className="container-x">
-          <SectionHead
-            id="industries-title"
-            eyebrow="Industries"
-            title="Intelligence across every function"
-            lead="Where we apply agentic AI."
+          <StepStory
+            id="method"
+            head={
+              <>
+                <Eyebrow className="mb-5">An outcomes company</Eyebrow>
+                <h2 id="methodology-title" className="t-h2">
+                  We build, own and run the agents around the platform
+                </h2>
+              </>
+            }
+            steps={methodology}
+            aside={<GoldenRule withFootnote />}
+            footer={
+              <ArrowLink href="/approach" className="mt-8">
+                How an engagement runs
+              </ArrowLink>
+            }
           />
-          <IndustryTiles />
-          <Link href="/industries" className="link mt-10 inline-flex min-h-11 items-center font-semibold">
-            See industries
-          </Link>
         </div>
       </section>
 
-      <CtaBand title="Let's Build Together" body="Tell us the workflow you want to move from demo to production." showEmail />
+      {/* 8 Why us */}
+      <section id="why-us" aria-labelledby="why-us-title" className="section">
+        <div className="container-x">
+          <SectionHead id="why-us-title" eyebrow="Why partner with us" title="Why we win and keep winning" />
+          <Differentiators />
+          <p className="t-small mt-8 text-muted-fg">
+            {POD_LINE} Forward Deployed Accountant (pod lead) &middot; Solutions Engineer (integrations) &middot; Forward Deployed Agent
+            Engineer (agents).{" "}
+            <Link href="/about#pod" className="link">
+              Meet the pod
+            </Link>
+          </p>
+          <div className="mt-20">
+            <WhereWhatHow />
+          </div>
+          <p className="t-h3 mt-16 max-w-[40ch] !font-light">{LIBRARY_LINE}</p>
+        </div>
+      </section>
+
+      {/* 9 Insights: only when posts exist */}
+      {posts.length > 0 && (
+        <section id="insights" aria-labelledby="insights-title" className="section">
+          <div className="container-x">
+            <div className="flex items-end justify-between gap-6">
+              <SectionHead id="insights-title" eyebrow="Insights" title="Latest insights" />
+              <Link href="/insights" className="link link-arrow mb-[var(--head-gap)] shrink-0">
+                View all insights <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 10 CTA */}
+      <ClosingCta withQuotes title="The last mile is where software, services and context meet" />
     </>
   );
 }

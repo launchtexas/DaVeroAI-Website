@@ -1,27 +1,21 @@
 import { Tbd } from "./tbd";
-import { EMAIL } from "@/lib/content";
 
 export function LegalPage({ title }: { title: string }) {
   return (
-    <section aria-labelledby="legal-title" className="section">
-      <div className="container-narrow">
+    <section id="legal" aria-labelledby="legal-title" className="hero">
+      <div className="container-prose">
+        <p role="note" className="mb-10 rounded-[var(--r-ctl)] border border-dashed border-line-strong p-4 text-sm text-muted-fg">
+          [TBD legal review]
+        </p>
         <h1 id="legal-title" className="t-h1">
           {title}
         </h1>
-        <p className="mt-4 text-sm text-faint">
+        <p className="t-mono mt-4 text-faint">
           Last updated: <Tbd />
         </p>
-        <div className="card mt-10 p-6 sm:p-8">
-          <p>
-            <Tbd>placeholder. Legal text to be supplied by the client.</Tbd>
-          </p>
-          <p className="mt-4 text-muted-foreground">
-            Questions:{" "}
-            <a className="link" href={`mailto:${EMAIL}`}>
-              {EMAIL}
-            </a>
-          </p>
-        </div>
+        <p className="mt-12">
+          <Tbd>legal text from the client</Tbd>
+        </p>
       </div>
     </section>
   );

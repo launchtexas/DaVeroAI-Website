@@ -1,67 +1,66 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { CtaBand } from "@/components/site/cta-band";
-import { IndustryTiles } from "@/components/site/industry-tiles";
-import { SectionHead } from "@/components/site/section-head";
-import { industries } from "@/lib/content";
+import { CtaBand, Journey, PageHero, SectionHead } from "@/components/site/blocks";
+import { CLOSE_LINE, PLATFORMS, PLATFORMS_FOOTNOTE, WEDGE, domains } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: { absolute: "Enterprise AI by Industry | Davero AI" },
-  description:
-    "Agentic AI for SecOps, IT service management, financial services, customer experience, supply chain, data and more. See where Davero AI applies.",
+  title: "Industries and Platforms | DaveroAI",
+  description: "Last-mile workflows in finance, procurement and supply chain, IT services and insurance, run by agents on AI-native platforms.",
 };
 
 export default function IndustriesPage() {
   return (
     <>
-      <section id="intro" aria-labelledby="intro-title" className="section">
+      <PageHero eyebrow="Industries & ecosystem" title="Where the last mile lives" lead={<p>Our focus: {WEDGE}</p>} />
+
+      <section id="domains" aria-labelledby="domains-title" className="section">
         <div className="container-x">
-          <SectionHead
-            as="h1"
-            id="intro-title"
-            title="Intelligence across every function"
-            lead="Nine areas where we design and deploy agentic AI."
-          />
-          <IndustryTiles />
+          <SectionHead id="domains-title" eyebrow="Domains" title="Four domains" />
+          <ul className="grid gap-6 md:grid-cols-2">
+            {domains.map((d) => (
+              <li key={d.id} id={d.id} data-reveal className={cn("card card-link flex flex-col", d.lead && "border-mark/60")}>
+                {d.lead && <span className="chip t-mono mb-6 w-fit border-mark text-fg">Where we start</span>}
+                <h3 className="t-h2">
+                  <Link href={`/contact?domain=${d.id}#form`} className="stretched">
+                    {d.name}
+                  </Link>
+                </h3>
+                <p className="t-mono mt-8 text-faint">The last mile here</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {d.examples.map((x) => (
+                    <li key={x} className="chip t-small normal-case tracking-normal text-fg">
+                      {x}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <div className="container-x">
-        {industries.map(({ id, name, icon: Icon }) => (
-          <section
-            key={id}
-            id={id}
-            aria-labelledby={`${id}-title`}
-            className="grid gap-6 border-t border-line py-12 lg:grid-cols-12 lg:py-16"
-            data-reveal
-          >
-            <div className="flex items-center gap-4 lg:col-span-4 lg:block">
-              <span className="flex size-11 shrink-0 items-center justify-center rounded-sm bg-surface-2">
-                <Icon aria-hidden="true" strokeWidth={1.5} className="size-6 text-accent" />
-              </span>
-              <h2 id={`${id}-title`} className="t-h3 lg:mt-5 lg:text-[30px]">
-                {name}
-              </h2>
-            </div>
-            <div className="lg:col-span-8">
-              <p className="t-lead">
-                Multi-agent systems, automation and integration, designed around how your teams work. Start a
-                conversation about your use case.
-              </p>
-              <Link
-                href={`/contact?industry=${id}`}
-                className="link mt-6 inline-flex min-h-11 items-center gap-1 font-semibold"
-              >
-                Talk to us about {name}
-                <ArrowRight aria-hidden="true" className="size-4 text-accent" />
-              </Link>
-            </div>
-          </section>
-        ))}
-      </div>
+      <section id="journey" aria-labelledby="journey-title" className="section">
+        <div className="container-x">
+          <SectionHead id="journey-title" eyebrow="Client journey" title="How a client starts" />
+          <Journey large />
+        </div>
+      </section>
 
-      <CtaBand title="Don't see your function?" body="Tell us the process. We'll tell you where agents fit." />
+      <section id="platforms" aria-labelledby="platforms-title" className="section">
+        <div className="container-x">
+          <div data-reveal className="rounded-[var(--r-card)] border border-line bg-surface p-6 sm:p-12">
+            <h2 id="platforms-title" className="t-h3">
+              Platforms we work around
+            </h2>
+            <p className="t-h2 mt-6 max-w-none">{PLATFORMS.join(" · ")}</p>
+            <p className="mt-6 text-muted-fg">We build agents around AI-native platforms, including Rillet, Tabs, Maxio and Campfire.</p>
+            <p className="t-small mt-3 text-faint">{PLATFORMS_FOOTNOTE}</p>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand title={CLOSE_LINE} />
     </>
   );
 }
