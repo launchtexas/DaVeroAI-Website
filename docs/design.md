@@ -1,21 +1,21 @@
-# DaveroAI website: design spec (v2)
+# DaVero AI website: design spec (v3, brand kit v1.0)
 
-> Owner: Designer 2. Source of truth for the Builder. Replaces v1 (commit f6c0b84).
-> Inputs: client content deck `docs/source/content-brief.txt` (25 slides, "REFERENCE nn" = deck reference number), competitor site withnative.com (patterns only), existing build (Next.js 16, Tailwind v4, shadcn, Geist fonts).
+> Owner: Designer 2; v3 rebrand by Polish (2026-11-08). Source of truth for the Builder. v3 applies the client brand kit (`docs/source/brand-kit/`, v1.0): Midnight + DaVero Orange, Inter, official lockups. Where this file and the kit disagree, the kit wins.
+> Inputs: client content deck `docs/source/content-brief.txt` (25 slides, "REFERENCE nn" = deck reference number), competitor site withnative.com (patterns only), existing build (Next.js 16, Tailwind v4, shadcn, Inter self-hosted).
 > Copy comes from `docs/content.md` (Writer). This file says **what goes where and how it looks/behaves**; it quotes deck lines only to pin a section's job.
 
 ## 0. Content rules (defaults until the client answers the deck's CAUTION notes; god relays changes)
 
-1. Brand is spelled **DaveroAI** everywhere (logo, titles, copy, alt text).
+1. Display name is **DaVero AI** everywhere (titles, copy, alt text), per the brand kit. The logo is always a kit lockup, never typed text. `docs/content.md` still spells "DaVero AI"; read it as "DaVero AI".
 2. Third-party stats appear **only with their source named** next to the number (visible, not tooltip-only).
 3. Third-party quotes (Sequoia, Goldberg, Nick Kopp/Rillet) appear **only attributed** (name + organisation) or are rephrased as our own words without quote marks.
 4. **No logos** of partners, clients or platforms. Platforms (Rillet, Tabs, Maxio, Campfire) are named in plain text only, and only as "platforms we work around", never "partners".
-5. **No competitor names.** The landscape 2×2 shows axes and DaveroAI only, unnamed categories elsewhere.
+5. **No competitor names.** The landscape 2×2 shows axes and DaVero AI only, unnamed categories elsewhere.
 6. **No pricing, margins or market-size charts on Home.** Those live on Insights only. Engagement models show names only, no prices or margin logic.
 7. Methodology: **4-step model on Home** (Embed → Develop skill → Harvest → Scale); **5-step engagement on Our Approach** (Engage → Build the skill → Harden with a constitution → Converge into the platform → Review and approve). Services links to Our Approach, it does not show a third variant.
 8. One role vocabulary: **Forward Deployed Accountant** (pod lead), **Solutions Engineer** (integrations), **Forward Deployed Agent Engineer** (agents). Never "Agent Builder".
-9. **DaveroAI owns and runs the agents.** In the five-actors view the Owner/Operator is DaveroAI, never "Platform".
-10. Founder: **Hemang Bhatt, Founder & CEO**, bio from deck REFERENCE 23 minus the "First hires (funded)" block; advisory roles described as advisory (non-commercial). Headshot is a placeholder until supplied. No personal email anywhere.
+9. **DaVero AI owns and runs the agents.** In the five-actors view the Owner/Operator is DaVero AI, never "Platform".
+10. Founder: **Hemang Bhatt, Founder & CEO**, bio from deck REFERENCE 23 minus the "First hires (funded)" block; advisory roles described as advisory (non-commercial). Headshot: `public/images/hemang-bhatt.jpg` via `next/image`, alt "Hemang Bhatt, Founder and CEO". No personal email anywhere.
 11. One CTA label: **"Start a conversation"** → `/contact#form`.
 12. Deck slide 22 right column ("What the Platform gets") is never published.
 13. No invented clients, case studies, testimonials, metrics or certifications.
@@ -41,15 +41,15 @@ Section ids are anchor ids (`<section id="…">`). "Ref nn" = deck reference tha
 | 11 | Terms | `/terms` | — | legal row |
 | 12 | 404 | not-found | — | — |
 
-Header: logo "DaveroAI" (links `/`) · Agentic AI · Services · Approach · Governance · Industries · Insights · About · button "Start a conversation".
-Footer: logo + close line "The last mile is where software, services and context meet." · column "Company" (About, Our Approach, Insights, Contact) · column "What we do" (Agentic AI, Services, Governance, Industries) · legal row (Privacy, Terms, © {year} DaveroAI). No email, no social icons until supplied.
+Header: logo "DaVero AI" (links `/`) · Agentic AI · Services · Approach · Governance · Industries · Insights · About · button "Start a conversation".
+Footer: logo + close line "The last mile is where software, services and context meet." · column "Company" (About, Our Approach, Insights, Contact) · column "What we do" (Agentic AI, Services, Governance, Industries) · legal row (Privacy, Terms, © {year} DaVero AI). No email, no social icons until supplied.
 
 ### 1.2 Home `/` — ten numbered sections
 
 | § | Section | id | Content (deck ref) |
 |---|---------|----|--------------------|
-| 1 | Hero | `hero` | Positioning line (Ref 01), sub-line "Platforms deliver the capability. DaveroAI delivers the finished outcome." CTA + secondary link "See how agents work" → `#in-action`. Visual: animated last-mile line (§6.0). |
-| 2 | The evolution of AI | `evolution` | Platform vs DaveroAI contrast (Ref 03) + ★ Labor arbitrage → agent arbitrage before/after (Ref 05, **no $ bar chart**; that goes to Insights). |
+| 1 | Hero | `hero` | Positioning line (Ref 01), sub-line "Platforms deliver the capability. DaVero AI delivers the finished outcome." CTA + secondary link "See how agents work" → `#in-action`. Visual: animated last-mile line (§6.0). |
+| 2 | The evolution of AI | `evolution` | Platform vs DaVero AI contrast (Ref 03) + ★ Labor arbitrage → agent arbitrage before/after (Ref 05, **no $ bar chart**; that goes to Insights). |
 | 3 | Business challenges | `challenges` | ★ Last-mile three-state explainer, compact (Ref 02) · ★ six stat tiles with sources (Ref 07) + line "Delivery, not models, is the bottleneck." · five challenge → our answer cards (Ref 08). |
 | 4 | Services | `services` | Three service cards: Implement · Build agents · Run & tune, each with its outcome (Ref 12). Link → `/services`. |
 | 5 | Agentic AI in action | `in-action` | ★ Human-in-the-loop demo Prepare → Review → Approve → Record (Ref 16). Line "Humans review and approve. Agents do the rest." Link → `/governance`. |
@@ -66,9 +66,9 @@ Footer: logo + close line "The last mile is where software, services and context
 | **Agentic AI** `/agentic-ai` | `hero` page intro (concept: "Everything between 'the software is live' and 'the final outcome is delivered'") · `last-mile` ★ full three-state explainer + 4-point test + four domain examples Finance, Procurement & Supply Chain, IT Services, Insurance (Ref 02) · `platform-vs-outcome` contrast table (Ref 03) · `agent-arbitrage` ★ before/after (Ref 05) · `strategy` Where / What / How (Ref 04) · `who-for` "Our wedge" audience statement, text only, no chart (Ref 10) · `cta` |
 | **Services** `/services` | `hero` · `service-lines` three service lines in depth: Implement (ledger live), Build agents (agents running the close; examples reconciliations, accruals, flux analysis, AR/collections, audit prep), Run & tune (agents that keep getting better) (Ref 12) · `challenges` five challenge → answer pairs (Ref 08) · `engagement-models` "How we engage": Deployment (6–10 week embed) · Agent subscription · Managed outcome (close-as-a-service), names + one line each, no prices (Ref 14) · `approach-link` one-line bridge to `/approach` · `cta` |
 | **Our Approach** `/approach` | `hero` · `engagement` ★ 5-step engagement (Ref 13) with the constitution called out · `golden-rule` (Ref 11 Golden Rule) · `skill-factory` ★ Develop → Reuse → Redeploy loop, "Every engagement adds to the library, so the next client starts further ahead." (Ref 15) · `pod` delivery pod, three roles, "One pod per client." (Ref 18) · `actors` five actors summary, link to `/governance#actors` (Ref 17) · `cta` |
-| **Technology & governance** `/governance` | `hero` ("Humans review and approve. Agents do the rest.") · `hitl` ★ full Prepare → Review → Approve → Record demo with audit trail (Ref 16) · `actors` five actors around every agent: Subject expert, Forward Deployed Agent Engineer (builds), Validator, Operator, Owner — Operator and Owner = DaveroAI; client defines and approves (Ref 17) · `constitution` what "harden with a constitution" means (Ref 13) · `platform-native` agents run inside the client's platform, data stays there (Ref 19 "Platform-native") · `cta` |
+| **Technology & governance** `/governance` | `hero` ("Humans review and approve. Agents do the rest.") · `hitl` ★ full Prepare → Review → Approve → Record demo with audit trail (Ref 16) · `actors` five actors around every agent: Subject expert, Forward Deployed Agent Engineer (builds), Validator, Operator, Owner — Operator and Owner = DaVero AI; client defines and approves (Ref 17) · `constitution` what "harden with a constitution" means (Ref 13) · `platform-native` agents run inside the client's platform, data stays there (Ref 19 "Platform-native") · `cta` |
 | **Industries & ecosystem** `/industries` | `hero` · `domains` four domains: Finance (lead), Procurement & Supply Chain, IT Services, Insurance, each with a last-mile example (Ref 02) · `journey` Platform referral → Embed and prove → Expand → Replicate (Ref 22) · `platforms` text list "AI-native platforms we work around: Rillet, Tabs, Maxio, Campfire" + note that these are platforms, not partners; no logos (Ref 22) · `cta` |
-| **Insights** `/insights` | `hero` · `market-shift` ★ $0.5T software vs $2T services bar, sourced (Ref 05) · `market` $80–115B outsourced US accounting, audit and tax work, sourced (Ref 10) · `stats` all six stat tiles with sources (Ref 07) · `landscape` 2×2 "sells the tool ↔ sells the work" × "depth of platform context", DaveroAI dot only, no other names, + "Our edge" bullets (Ref 20) · `articles` list of posts (card grid; empty state "First articles coming soon." until content exists) · `cta` |
+| **Insights** `/insights` | `hero` · `market-shift` ★ $0.5T software vs $2T services bar, sourced (Ref 05) · `market` $80–115B outsourced US accounting, audit and tax work, sourced (Ref 10) · `stats` all six stat tiles with sources (Ref 07) · `landscape` 2×2 "sells the tool ↔ sells the work" × "depth of platform context", DaVero AI dot only, no other names, + "Our edge" bullets (Ref 20) · `articles` list of posts (card grid; empty state "First articles coming soon." until content exists) · `cta` |
 | **About** `/about` | `hero` positioning (Ref 01 positioning + concept) · `mission` "Not software seats. Not billable hours." · `strategy` Where / What / How (Ref 04) · `pod` delivery pod short (Ref 18) · `founder` Hemang Bhatt, Founder & CEO, bio + headshot placeholder (Ref 23) · `cta` |
 | **Contact** `/contact` | `intro` heading + what you get: four outcome items (Ref 21 left column) · `form` contact form (§7) · `next` "What happens next" three short steps (reply → conversation → scoping). No email address, no phone. |
 | **Privacy** `/privacy`, **Terms** `/terms` | `legal` single prose column, placeholder text marked [TBD legal review], "Last updated" date. |
@@ -84,91 +84,83 @@ Footer: logo + close line "The last mile is where software, services and context
 
 ## 2. Direction and what we borrow from withnative.com
 
-**Direction:** "Ledger-calm." A dark, precise, finance-grade site where one idea, the last mile, is shown working rather than described. Fewer, larger words; diagrams that move only to explain; every number sourced. Keywords: precise, accountable, calm, engineered, finished.
+**Direction (v3):** "Built for the last mile." Midnight foundation, one DaVero Orange accent, structural diagonal geometry from the kit (guidelines p.8), bold Inter headlines. One idea, the last mile, is shown working. Kit ratio: ~70% Midnight, 20% Orange, 10% light surfaces across the site; pages alternate Midnight / White / Cloud bands. Keywords: decisive, accountable, structural, finished.
 
 **Studied:** withnative.com home page HTML and CSS (fetched 2026-11-07; desktop and mobile breakpoints read from its stylesheet). We take **patterns only**. Never copy its brand, orange accent, fonts (Favorit, Lausanne), wording, images, illustrations or code.
 
-| Pattern on withnative | How DaveroAI uses it |
+| Pattern on withnative | How DaVero AI uses it |
 |---|---|
-| **Light-weight display type** at large sizes (weight 300, tracking about -0.04em, `text-wrap: balance`, max ~16ch) instead of heavy bold | Headlines in Geist 300/400, tight tracking. Retires v1's 800-weight headlines. Weight contrast (300 display vs 500 labels) does the work. |
+| **Large display type** with tight tracking and `text-wrap: balance` | Kit typography wins over withnative here: Inter ExtraBold (800) display/H1, Bold (700) H2/H3, tracking -0.03 to -0.04em. |
 | **Generous, fixed section rhythm** (120px vertical on desktop, 80px on mobile) | `--section-y` 128px / 80px; every section uses it, no ad-hoc gaps. |
 | **Sticky left column, scrolling right column** for step stories (left sticks at top on ≥1024px, static on mobile) | Methodology (Home §7), 5-step engagement (Approach), HITL demo (Governance). |
 | **Stacked sticky cards** that pile up as you scroll | Service lines on `/services`. |
 | **Big-number result tiles** with a one-line caption | Stat tiles, but every tile carries a named source line (rule 0.2). |
-| **Mono micro-labels** for categories, dates, step numbers | Geist Mono 12–13px uppercase for eyebrows, step indices, sources, timestamps in the audit trail. |
-| **Alternating dark and light bands** to pace a long page | Dark is default; a light "paper" band is used for data-dense sections (Home §3 stats, Insights charts) so numbers read like a report. Max two paper bands per page. |
-| **One accent colour, used sparingly** | Lime stays our one accent; on paper bands it switches to deep lime for contrast. |
+| **Micro-labels** for categories, dates, step numbers | Inter SemiBold 12–13px caps, 0.08em tracking (class `.t-mono`, name kept). Eyebrows are orange with a short skewed orange bar, as the kit's section labels. |
+| **Alternating dark and light bands** to pace a long page | Every page: Midnight hero → alternating White (`.band-paper`), Cloud (`.band-cloud`) and Midnight sections → full-bleed Deep Midnight stripe band for the CTA (`StripeBand`). Home adds a full-bleed stripe band for the "why now" numbers. Never two adjacent bands of the same colour. |
+| **One accent colour** | DaVero Orange `#FF6500`: CTA fills, eyebrows, key word, agent marks, chart highlight, stripes. Small orange text on light bands uses `--orange-deep`. |
 | **Small radius scale** (chip 6 / control 8 / box 10 / card 14) | Same four steps (values in §3.4). |
 | **Insights cards** with category · date · author line | Home §9 and `/insights` card. |
 | **Closing CTA band** that restates the promise, then one action | Home §10 and every page `cta`. |
-| **Footer with an oversized wordmark** | Footer ends with "DaveroAI" set in display type, clipped at the bottom edge, `aria-hidden` (the real logo link is above it). |
+| **Footer** | Primary_Reversed lockup, link columns, and a thin kit stripe (orange / white / navy) as the bottom edge. The v2 oversized typed wordmark is retired (kit: never retype or embellish the mark). |
 
 Not borrowed: per-character split-text reveals (they break screen readers and reading flow), client logo walls and customer stats (we have none; rule 0.13), booking widget with revenue question, "Ask an AI about us" block.
 
 ## 3. Tokens
 
-The dark + lime identity holds up next to withnative's polish once the type gets lighter and a paper band is added; the gap was type and rhythm, not colour. Tokens below replace v1. All pairs checked (WCAG relative-luminance formula); ratios shown.
+Source: `docs/source/brand-kit/04_Design_Tokens` and the guidelines PDF. All text pairs checked with the WCAG relative-luminance formula; ratios shown.
 
 ### 3.1 Colour
 
 ```css
 :root {
-  /* Dark (default) */
-  --bg:           #0a0d0c;
-  --surface:      #121815;  /* cards, header after scroll */
-  --surface-2:    #18201c;  /* raised panels, demo stage */
-  --line:         #2a332d;  /* decorative borders only (1.5:1) */
-  --line-strong:  #5f6f64;  /* input borders, chart axes, focusable outlines (3.7:1 on --bg, 3.1:1 on --surface-2) */
-  --text:         #f2f5f0;  /* 17.8:1 */
-  --text-muted:   #a3b0a7;  /* 8.7:1 */
-  --text-faint:   #83918a;  /* 5.9:1 on --bg, 5.1:1 on --surface-2; 13px+ only */
-  --accent:       #c4ff6b;  /* lime: 16.6:1; CTA fill, focus ring, agent steps, one key word */
-  --accent-hover: #d4ff8f;
-  --accent-press: #aee84f;
-  --on-accent:    #0a0d0c;  /* 16.6:1 on lime */
-  --human:        #f5c26b;  /* amber: human steps in demos, 11:1 on --surface */
-  --error:        #ff8080;  /* 8:1 */
+  /* Brand kit */
+  --midnight: #081630;  --midnight-deep: #061126;
+  --orange: #ff6500;    --amber: #ff962e;
+  --cloud: #f3f6fa;     --mist: #e6eaf0;   --slate: #536378;
+  --white: #ffffff;     --ink-kit: #111827;
+  /* Derived, documented exceptions */
+  --orange-deep: #b34700;      /* small orange text on White 5.5:1, Cloud 5.1:1, Mist 4.6:1 */
+  --midnight-2: #0e1e3d;       /* cards on Midnight */
+  --midnight-3: #13284d;       /* raised panels, navy stripe */
+  --midnight-line: #223658;    /* decorative borders */
+  --midnight-line-strong: #6b7c98; /* inputs, axes: 4.3:1 on Midnight, 3.5:1 on --midnight-3 */
 
-  /* Paper band (class .band-paper sets these) */
-  --paper:            #f3f5f1;
-  --paper-2:          #e7ebe4;
-  --ink:              #0d1210;  /* 17.2:1 */
-  --ink-muted:        #4a564f;  /* 7.0:1 */
-  --ink-faint:        #5f6b64;  /* 5.1:1; sources, captions */
-  --paper-line:       #c9d1c6;  /* decorative */
-  --paper-line-strong:#6b7770;  /* axes, borders that matter (3.9:1 on --paper-2) */
-  --accent-deep:      #3f6b00;  /* lime for text/marks on paper, 5.8:1 */
-  --human-deep:       #8a5a00;  /* amber on paper, 5.4:1 */
-  --error-deep:       #b42318;  /* 6.0:1 */
+  /* Dark (default, Midnight) */
+  --bg: Midnight; --text: White (17.4:1); --text-muted: #c3ccda (11.1:1, 9.0:1 on --midnight-3);
+  --text-faint: #9aa7bc (7.4:1, 6.0:1 on --midnight-3);
+  --accent: Orange (CTA fill; 6.1:1 as text on Midnight, 4.95:1 on --midnight-3);
+  --on-accent: Midnight (6.1:1 on Orange); --human: Cloud; --error: #ff8a80.
+
+  /* Light (.band-paper = White, .band-cloud = Cloud) */
+  --text: Midnight (16.6:1 on Cloud); --text-muted/--text-faint: Slate (6.1 White, 5.7 Cloud, 5.1 Mist);
+  --line: #dce2ea (decorative); --line-strong: #7a889b (3.6:1, inputs/axes);
+  --mark: --orange-deep; --mark-human: Midnight; --error: #b42318.
 }
 ```
 
 Rules:
-- `.band-paper` remaps: `--bg→--paper`, `--surface→#ffffff`, `--text→--ink`, `--text-muted→--ink-muted`, `--text-faint→--ink-faint`, `--line→--paper-line`, `--line-strong→--paper-line-strong`, `--accent` (as text/marks) → `--accent-deep`. Buttons on paper: fill `--ink`, text `--paper`.
-- Lime fill (`--accent`) never sits on paper; lime text never on paper (1.07:1).
-- Agent = lime, human = amber, everywhere a diagram distinguishes them, **always with an icon and a text label too** (never colour alone).
-- Only these tokens in code. Charts use `--accent`/`--accent-deep` for DaveroAI-side data and `--text-muted`/`--ink-muted` for the comparison side.
-- Hero glow only: `radial-gradient(720px circle at 75% 10%, rgb(196 255 107 / .08), transparent 60%)`. No other gradients, no glass, no text shadows.
+- **Orange text never on White/Cloud** (2.95:1, fails even large text): use `--orange-deep` for small orange text on light bands, or Midnight. Orange **fills** are fine everywhere (buttons, bars, stripes) because their text is Midnight (6.1:1).
+- Buttons: primary = Orange fill + Midnight text on every band. Secondary = outline `--line-strong`.
+- `--brand` is always pure Orange (fills, stripes, eyebrow bar, chart highlight); `--mark` is the accessible text/mark colour for the current band.
+- Agent = Orange, human = Cloud on dark / Midnight on light, record = outlined; **always with an icon and a text label** (never colour alone).
+- `.band-deep` = Deep Midnight (CTA stripe bands). `.band-dark` re-asserts Midnight inside a light band.
+- No gradients except inside the kit's own logo/icon art. No glass, glows, shadows on the logo, or text shadows.
 
 ### 3.2 Type
 
-Fonts from the `geist` npm package via `next/font/local` (no network at build): **Geist** (sans) and **Geist Mono**. Fluid sizes:
+**Inter** (kit typeface) self-hosted with `next/font/local`: `app/fonts/InterVariable-latin.woff2` (variable 100–900, Latin, from `@fontsource-variable/inter` 5.3.0, OFL licence alongside), `display: swap`, fallback Arial. Geist removed. One family for everything, including labels and SVG text.
 
-| Token | Size (min → max, 360 → 1440px) | Weight | Line height | Tracking | Use |
+| Token | Size | Weight | Line height | Tracking | Use |
 |---|---|---|---|---|---|
-| `display` | `clamp(2.75rem, 1.6rem + 5vw, 5.5rem)` | 300 | 1.02 | -0.045em | Home hero H1 only |
-| `h1` | `clamp(2.25rem, 1.5rem + 3.2vw, 4rem)` | 300 | 1.05 | -0.04em | page heroes |
-| `h2` | `clamp(1.875rem, 1.35rem + 2.2vw, 3rem)` | 300 | 1.1 | -0.035em | section titles |
-| `h3` | `clamp(1.25rem, 1.1rem + .6vw, 1.5rem)` | 500 | 1.25 | -0.015em | card titles, step titles |
-| `stat` | `clamp(2.5rem, 1.8rem + 3vw, 4.5rem)` | 300 | 1 | -0.04em, `font-variant-numeric: tabular-nums` | stat tiles |
-| `lead` | `clamp(1.125rem, 1.05rem + .35vw, 1.3125rem)` | 400 | 1.5 | -0.005em | intro paragraphs, max 60ch |
-| `body` | 1rem (17px ≥1024: 1.0625rem) | 400 | 1.6 | 0 | body, max 68ch |
-| `small` | 0.875rem | 400 | 1.5 | 0 | card body, form help |
-| `mono` | 0.75rem (12px) → 0.8125rem ≥1024 | 500 | 1.4 | 0.08em, uppercase | eyebrows, step indices, sources, chips |
-
-- Headings use `text-wrap: balance`; body uses `text-wrap: pretty`. H1 max 16ch, H2 max 22ch.
-- One key word per headline may be `--accent` (not on paper). No gradient text.
-- Quotes: `h2` size, weight 300, curly quotes, attribution in `mono` below.
+| `display` | `clamp(2.75rem, 1.7rem + 4.6vw, 5rem)` | 800 | 1.02 | -0.04em | Home hero H1 |
+| `h1` | `clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem)` | 800 | 1.06 | -0.035em | page heroes, CTA band |
+| `h2` | `clamp(1.875rem, 1.4rem + 1.9vw, 2.875rem)` | 700 | 1.12 | -0.03em | section titles |
+| `h3` | `clamp(1.1875rem, 1.08rem + .45vw, 1.4375rem)` | 700 | 1.3 | -0.015em | cards, steps (quote-style h3 lines use 500) |
+| `stat` | `clamp(2.5rem, 1.8rem + 3vw, 4.25rem)` | 800 | 1 | -0.04em, tabular | stat tiles |
+| `lead` | `clamp(1.125rem, 1.05rem + .35vw, 1.3125rem)` | 400 | 1.55 | -0.005em | intros, max 60ch |
+| `body` | 1rem (1.0625rem ≥1024) | 400 | 1.6 | 0 | body, max 68ch |
+| `small` | 0.9375rem | 400 | 1.55 | 0 | card body, captions |
+| label (`.t-mono`) | 0.75rem → 0.8125rem ≥1024 | 650 | 1.4 | 0.08em caps | eyebrows, indices, sources, chips |
 
 ### 3.3 Spacing and layout
 
@@ -182,7 +174,13 @@ Fonts from the `geist` npm package via `next/font/local` (no network at build): 
 
 - Radii: `--r-chip 6px`, `--r-ctl 8px` (buttons, inputs), `--r-box 10px` (small panels, tiles), `--r-card 14px` (cards, demo stage).
 - Borders do the separation: 1px `--line`. No drop shadows on dark; on paper, cards may use `0 1px 2px rgb(13 18 16 / .06)`.
-- Header: transparent over hero; after 24px scroll, `--surface` at 92% opacity + 1px bottom `--line`. Height 72px (64 mobile).
+- Header: transparent over the Midnight hero with the Primary_Reversed lockup; after 24px scroll it becomes **solid White** (`.band-paper`, no translucency) with the Primary_Color lockup, Midnight nav text and a 1px `--line` rule. Height 76px (64 mobile).
+
+### 3.5 Logo and icons (brand kit rules)
+
+- Lockups: `public/brand/davero-primary-reversed.png` (on Midnight) and `davero-primary-color.png` (on White/Cloud), resized from `02_Transparent_PNG_Logos` (480×133). PNGs, so the wordmark never depends on the Inter install. `components/site/logo.tsx` switches them by band; header 40–44px tall, footer 48–56px.
+- Clear space ≥ 1/4 of the mark height; never crop, stretch, rotate, recolour or add effects. Only White, Cloud or Midnight behind the lockup.
+- Icons: `app/icon.svg` (kit `favicon.svg`), `app/favicon.ico`, `app/apple-icon.png` (180), manifest icons 192/512 (`public/brand/`), OpenGraph/Twitter image = kit `DaVero_OpenGraph_1200x630.png`.
 
 ## 4. Components
 
@@ -191,15 +189,15 @@ Fonts from the `geist` npm package via `next/font/local` (no network at build): 
 | **Button primary** | Fill `--accent`, text `--on-accent` 15px/500, padding 12×20, min-height 44, radius `--r-ctl`, trailing arrow icon 16px that shifts 2px right on hover. Hover `--accent-hover`; active `--accent-press`. On paper: fill `--ink`, text `--paper`. |
 | **Button secondary** | Transparent, 1px `--line-strong`, text `--text`. Hover border `--text-muted`. |
 | **Text link** | `--text` with 1px underline `--line-strong` offset 4px; hover underline `--accent`. Inline links in body always underlined. |
-| **Eyebrow** | `mono` token, `--text-faint`, preceded by a 6px lime square (decorative). On paper the square is `--accent-deep`. |
+| **Eyebrow** | label token in `--mark` (Orange on dark, `--orange-deep` on light), preceded by a 16×8 skewed `--brand` bar (decorative). |
 | **Section header** | Eyebrow → H2 → optional lead. Left aligned (centre only for CTA band and stat intro). |
 | **Card** | `--surface`, 1px `--line`, radius `--r-card`, padding 32 (24 mobile). Optional mono index top-left ("01"). Whole card clickable only when it has one link (link on the title, stretched with `::after`). Hover: border `--line-strong`, translateY(-2px). |
 | **Stat tile** | See §6.5. |
-| **Step list** | Mono index + H3 + small text, separated by 1px `--line` rules. Active step (in sticky stories) gets a 2px lime left rule and `--text`; inactive `--text-muted`. |
-| **Chip** | `mono` text, 1px `--line`, radius `--r-chip`, padding 4×8. Variants: agent (lime dot + "Agent"), human (amber dot + "Human"). |
+| **Step list** | Mono index + H3 + small text, separated by 1px `--line` rules. Active step (in sticky stories) gets a 2px orange left rule and `--text`; inactive `--text-muted`. |
+| **Chip** | `mono` text, 1px `--line`, radius `--r-chip`, padding 4×8. Variants: agent (orange dot + "Agent"), human (Cloud/Midnight dot + "Human"). |
 | **Quote** | Large quote (h2 300), attribution `mono`: "NAME, ROLE, ORGANISATION". Optional source link. |
 | **CTA band** | Full-width `--surface` panel, radius `--r-card` inside the container, padding 96/48. Centred H2 + one lead line + primary button. |
-| **Comparison table** | Two columns ("Platforms deliver" / "DaveroAI delivers"), rows separated by `--line`; DaveroAI column header has the lime square. On mobile becomes stacked pairs with row label repeated. Uses real `<table>` with `<th scope>`. |
+| **Comparison table** | Two columns ("Platforms deliver" / "DaVero AI delivers"), rows separated by `--line`; DaVero AI column header has the orange square. On mobile becomes stacked pairs with row label repeated. Uses real `<table>` with `<th scope>`. |
 | **Founder card** | Headshot placeholder 1:1, 320px max, `--surface-2` with initials "HB" in display type (`aria-hidden`), `alt=""` until a real photo; name H3, role mono, bio body, advisory line in `small`. |
 | **Insight card** | mono category · date · author; H3 title (2 lines max); small excerpt (3 lines max); whole card link. |
 | **Icons** | lucide-react, 20px, stroke 1.5, `aria-hidden` when paired with text. Differentiators: Context captured `ScanText`, Platform-native `Layers`, Human-validated `UserCheck`, Compounding library `LibraryBig`. Agent `Bot`, human `User`, record `BookCheck`. |
@@ -213,7 +211,7 @@ Desktop (≥1024) described; responsive changes in §8. Every page: header, `mai
 | § | Layout |
 |---|---|
 | 1 Hero `hero` | 12-col: text cols 1–7 (display H1 = positioning line, lead = contrast line, buttons primary + secondary "See how agents work" → `#in-action`). Visual cols 8–12: ★ last-mile line (§6.0). Hero glow. Min-height `min(860px, 100svh)`. Below the fold edge: mono row "Built, run and improved by agents · Approved by your team". |
-| 2 Evolution `evolution` | Header (eyebrow "The shift", H2). Row 1: comparison table platform vs DaveroAI (cols 1–6) next to short lead (cols 8–12). Row 2: ★ agent arbitrage before/after (§6.2), full width. |
+| 2 Evolution `evolution` | Header (eyebrow "The shift", H2). Row 1: comparison table platform vs DaVero AI (cols 1–6) next to short lead (cols 8–12). Row 2: ★ agent arbitrage before/after (§6.2), full width. |
 | 3 Challenges `challenges` | **Paper band.** (a) ★ last-mile three-state explainer, compact variant (§6.1). (b) Stat intro centred line "Delivery, not models, is the bottleneck." then ★ six stat tiles, 3×2 (§6.5). (c) Five challenge → answer cards: 5 columns would be too narrow, so a 2-column list of rows: left "Challenge" (h3, `--ink`), right "Our answer" (body), mono index; rows separated by rules. |
 | 4 Services `services` | Header + 3 cards in a row, each: mono index, title (Implement / Build agents / Run & tune), outcome line in `lead`, 2–3 example chips (Build agents: reconciliations, accruals, flux analysis, AR/collections, audit prep). Link "Explore services" → `/services`. |
 | 5 In action `in-action` | Header H2 "Humans review and approve. Agents do the rest." ★ HITL demo, compact variant (§6.3), full container width. Link → `/governance`. |
@@ -237,7 +235,7 @@ hero → `engagement` ★ sticky story (§6.4 model B, 5 steps; step 3 "Harden w
 
 ### 5.5 Technology & governance `/governance`
 
-hero → `hitl` ★ full HITL demo (§6.3 full variant with audit trail) → `actors` five-actor diagram: a centre node "Agent" with five actor cards around it (desktop: 3 above, 2 below; mobile: list). Each card: actor, who (Client / DaveroAI), what they do. Operator and Owner labelled "DaveroAI". Under it the line: the client defines and approves; DaveroAI builds, runs and owns the agent → `constitution` split 5/7: definition + a mock "constitution" panel (mono, `--surface-2`, 5 example rule lines marked "Example" in a chip, written by the Writer, not real client rules) → `platform-native` 3 short points (runs inside your platform · your data stays in your platform · every action recorded) → `cta`. Security certifications: none shown until supplied.
+hero → `hitl` ★ full HITL demo (§6.3 full variant with audit trail) → `actors` five-actor diagram: a centre node "Agent" with five actor cards around it (desktop: 3 above, 2 below; mobile: list). Each card: actor, who (Client / DaVero AI), what they do. Operator and Owner labelled "DaVero AI". Under it the line: the client defines and approves; DaVero AI builds, runs and owns the agent → `constitution` split 5/7: definition + a mock "constitution" panel (mono, `--surface-2`, 5 example rule lines marked "Example" in a chip, written by the Writer, not real client rules) → `platform-native` 3 short points (runs inside your platform · your data stays in your platform · every action recorded) → `cta`. Security certifications: none shown until supplied.
 
 ### 5.6 Industries & ecosystem `/industries`
 
@@ -253,7 +251,7 @@ hero (positioning) → `mission` large statement "Not software seats. Not billab
 
 ### 5.9 Contact `/contact`
 
-Split 5/7 at ≥1024: left `intro` (H1 "Start a conversation", lead, the four outcome items as a checklist with lime check icons, then `next`: three mono-indexed steps "We reply · We talk through your last mile · We scope a first agent"); right `form` in a `--surface` card. No email or phone.
+Split 5/7 at ≥1024: left `intro` (H1 "Start a conversation", lead, the four outcome items as a checklist with orange check icons, then `next`: three mono-indexed steps "We reply · We talk through your last mile · We scope a first agent"); right `form` in a `--surface` card. No email or phone.
 
 ### 5.10 Privacy, Terms, 404
 
@@ -268,41 +266,41 @@ Common rules for all ★ pieces:
 - Under `prefers-reduced-motion: reduce`: no autoplay, no transitions; show the final/complete state with all steps visible.
 - SVG diagrams: `role="img"` + `<title>`/`aria-labelledby` pointing to a visible caption; decorative strokes `aria-hidden`.
 
-### 6.0 Hero last-mile line
+### 6.0 Hero last-mile visual (`HeroArt`, components/site/art.tsx)
 
-SVG, ~520×420. A horizontal track of 6 small nodes labelled in mono ("Platform live", "Configured", "Data in", "…", "Workflow run", "Outcome delivered"). The first 4 nodes and the track up to them are `--line-strong` ("platform covers it"); the final segment (last mile) draws in lime from node 4 to 6 (stroke-dashoffset, 1.6s ease-out, once on load, delay 300ms), and the last node gets a lime ring + label "Finished outcome". Caption below (visible, `small`): "The last mile: everything between 'the software is live' and the finished outcome." Reduced motion: drawn state. Hidden on <640 (the same idea appears in §3).
+SVG 600×560, shown at every width (right column ≥1024, under the copy below). Bottom-left: a "Platform live" card (label "Platform covers it", rows "Configured", "Data in"). From it a kit-style **orange stripe** (the last mile) climbs to the top-right, with a thin white beam beside it, carrying four white step chips: Prepare (agent, orange square), Review and Approve (human, ring), Record (platform, outline). It ends under a White "Outcome delivered / Finished outcome / Approved by your team" card with an orange check. Visible caption below. CSS-only entrance (stripe grows from the platform card, chips and card fade in, ~1.6s, once); reduced motion shows the final state. Hero background: `HeroStripes`, full-bleed navy/orange diagonal stripes on the right, starting below the header (orange hidden <1024 so it never sits behind text).
 
 ### 6.1 Last-mile three-state explainer (Ref 02)
 
 - **States:** 1 "Platform covers it" · 2 "Client adopts" · 3 "The last mile". Segmented control (`role="tablist"`, three `role="tab"`, arrow keys move, Home/End supported) above a stage.
-- **Stage:** one horizontal bar of work split into three zones. Selecting a state highlights its zone (full opacity, label, short description) and dims the others to 35% opacity (text stays ≥4.5:1 since the description shown is only the active one). Zone 3 is lime (agent-run) with a small "DaveroAI" chip.
+- **Stage:** one horizontal bar of work split into three zones. Selecting a state highlights its zone (full opacity, label, short description) and dims the others to 35% opacity (text stays ≥4.5:1 since the description shown is only the active one). Zone 3 is orange (agent-run) with a small "DaVero AI" chip.
 - **Default:** state 3 selected. Autoplay: none.
 - **Compact variant (Home §3):** stage + three tabs only; link "What is the last mile?" → `/agentic-ai#last-mile`.
-- **Full variant (Agentic AI):** adds the 4-point test checklist (numbered list, each item gets a lime check when "The last mile" tab is active, purely decorative) and the domain tabs (Finance, Procurement & Supply Chain, IT Services, Insurance) that swap the three zone descriptions with domain examples. Two independent tablists; each tabpanel labelled by its tab.
+- **Full variant (Agentic AI):** adds the 4-point test checklist (numbered list, each item gets a orange check when "The last mile" tab is active, purely decorative) and the domain tabs (Finance, Procurement & Supply Chain, IT Services, Insurance) that swap the three zone descriptions with domain examples. Two independent tablists; each tabpanel labelled by its tab.
 - **Motion:** zone highlight 240ms ease; description cross-fade 200ms.
 - **Mobile:** bar becomes vertical stack of three zones; tabs stay above, scroll horizontally if needed (no wrap).
 
 ### 6.2 Labor arbitrage → agent arbitrage before/after (Ref 05)
 
 - Two columns "Yesterday: labor arbitrage" | "Tomorrow: agent arbitrage", with 4–5 matching row pairs from the deck (Writer supplies rows). A toggle button group "Yesterday / Tomorrow" (`aria-pressed`) sits above on ≤1023 where only one column shows at a time; on ≥1024 both columns show and the toggle is hidden.
-- Scroll-in effect (≥1024, motion allowed): rows reveal pairwise, left then right, 80ms stagger; a lime arrow between each pair draws in (200ms). Once only.
+- Scroll-in effect (≥1024, motion allowed): rows reveal pairwise, left then right, 80ms stagger; a orange arrow between each pair draws in (200ms). Once only.
 - The Sequoia / Nick Kopp quotes, if used here, sit below as attributed quotes.
 - **No dollar bar chart here** (Insights only).
 
 ### 6.3 Human-in-the-loop demo: Prepare → Review → Approve → Record (Ref 16)
 
-- **Stage** (`--surface-2`, radius card): a sample task card, e.g. "Bank reconciliation · Example entity · Month-end" (all fictional, labelled "Example" chip). Four step columns/rails: Prepare (Agent, lime, `Bot`), Review (Human, amber, `User`), Approve (Human, amber, `UserCheck`), Record (System of record, lime outline, `BookCheck`, "full audit trail").
+- **Stage** (`--surface-2`, radius card): a sample task card, e.g. "Bank reconciliation · Example entity · Month-end" (all fictional, labelled "Example" chip). Four step columns/rails: Prepare (Agent, orange, `Bot`), Review (Human, Cloud/Midnight, `User`), Approve (Human, Cloud/Midnight, `UserCheck`), Record (System of record, orange outline, `BookCheck`, "full audit trail").
 - **Controls:** "Play" / "Pause" button, "Previous step" / "Next step" buttons, step indicator "Step 2 of 4". Step buttons also act as a tablist-like list (each step clickable).
-- **Behaviour:** Play advances every 2.4s; the task card moves to the active column (translateX, 400ms); the active column shows what happens in 1–2 lines (e.g., Prepare: "Agent matches 1,240 lines, flags 6 exceptions." — illustrative numbers, labelled "Illustrative"). Human steps show a mock "Approve" button **inside the demo** that is disabled visual only (`aria-hidden`), to avoid confusing real controls. Ends at Record with a lime check, then stops (no loop).
+- **Behaviour:** Play advances every 2.4s; the task card moves to the active column (translateX, 400ms); the active column shows what happens in 1–2 lines (e.g., Prepare: "Agent matches 1,240 lines, flags 6 exceptions." — illustrative numbers, labelled "Illustrative"). Human steps show a mock "Approve" button **inside the demo** that is disabled visual only (`aria-hidden`), to avoid confusing real controls. Ends at Record with a orange check, then stops (no loop).
 - **Autoplay:** Home compact variant starts playing when 50% in view, once, motion allowed only; Pause always visible. Governance full variant waits for Play.
 - **Full variant adds:** an audit-trail list under the stage that appends one row per step: mono timestamp, actor (Agent/Human name role), action. It is an `<ol>`; new rows announced via the live region ("Step 3: Controller approved").
 - **Mobile:** columns stack vertically, the card highlights the active step instead of moving.
-- **Legend** always visible: lime square "Agent", amber square "Human", with icons.
+- **Legend** always visible: orange square "Agent", Cloud (Midnight on light) square "Human", with icons.
 
 ### 6.4 Sticky step stories (Methodology 4-step on Home; 5-step engagement on Approach)
 
 - Model A (Home, 4 steps: Embed, Develop skill, Harvest, Scale) and model B (Approach, 5 steps: Engage, Build the skill, Harden with a constitution, Converge into the platform, Review and approve). Never mixed on one page.
-- ≥1024: left column sticky (H2, intro, a vertical progress rail with one dot per step); right column one block per step (min-height 60vh, mono index, h3, body, optional small diagram). An IntersectionObserver (rootMargin `-45% 0px -45% 0px`) marks the step in the middle as active: rail dot fills lime, step text goes from `--text-muted` to `--text`. Rail dots are links to step anchors.
+- ≥1024: left column sticky (H2, intro, a vertical progress rail with one dot per step); right column one block per step (min-height 60vh, mono index, h3, body, optional small diagram). An IntersectionObserver (rootMargin `-45% 0px -45% 0px`) marks the step in the middle as active: rail dot fills orange, step text goes from `--text-muted` to `--text`. Rail dots are links to step anchors.
 - <1024 or reduced motion: plain ordered list, all steps full contrast, no sticky.
 - Home adds the Golden Rule card at the end of the left column.
 
@@ -315,18 +313,26 @@ SVG, ~520×420. A horizontal track of 6 small nodes labelled in mono ("Platform 
 
 ### 6.6 Skill-factory loop (Ref 15)
 
-- SVG circle of three nodes: Develop → Reuse → Redeploy, arrows between, and a centre label "DaveroAI library". A small lime dot travels the loop (12s per lap, CSS `offset-path` or SVG animateMotion) and each node pulses (scale 1→1.04, opacity) when the dot passes.
+- SVG circle of three nodes: Develop → Reuse → Redeploy, arrows between, and a centre label "DaVero AI library". A small orange dot travels the loop (12s per lap, CSS `offset-path` or SVG animateMotion) and each node pulses (scale 1→1.04, opacity) when the dot passes.
 - Pause button bottom-right (required: it loops >5s). Off-screen: paused (IntersectionObserver). Reduced motion: static, no dot.
 - Caption beside: "Every engagement adds to the library, so the next client starts further ahead." and three short lines, one per node, as a list (the real content).
 
-### 6.7 Bar chart: software vs services (Insights only, Ref 05)
+### 6.7 Bar charts (Insights only, Ref 05 + content.md #market)
+
+Two uses of `BarChart`: (a) software $0.5T vs services $2T (two bars, `#market-shift`); (b) **"US outsourced labour spend by category"**, 10 bars, midpoints of Sequoia's ranges with the range printed beside each value, finance categories (Accounting & audit, Tax advisory) in Orange and bold, others `--line-strong`; note "Bars show range midpoints; finance categories highlighted."; source "Sequoia Capital, Mar 2026". Sits beside the $80–115B card in `#market`. A visually hidden table carries the data; bars grow once in view, static under reduced motion.
+
+#### (v2 notes for the two-bar chart)
 
 - Two horizontal bars: "Software" $0.5T (`--ink-muted`) and "Services" $2T (`--accent-deep`), on paper. Values printed at bar end. Axis line `--paper-line-strong`. Source line under the chart (required; from the deck, Sequoia). Bars grow from 0 width (700ms) once in view; reduced motion static.
 - Accessible: `<figure>` with `<figcaption>`, plus a visually hidden `<table>` with the same values.
 
+### 6.9 Illustration set (components/site/art.tsx)
+
+Abstract, structural, on-brand: diagonal stripes, blocks, steps; Midnight steps + Orange + one white beam. No people, stock photos, AI-brain/circuit motifs, glows or deck images; the logo mark is never used as decoration. `PageArt` gives each page hero one idea: gap (/agentic-ai), layers (/services), stairs (/approach), controls (/governance), tiles (/industries), bars (/insights), people/track (/about). All `aria-hidden`. `StripeBand` = full-bleed Deep Midnight band with kit stripes (stripes beyond the text column; orange/white hidden <1024). Founder photo on /about sits on a flat orange offset block.
+
 ### 6.8 Landscape 2×2 (Insights only, Ref 20)
 
-- Square plot: x "Sells the tool ↔ Sells the work", y "Depth of platform context". Quadrant labels in mono describe categories generically (e.g., "Software vendors", "Generalist service firms") with **no company names**. One lime dot "DaveroAI" top-right. Caption: "Our own assessment." Text alternative: a list of the four quadrants and where DaveroAI sits.
+- Square plot: x "Sells the tool ↔ Sells the work", y "Depth of platform context". Quadrant labels in mono describe categories generically (e.g., "Software vendors", "Generalist service firms") with **no company names**. One orange dot "DaVero AI" top-right. Caption: "Our own assessment." Text alternative: a list of the four quadrants and where DaVero AI sits.
 
 ## 7. Contact form
 
@@ -388,7 +394,7 @@ Motion code: CSS + IntersectionObserver + small React state. No animation librar
 ## 10. Accessibility (WCAG 2.2 AA)
 
 - Skip link "Skip to content" first; landmarks header, `nav aria-label="Main"`, main, footer; `lang="en"`; one H1 per page; heading levels in order.
-- Unique `<title>` "Page | DaveroAI" and meta description per page (Writer supplies).
+- Unique `<title>` "Page | DaVero AI" and meta description per page (Writer supplies).
 - Contrast: text ≥4.5:1, large text and UI parts/graphics ≥3:1; all tokens in §3.1 pass in their stated pairs. Diagram meaning never by colour alone (icon + label).
 - Focus: visible ring `outline: 2px solid var(--accent); outline-offset: 3px` (on paper: `--ink`). Focus not hidden under the sticky header (`scroll-padding-top: calc(var(--header-h) + 16px)`) (2.4.11).
 - Keyboard: every ★ control reachable and operable; tablists follow the ARIA tabs pattern; no keyboard traps except the open mobile menu (Esc exits).
@@ -409,13 +415,13 @@ Don't:
 - ❌ Competitor names; pricing, margins or market-size charts outside Insights.
 - ❌ Unattributed third-party quotes; "Agent Builder"; "Platform" as agent owner.
 - ❌ Personal email, any email address on Contact, fake testimonials, fake metrics.
-- ❌ Hex values outside §3.1; heavy (700+) headlines; gradient text; glass; stock robot imagery.
+- ❌ Hex values outside §3.1; Orange text on White/Cloud; typed or recoloured logos; gradient text; glass; glows; stock robot or AI-brain imagery; translucent header.
 - ❌ Autoplay without pause; motion ignoring reduced-motion; placeholder-only labels; removed focus outlines.
 
 ## 12. Builder checklist (done = all true)
 
 - [ ] 12 routes from §1 exist; nav and footer as §1.1; old `/services` and `/industries` content replaced.
-- [ ] Tokens §3 in `app/globals.css`; Geist + Geist Mono via `next/font/local`.
+- [ ] Tokens §3 in `app/globals.css`; Inter via `next/font/local`; kit lockups and icons per §3.5.
 - [ ] Home has the ten sections with the ids in §1.2, in order.
 - [ ] Eight ★ pieces built per §6, each readable with JS off and under reduced motion.
 - [ ] Every stat tile and chart shows its source; no tile without one.

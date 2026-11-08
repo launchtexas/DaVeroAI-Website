@@ -27,8 +27,10 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 h-[var(--header-h)] border-b transition-colors duration-200",
-        scrolled ? "border-line bg-surface/92" : "border-transparent",
+        // Solid surfaces only (no translucency): transparent over the Midnight hero at the top,
+        // solid White with the Primary_Color lockup once the page scrolls.
+        "sticky top-0 z-40 h-[var(--header-h)] border-b transition-[background-color,border-color,box-shadow] duration-200",
+        scrolled ? "band-paper border-line shadow-[0_1px_0_0_var(--line)]" : "border-transparent bg-transparent",
       )}
     >
       <div className="container-x flex h-full items-center justify-between gap-6">
@@ -41,9 +43,9 @@ export function Header() {
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "relative inline-flex min-h-11 items-center text-[15px] transition-colors duration-150 hover:text-fg",
+                    "relative inline-flex min-h-11 items-center text-[15px] font-medium transition-colors duration-150 hover:text-fg",
                     isActive(item.href)
-                      ? "text-fg after:absolute after:inset-x-0 after:bottom-1.5 after:h-0.5 after:bg-accent"
+                      ? "text-fg after:absolute after:inset-x-0 after:bottom-1.5 after:h-0.5 after:bg-[var(--brand)]"
                       : "text-muted-foreground",
                   )}
                 >
@@ -86,7 +88,7 @@ export function Header() {
                         href={item.href}
                         aria-current={isActive(item.href) ? "page" : undefined}
                         className={cn(
-                          "flex min-h-14 items-center text-2xl font-light tracking-[-0.02em]",
+                          "flex min-h-14 items-center text-2xl font-bold tracking-[-0.025em]",
                           isActive(item.href) ? "text-accent" : "text-fg",
                         )}
                       >

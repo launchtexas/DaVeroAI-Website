@@ -1,5 +1,7 @@
 # DaveroAI website: copy
 
+> **Brand update (2026-11-08, brand kit v1.0):** the display name is now **DaVero AI**. Read every "DaveroAI" below as "DaVero AI" on the site (the email address ask@daveroai.com is unchanged).
+
 > Owner: Writer 2. Source: the client's content deck (`docs/source/content-brief.pptx`, text in `content-brief.txt`, slide images in `docs/source/media/`). Every line below comes from the deck; nothing is invented.
 > **Structure:** pages and sections follow the deck's WEBSITE PLACEMENT lines. `docs/design.md` §1 is being rewritten; when it is locked, re-map section ids and routes to it. Routes below are provisional.
 > **Conventions:** "quoted" = deck line used verbatim. Unquoted = tightened heading/button or a minimal rewording forced by a CAUTION (marked *(adapted)*). Every stat carries its source. **[TBD]** = missing from the deck; do not fill in.

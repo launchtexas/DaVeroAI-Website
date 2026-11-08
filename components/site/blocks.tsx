@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, BookCheck, Bot, Check, Layers, LibraryBig, ScanText, User, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { HeroStripes, StripeBand } from "./art";
 import {
   ADVISORY_FOOTNOTE,
   GOLDEN_RULE,
@@ -73,27 +74,34 @@ export function PageHero({
   lead,
   children,
   cta = true,
+  art,
 }: {
   eyebrow: string;
   title: React.ReactNode;
   lead?: React.ReactNode;
   children?: React.ReactNode;
   cta?: boolean;
+  /** Abstract page illustration (components/site/art.tsx PageArt). */
+  art?: React.ReactNode;
 }) {
   return (
     <section id="hero" aria-labelledby="hero-title" className="hero">
-      <div className="container-x">
-        <Eyebrow className="mb-6">{eyebrow}</Eyebrow>
-        <h1 id="hero-title" className="t-h1">
-          {title}
-        </h1>
-        {lead && <div className="t-lead mt-6">{lead}</div>}
-        {children}
-        {cta && (
-          <div className="mt-10">
-            <CtaButton />
-          </div>
-        )}
+      <HeroStripes />
+      <div className={cn("container-x", art && "grid items-center gap-12 lg:grid-cols-12 lg:gap-8")}>
+        <div className={cn(art && "lg:col-span-7")}>
+          <Eyebrow className="mb-6">{eyebrow}</Eyebrow>
+          <h1 id="hero-title" className="t-h1">
+            {title}
+          </h1>
+          {lead && <div className="t-lead mt-6">{lead}</div>}
+          {children}
+          {cta && (
+            <div className="mt-10">
+              <CtaButton />
+            </div>
+          )}
+        </div>
+        {art && <div className="max-w-[300px] sm:max-w-[380px] lg:col-span-5 lg:col-start-8 lg:max-w-none">{art}</div>}
       </div>
     </section>
   );
@@ -101,26 +109,24 @@ export function PageHero({
 
 export function CtaBand({ title, lead }: { title: string; lead?: string }) {
   return (
-    <section id="cta" aria-labelledby="cta-title" className="section">
-      <div className="container-x">
-        <div className="rounded-[var(--r-card)] border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-24" data-reveal>
-          <h2 id="cta-title" className="t-h2 mx-auto">
-            {title}
-          </h2>
-          {lead && <p className="t-lead mx-auto mt-5">{lead}</p>}
-          <div className="mt-10">
-            <CtaButton />
-          </div>
+    <StripeBand id="cta" aria-labelledby="cta-title" className="py-[calc(var(--section-y)*1.1)]">
+      <div className="container-x" data-reveal>
+        <h2 id="cta-title" className="t-h1 max-w-[20ch]">
+          {title}
+        </h2>
+        {lead && <p className="t-lead mt-5">{lead}</p>}
+        <div className="mt-10">
+          <CtaButton />
         </div>
       </div>
-    </section>
+    </StripeBand>
   );
 }
 
 export function Quote({ text, by, size = "h2" }: { text: string; by?: string; size?: "h2" | "h3" }) {
   return (
     <figure>
-      <blockquote className={cn(size === "h2" ? "t-h2" : "t-h3 !font-light", "max-w-none")}>
+      <blockquote className={cn(size === "h2" ? "t-h2" : "t-h3 !font-medium", "max-w-none")}>
         <p>&ldquo;{text}&rdquo;</p>
       </blockquote>
       {by && (
@@ -135,33 +141,30 @@ export function Quote({ text, by, size = "h2" }: { text: string; by?: string; si
 export function ClosingCta({ title = CLOSE_LINE, withQuotes }: { title?: string; withQuotes?: boolean }) {
   if (!withQuotes) return <CtaBand title={title} />;
   return (
-    <section id="cta" aria-labelledby="cta-title" className="section">
-      <div className="container-x">
-        <h2 className="sr-only">In their words</h2>
-        <ul className="mb-16 grid gap-10 md:grid-cols-3">
-          {closingQuotes.map((q) => (
-            <li key={q.text} data-reveal className="border-t border-line pt-6">
-              <Quote text={q.text} by={q.by} size="h3" />
-            </li>
-          ))}
-        </ul>
-        <div className="rounded-[var(--r-card)] border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-24" data-reveal>
-          <h2 id="cta-title" className="t-h2 mx-auto">
-            {title}
+    <>
+      <section aria-labelledby="quotes-title" className="section band-cloud">
+        <div className="container-x">
+          <h2 id="quotes-title" className="sr-only">
+            In their words
           </h2>
-          <div className="mt-10">
-            <CtaButton />
-          </div>
+          <ul className="grid gap-10 md:grid-cols-3">
+            {closingQuotes.map((q) => (
+              <li key={q.text} data-reveal className="border-t-2 border-[var(--brand)] pt-6">
+                <Quote text={q.text} by={q.by} size="h3" />
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
+      <CtaBand title={title} />
+    </>
   );
 }
 
 export function ComparisonTable() {
   return (
     <table className="w-full border-collapse text-left">
-      <caption className="sr-only">Platforms deliver the capability. DaveroAI delivers the finished outcome.</caption>
+      <caption className="sr-only">Platforms deliver the capability. DaVero AI delivers the finished outcome.</caption>
       <thead className="max-sm:sr-only">
         <tr className="border-b border-line-strong">
           <th scope="col" className="w-1/2 pr-6 pb-4 align-bottom font-normal">
@@ -326,7 +329,7 @@ export function GoldenRule({ withFootnote }: { withFootnote?: boolean }) {
         {GOLDEN_RULE.map((l, i) => (
           <li key={l} className="flex gap-4">
             <span className="t-mono pt-1 text-mark">{String(i + 1).padStart(2, "0")}</span>
-            <span className="t-h3 !font-light">{l}</span>
+            <span className="t-h3 !font-medium">{l}</span>
           </li>
         ))}
       </ol>

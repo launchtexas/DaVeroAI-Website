@@ -75,7 +75,7 @@ export function LastMile({ variant = "compact" }: { variant?: "compact" | "full"
             >
               <div className="flex flex-wrap items-center gap-2">
                 <span className="t-mono text-faint">Zone {i + 1}</span>
-                {last && <span className="chip t-mono border-mark text-fg">DaveroAI</span>}
+                {last && <span className="chip t-mono border-mark text-fg">DaVero AI</span>}
               </div>
               <p className={cn("mt-3", on && "font-medium")}>{s.title}</p>
               <p className="t-small mt-auto flex items-center gap-1.5 pt-3 text-muted-fg">

@@ -15,7 +15,7 @@ import {
   WhereWhatHow,
 } from "@/components/site/blocks";
 import { Arbitrage } from "@/components/site/arbitrage";
-import { HeroLine } from "@/components/site/hero-line";
+import { HeroArt, HeroStripes, StripeBand } from "@/components/site/art";
 import { HitlDemo } from "@/components/site/hitl-demo";
 import { LastMile } from "@/components/site/last-mile";
 import { StatTiles } from "@/components/site/stat-tiles";
@@ -42,15 +42,16 @@ export default function Home() {
   return (
     <>
       {/* 1 Hero */}
-      <section id="hero" aria-labelledby="hero-title" className="hero flex min-h-[min(860px,100svh)] flex-col">
-        <div className="container-x grid flex-1 items-center gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+      <section id="hero" aria-labelledby="hero-title" className="hero flex min-h-[min(900px,100svh)] flex-col">
+        <HeroStripes />
+        <div className="container-x grid flex-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-6">
             <Eyebrow className="mb-6">Agentic AI &middot; Finished outcomes</Eyebrow>
             <h1 id="hero-title" className="t-display">
               Own the <span className="text-mark">Last Mile</span>
             </h1>
             <p className="t-lead mt-8">
-              DaveroAI is an agentic AI company that turns your business platforms into finished, end-to-end workflows, built, run and
+              DaVero AI is an agentic AI company that turns your business platforms into finished, end-to-end workflows, built, run and
               continuously improved by AI agents, with your team approving every result.
             </p>
             <p className="mt-4 font-medium">Not software seats. Not billable hours.</p>
@@ -61,17 +62,17 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div className="lg:col-span-5">
-            <HeroLine />
+          <div className="lg:col-span-6">
+            <HeroArt />
           </div>
         </div>
         <p className="container-x t-mono mt-12 text-faint">Built, run and improved by agents &middot; Approved by your team</p>
       </section>
 
       {/* 2 Evolution */}
-      <section id="evolution" aria-labelledby="evolution-title" className="section">
+      <section id="evolution" aria-labelledby="evolution-title" className="section band-paper">
         <div className="container-x">
-          <SectionHead id="evolution-title" eyebrow="The shift" title="Platforms deliver the capability. DaveroAI delivers the finished outcome" />
+          <SectionHead id="evolution-title" eyebrow="The shift" title="Platforms deliver the capability. DaVero AI delivers the finished outcome" />
           <div data-reveal>
             <ComparisonTable />
           </div>
@@ -81,7 +82,7 @@ export default function Home() {
       </section>
 
       {/* 3 Challenges (paper band) */}
-      <section id="challenges" aria-labelledby="challenges-title" className="section band-paper">
+      <section id="challenges" aria-labelledby="challenges-title" className="section band-cloud">
         <div className="container-x">
           <SectionHead
             id="challenges-title"
@@ -92,20 +93,23 @@ export default function Home() {
           <LastMile variant="compact" />
 
           <div className="mt-24">
-            <p className="t-h3 mx-auto mb-10 max-w-[30ch] text-center !font-light">{STATS_KEY_LINE}</p>
-            <StatTiles stats={stats} />
-            <p className="t-small mt-6 text-muted-fg">{STATS_TAKEAWAY}</p>
-          </div>
-
-          <div className="mt-24">
             <h3 className="t-h3 mb-8">Top five challenges and our response</h3>
             <ChallengeRows />
           </div>
         </div>
       </section>
 
+      {/* 3b Why-now numbers: full-bleed Midnight moment */}
+      <StripeBand id="why-now" aria-labelledby="why-now-title" className="section">
+        <div className="container-x">
+          <h2 id="why-now-title" className="t-h2 mb-12 max-w-[22ch]">{STATS_KEY_LINE}</h2>
+          <StatTiles stats={stats} />
+          <p className="t-small mt-6 max-w-[70ch] text-muted-fg">{STATS_TAKEAWAY}</p>
+        </div>
+      </StripeBand>
+
       {/* 4 Services */}
-      <section id="services" aria-labelledby="services-title" className="section">
+      <section id="services" aria-labelledby="services-title" className="section band-paper">
         <div className="container-x">
           <SectionHead id="services-title" eyebrow="What we do" title="From first close to agents that keep getting better." />
           <ul className="grid gap-6 lg:grid-cols-3">
@@ -148,7 +152,7 @@ export default function Home() {
       </section>
 
       {/* 6 Outcomes */}
-      <section id="outcomes" aria-labelledby="outcomes-title" className="section">
+      <section id="outcomes" aria-labelledby="outcomes-title" className="section band-cloud">
         <div className="container-x">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
             <div className="lg:col-span-5">
@@ -177,7 +181,7 @@ export default function Home() {
       </section>
 
       {/* 7 Methodology */}
-      <section id="methodology" aria-labelledby="methodology-title" className="section">
+      <section id="methodology" aria-labelledby="methodology-title" className="section band-paper">
         <div className="container-x">
           <StepStory
             id="method"
@@ -214,7 +218,7 @@ export default function Home() {
           <div className="mt-20">
             <WhereWhatHow />
           </div>
-          <p className="t-h3 mt-16 max-w-[40ch] !font-light">{LIBRARY_LINE}</p>
+          <p className="t-h3 mt-16 max-w-[40ch] !font-medium">{LIBRARY_LINE}</p>
         </div>
       </section>
 

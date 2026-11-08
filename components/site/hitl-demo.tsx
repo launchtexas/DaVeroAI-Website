@@ -107,8 +107,8 @@ export function HitlDemo({ variant = "compact" }: { variant?: "compact" | "full"
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "mt-4 inline-flex min-h-9 items-center rounded-[var(--r-ctl)] border border-mark-human px-3 text-sm text-fg",
-                      !on && "opacity-50",
+                      "mt-4 inline-flex min-h-9 items-center rounded-[var(--r-ctl)] border px-3 text-sm",
+                      on ? "border-mark-human text-fg" : "border-line-strong text-muted-fg",
                     )}
                   >
                     Approve

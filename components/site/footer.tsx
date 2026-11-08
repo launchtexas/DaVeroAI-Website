@@ -13,10 +13,10 @@ const linkClass = "inline-flex min-h-11 items-center text-muted-fg transition-co
 export async function Footer() {
   const year = await currentYear();
   return (
-    <footer className="overflow-hidden border-t border-line pt-16">
+    <footer className="overflow-hidden border-t border-line pt-16 lg:pt-20">
       <div className="container-x grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
         <div className="sm:col-span-2 lg:col-span-6">
-          <Logo />
+          <Logo size="lg" />
           <p className="t-lead mt-4 max-w-[34ch]">{CLOSE_LINE}</p>
           <div className="mt-8">
             <CtaButton />
@@ -51,16 +51,11 @@ export async function Footer() {
           </li>
         </ul>
         <p>
-          &copy; {year} DaveroAI.
+          &copy; {year} DaVero AI.
         </p>
       </div>
-      <div aria-hidden="true" className="container-x mt-10">
-        <svg viewBox="0 0 1000 214" className="-mb-[2%] block h-auto w-full select-none">
-          <text x="-8" y="206" fontSize="290" fontWeight="300" letterSpacing="-18" fill="var(--line)">
-            DaveroAI
-          </text>
-        </svg>
-      </div>
+      {/* Kit stripes as the footer's closing edge (decorative). */}
+      <div aria-hidden="true" className="mt-12 h-3 w-full bg-[linear-gradient(115deg,var(--brand)_0_62%,var(--white)_62%_63%,var(--midnight-3)_63%_100%)]" />
     </footer>
   );
 }

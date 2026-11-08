@@ -1,25 +1,37 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
 
+// Inter (brand kit typeface), self-hosted: variable weight 100–900, Latin subset (OFL, app/fonts/Inter-OFL.txt).
+const inter = localFont({
+  src: "./fonts/InterVariable-latin.woff2",
+  weight: "100 900",
+  style: "normal",
+  display: "swap",
+  variable: "--font-inter",
+  fallback: ["Arial", "sans-serif"],
+});
+
 export const metadata: Metadata = {
-  title: { default: "DaveroAI | Own the Last Mile", template: "%s" },
+  metadataBase: new URL("https://daveroai.com"),
+  title: { default: "DaVero AI | Own the Last Mile", template: "%s" },
   description:
-    "DaveroAI turns your business platforms into finished, end-to-end workflows, run by AI agents, with your team approving every result.",
+    "DaVero AI turns your business platforms into finished, end-to-end workflows, run by AI agents, with your team approving every result.",
+  applicationName: "DaVero AI",
+  openGraph: { siteName: "DaVero AI", type: "website" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0d0c",
+  themeColor: "#081630",
   colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"

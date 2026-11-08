@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { CtaBand, PageHero, SectionHead } from "@/components/site/blocks";
+import { PageArt } from "@/components/site/art";
 import { BarChart } from "@/components/site/bar-chart";
 import { Landscape } from "@/components/site/landscape";
 import { StatTiles } from "@/components/site/stat-tiles";
 import { CLOSE_LINE, WEDGE, stats } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Insights: The Market for the Last Mile | DaveroAI",
+  title: "Insights: The Market for the Last Mile | DaVero AI",
   description:
-    "Why services, not software, are the bigger prize: market size, the shift to agent arbitrage and where DaveroAI sits in the landscape.",
+    "Why services, not software, are the bigger prize: market size, the shift to agent arbitrage and where DaVero AI sits in the landscape.",
 };
 
 const edge = [
@@ -17,10 +18,24 @@ const edge = [
   "Labs target the Fortune 500; we go deep on one platform layer and the mid-market.",
 ];
 
+// docs/content.md /insights #market: midpoints of Sequoia's ranges; finance categories highlighted.
+const labourSpend = [
+  { label: "Management consulting", value: 350, display: "$350B", range: "$300–400B" },
+  { label: "Supply chain & procurement", value: 200, display: "$200B", range: "$200B+" },
+  { label: "Recruitment & staffing", value: 200, display: "$200B", range: "$200B+" },
+  { label: "Insurance brokerage", value: 170, display: "$170B", range: "$140–200B" },
+  { label: "IT managed services", value: 100, display: "$100B", range: "$100B+" },
+  { label: "Accounting & audit", value: 65, display: "$65B", range: "$50–80B", ours: true },
+  { label: "Healthcare revenue cycle", value: 65, display: "$65B", range: "$50–80B" },
+  { label: "Claims adjusting", value: 65, display: "$65B", range: "$50–80B" },
+  { label: "Tax advisory", value: 33, display: "$33B", range: "$30–35B", ours: true },
+  { label: "Legal, transactional", value: 23, display: "$23B", range: "$20–25B" },
+];
+
 export default function InsightsPage() {
   return (
     <>
-      <PageHero eyebrow="Insights" title="The market for the last mile" lead={<p>{WEDGE}</p>} />
+      <PageHero art={<PageArt kind="bars" />} eyebrow="Insights" title="The market for the last mile" lead={<p>{WEDGE}</p>} />
 
       <section id="market-shift" aria-labelledby="shift-title" className="section band-paper">
         <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
@@ -31,7 +46,7 @@ export default function InsightsPage() {
             <p className="t-mono mt-4 text-faint">
               Sources: Nick Kopp, CEO, Rillet (Nasdaq, Oct 2026); Sequoia, via Matt Baskovc (Oct 2026)
             </p>
-            <p className="t-h3 mt-8 !font-light">The last mile is the bigger prize.</p>
+            <p className="t-h3 mt-8 !font-medium">The last mile is the bigger prize.</p>
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
             <BarChart
@@ -47,15 +62,26 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      <section id="market" aria-labelledby="market-title" className="section">
+      <section id="market" aria-labelledby="market-title" className="section band-cloud">
         <div className="container-x">
-          <SectionHead id="market-title" eyebrow="Market for DaveroAI" title="Finance is one of the largest markets for DaveroAI" />
-          <div data-reveal className="card max-w-3xl">
-            <p className="t-stat text-[clamp(3.5rem,2rem+6vw,7rem)]">$80&ndash;115B</p>
-            <p className="t-lead mt-6">US accounting, audit and tax advisory work already bought from outside providers</p>
-            <p className="t-mono mt-6 text-faint">
-              Source: Sequoia Capital, &ldquo;Services: The New Software,&rdquo; Mar 2026 (labour TAM ranges)
-            </p>
+          <SectionHead id="market-title" eyebrow="Market for DaVero AI" title="Finance is one of the largest markets for DaVero AI" />
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+            <div data-reveal className="card self-start lg:col-span-4">
+              <p className="t-stat text-[clamp(3rem,2rem+4vw,4.5rem)]">$80&ndash;115B</p>
+              <p className="t-lead mt-6">US accounting, audit and tax advisory work already bought from outside providers</p>
+              <p className="t-mono mt-6 text-faint">
+                Source: Sequoia Capital, &ldquo;Services: The New Software,&rdquo; Mar 2026 (labour TAM ranges)
+              </p>
+            </div>
+            <div className="lg:col-span-8">
+              <BarChart
+                id="labour-chart"
+                title="US outsourced labour spend by category"
+                note="Bars show range midpoints; finance categories highlighted."
+                source="Sequoia Capital, Mar 2026"
+                bars={labourSpend}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -67,7 +93,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      <section id="landscape" aria-labelledby="landscape-title" className="section">
+      <section id="landscape" aria-labelledby="landscape-title" className="section band-paper">
         <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="lg:col-span-6">
             <SectionHead id="landscape-title" eyebrow="Landscape" title="Where we sit in the landscape" />
@@ -87,7 +113,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      <section id="articles" aria-labelledby="articles-title" className="section">
+      <section id="articles" aria-labelledby="articles-title" className="section band-cloud">
         <div className="container-x">
           <SectionHead id="articles-title" eyebrow="Articles" title="Articles" />
           <p className="text-muted-fg">First articles coming soon.</p>

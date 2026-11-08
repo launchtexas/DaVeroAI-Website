@@ -89,7 +89,7 @@ export const challenges: Challenge[] = [
 
 export const comparison = {
   platform: { title: "Platform", sub: "Traditional tools" },
-  davero: { title: "DaveroAI", sub: "Agentic outcomes" },
+  davero: { title: "DaVero AI", sub: "Agentic outcomes" },
   rows: [
     { platform: "Sells a tool to a professional", davero: "Sells the finished outcome to the buyer" },
     { platform: "Professional stays responsible for the output", davero: "Provider owns delivery, exceptions and quality" },
@@ -190,7 +190,7 @@ export const journey = [
 
 export const PLATFORMS = ["Rillet", "Tabs", "Maxio", "Campfire"];
 export const PLATFORMS_FOOTNOTE =
-  "DaveroAI has no commercial partnership with these platforms. Names are used to describe the platforms we work around.";
+  "DaVero AI has no commercial partnership with these platforms. Names are used to describe the platforms we work around.";
 
 export const GOLDEN_RULE = ["The client identifies the gap.", "We build.", "The client validates.", "We own, run and improve the agent."];
 export const ADVISORY_FOOTNOTE = "Consultants and auditors keep their advisory and assurance roles.";
@@ -223,12 +223,12 @@ export const POD_LINE = "One pod per client.";
 // docs/governance.md #actors. The builder is the pod (Forward Deployed Accountant + Solutions Engineer).
 export const actors = [
   { key: "A", name: "Subject expert", who: "Client or consultant", body: "Defines the workflow, rules and edge cases." },
-  { key: "B", name: "Forward Deployed Accountant", who: "DaveroAI pod", body: "Builds the agent around those requirements, with the Solutions Engineer." },
+  { key: "B", name: "Forward Deployed Accountant", who: "DaVero AI pod", body: "Builds the agent around those requirements, with the Solutions Engineer." },
   { key: "C", name: "Validator", who: "Client or consultant", body: "Checks controls and approves results in the platform." },
-  { key: "D", name: "Operator", who: "DaveroAI", body: "Runs the agent, monitors exceptions and coordinates resolution." },
-  { key: "E", name: "Owner", who: "DaveroAI", body: "Owns the agent and its ongoing improvement." },
+  { key: "D", name: "Operator", who: "DaVero AI", body: "Runs the agent, monitors exceptions and coordinates resolution." },
+  { key: "E", name: "Owner", who: "DaVero AI", body: "Owns the agent and its ongoing improvement." },
 ];
-export const ACTORS_KEY = "The client defines and approves. DaveroAI owns and runs the agents.";
+export const ACTORS_KEY = "The client defines and approves. DaVero AI owns and runs the agents.";
 
 export const differentiators = [
   { title: "Context captured", body: "Every engagement turns client-specific rules and exceptions into agents we own.", quote: { text: "context is the moat.", by: "Nick Kopp, CEO, Rillet" } },

@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand, Journey, PageHero, SectionHead } from "@/components/site/blocks";
+import { PageArt } from "@/components/site/art";
 import { CLOSE_LINE, PLATFORMS, PLATFORMS_FOOTNOTE, WEDGE, domains } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Industries and Platforms | DaveroAI",
+  title: "Industries and Platforms | DaVero AI",
   description: "Last-mile workflows in finance, procurement and supply chain, IT services and insurance, run by agents on AI-native platforms.",
 };
 
 export default function IndustriesPage() {
   return (
     <>
-      <PageHero eyebrow="Industries & ecosystem" title="Where the last mile lives" lead={<p>Our focus: {WEDGE}</p>} />
+      <PageHero art={<PageArt kind="tiles" />} eyebrow="Industries & ecosystem" title="Where the last mile lives" lead={<p>Our focus: {WEDGE}</p>} />
 
-      <section id="domains" aria-labelledby="domains-title" className="section">
+      <section id="domains" aria-labelledby="domains-title" className="section band-paper">
         <div className="container-x">
           <SectionHead id="domains-title" eyebrow="Domains" title="Four domains" />
           <ul className="grid gap-6 md:grid-cols-2">
@@ -47,7 +48,7 @@ export default function IndustriesPage() {
         </div>
       </section>
 
-      <section id="platforms" aria-labelledby="platforms-title" className="section">
+      <section id="platforms" aria-labelledby="platforms-title" className="section band-cloud">
         <div className="container-x">
           <div data-reveal className="rounded-[var(--r-card)] border border-line bg-surface p-6 sm:p-12">
             <h2 id="platforms-title" className="t-h3">

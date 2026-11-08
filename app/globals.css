@@ -2,38 +2,58 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Design tokens: docs/design.md §3. No other hex values in site code. */
+/* Design tokens: docs/design.md §3 (brand kit v1.0, docs/source/brand-kit/04_Design_Tokens).
+   No other hex values in site code. Default surface is Midnight; .band-paper (White) and .band-cloud (Cloud) remap. */
 :root {
-  --bg: #0a0d0c;
-  --surface: #121815;
-  --surface-2: #18201c;
-  --line: #2a332d;
-  --line-strong: #5f6f64;
-  --text: #f2f5f0;
-  --text-muted: #a3b0a7;
-  --text-faint: #83918a;
-  --accent: #c4ff6b;
-  --accent-hover: #d4ff8f;
-  --accent-press: #aee84f;
-  --on-accent: #0a0d0c;
-  --human: #f5c26b;
-  --error: #ff8080;
+  /* Brand kit */
+  --midnight: #081630;
+  --midnight-deep: #061126;
+  --orange: #ff6500;
+  --amber: #ff962e;
+  --cloud: #f3f6fa;
+  --mist: #e6eaf0;
+  --slate: #536378;
+  --white: #ffffff;
+  --ink-kit: #111827;
+  /* Accessibility shades (derived; small orange text on light surfaces only, 5.5:1 on White) */
+  --orange-deep: #b34700;
+  /* Midnight surface steps (Midnight mixed with White) */
+  --midnight-2: #0e1e3d;
+  --midnight-3: #13284d;
+  --midnight-line: #223658;
+  --midnight-line-strong: #6b7c98;
 
-  --paper: #f3f5f1;
-  --paper-2: #e7ebe4;
-  --ink: #0d1210;
-  --ink-muted: #4a564f;
-  --ink-faint: #5f6b64;
-  --paper-line: #c9d1c6;
-  --paper-line-strong: #6b7770;
-  --accent-deep: #3f6b00;
-  --human-deep: #8a5a00;
+  --bg: var(--midnight);
+  --surface: var(--midnight-2);
+  --surface-2: var(--midnight-3);
+  --line: var(--midnight-line);
+  --line-strong: var(--midnight-line-strong);
+  --text: var(--white);
+  --text-muted: #c3ccda;
+  --text-faint: #9aa7bc;
+  --accent: var(--orange);
+  --accent-hover: #ff7a1a;
+  --accent-press: #f25c00;
+  --on-accent: var(--midnight);
+  --human: var(--cloud);
+  --error: #ff8a80;
+
+  --paper: var(--white);
+  --paper-2: var(--cloud);
+  --ink: var(--midnight);
+  --ink-muted: var(--slate);
+  --ink-faint: var(--slate);
+  --paper-line: #dce2ea;
+  --paper-line-strong: #7a889b;
+  --accent-deep: var(--orange-deep);
+  --human-deep: var(--midnight);
   --error-deep: #b42318;
 
-  /* Role tokens: remapped inside .band-paper */
+  /* Role tokens: remapped inside .band-paper / .band-cloud */
   --mark: var(--accent);
   --mark-human: var(--human);
   --focus: var(--accent);
+  --brand: var(--orange);
 
   --r-chip: 6px;
   --r-ctl: 8px;
@@ -55,15 +75,16 @@
 @media (min-width: 1024px) {
   :root {
     --section-y: 128px;
-    --head-gap: 48px;
-    --header-h: 72px;
+    --head-gap: 56px;
+    --header-h: 76px;
   }
 }
 
-.band-paper {
+.band-paper,
+.band-cloud {
   --bg: var(--paper);
-  --surface: #ffffff;
-  --surface-2: var(--paper-2);
+  --surface: var(--cloud);
+  --surface-2: var(--mist);
   --text: var(--ink);
   --text-muted: var(--ink-muted);
   --text-faint: var(--ink-faint);
@@ -72,15 +93,40 @@
   --mark: var(--accent-deep);
   --mark-human: var(--human-deep);
   --error: var(--error-deep);
-  --focus: var(--ink);
+  --focus: var(--midnight);
   background: var(--bg);
   color: var(--text);
   color-scheme: light;
 }
+.band-cloud {
+  --bg: var(--cloud);
+  --surface: var(--white);
+}
+.band-deep {
+  --bg: var(--midnight-deep);
+  background: var(--bg);
+}
+.band-dark {
+  --bg: var(--midnight);
+  --surface: var(--midnight-2);
+  --surface-2: var(--midnight-3);
+  --text: var(--white);
+  --text-muted: #c3ccda;
+  --text-faint: #9aa7bc;
+  --line: var(--midnight-line);
+  --line-strong: var(--midnight-line-strong);
+  --mark: var(--accent);
+  --mark-human: var(--human);
+  --error: #ff8a80;
+  --focus: var(--accent);
+  background: var(--bg);
+  color: var(--text);
+  color-scheme: dark;
+}
 
 @theme inline {
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-inter), Inter, Arial, sans-serif;
+  --font-mono: var(--font-inter), Inter, Arial, sans-serif;
   --font-heading: var(--font-sans);
 
   --color-bg: var(--bg);
@@ -191,62 +237,69 @@
     margin-bottom: var(--head-gap);
   }
   .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     padding-top: calc(var(--section-y) + var(--header-h));
     padding-bottom: 96px;
     margin-top: calc(-1 * var(--header-h));
-    background: radial-gradient(720px circle at 75% 10%, rgb(196 255 107 / 0.08), transparent 60%);
+    background: var(--bg);
+  }
+  .band-tight {
+    padding-block: calc(var(--section-y) * 0.75);
   }
 
-  /* Type, §3.2 */
+  /* Type, §3.2: Inter. Display/headings Bold–ExtraBold, body Regular/Medium (brand kit p.6). */
   .t-display {
-    font-size: clamp(2.75rem, 1.6rem + 5vw, 5.5rem);
-    font-weight: 300;
+    font-size: clamp(2.75rem, 1.7rem + 4.6vw, 5rem);
+    font-weight: 800;
     line-height: 1.02;
-    letter-spacing: -0.045em;
-    max-width: 16ch;
+    letter-spacing: -0.04em;
+    max-width: 14ch;
   }
   .t-h1 {
-    font-size: clamp(2.25rem, 1.5rem + 3.2vw, 4rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    max-width: 16ch;
+    font-size: clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    max-width: 18ch;
   }
   .t-h2 {
-    font-size: clamp(1.875rem, 1.35rem + 2.2vw, 3rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
-    max-width: 22ch;
+    font-size: clamp(1.875rem, 1.4rem + 1.9vw, 2.875rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    max-width: 24ch;
   }
   .t-h3 {
-    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
-    font-weight: 500;
-    line-height: 1.25;
+    font-size: clamp(1.1875rem, 1.08rem + 0.45vw, 1.4375rem);
+    font-weight: 700;
+    line-height: 1.3;
     letter-spacing: -0.015em;
   }
   .t-stat {
-    font-size: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
-    font-weight: 300;
+    font-size: clamp(2.5rem, 1.8rem + 3vw, 4.25rem);
+    font-weight: 800;
     line-height: 1;
     letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
   }
   .t-lead {
     font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
-    line-height: 1.5;
+    line-height: 1.55;
     letter-spacing: -0.005em;
     color: var(--text-muted);
     max-width: 60ch;
   }
   .t-small {
-    font-size: 0.875rem;
-    line-height: 1.5;
+    font-size: 0.9375rem;
+    line-height: 1.55;
   }
+  /* Label style (kept the .t-mono name): Inter SemiBold caps, as the kit's section labels. */
   .t-mono {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 650;
     line-height: 1.4;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -262,14 +315,16 @@
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    color: var(--text-faint);
+    gap: 12px;
+    color: var(--mark);
   }
+  /* Brand stripe: a short diagonal bar from the kit's visual language (p.8). */
   .eyebrow::before {
     content: "";
-    width: 6px;
-    height: 6px;
-    background: var(--mark);
+    width: 16px;
+    height: 8px;
+    background: var(--brand);
+    transform: skewX(-35deg);
     flex-shrink: 0;
   }
 
@@ -299,6 +354,17 @@
     transform: translateX(2px);
   }
 
+  /* Logo lockup switch (components/site/logo.tsx) */
+  .logo-light {
+    display: none;
+  }
+  :is(.band-paper, .band-cloud) .logo-dark {
+    display: none;
+  }
+  :is(.band-paper, .band-cloud) .logo-light {
+    display: block;
+  }
+
   /* Card, §4 */
   .card {
     position: relative;
@@ -313,7 +379,7 @@
     }
   }
   .band-paper .card {
-    box-shadow: 0 1px 2px rgb(13 18 16 / 0.06);
+    border-color: transparent;
   }
   .card-link {
     transition: border-color 150ms ease-out, transform 200ms ease-out;
@@ -398,24 +464,30 @@
     transform: none;
   }
 
-  /* Hero last-mile line, §6.0 */
-  .lm-draw {
-    stroke-dasharray: 260;
-    stroke-dashoffset: 260;
-    animation: lm-draw 1.6s ease-out 300ms forwards;
-  }
-  .lm-ring {
+  /* Hero art, §6.0 / §6.9: CSS-only entrance; reduced motion shows the final state. */
+  .ha-in {
     opacity: 0;
-    animation: lm-fade 400ms ease-out 1.8s forwards;
+    animation: ha-in 600ms var(--ease) forwards;
   }
-  @keyframes lm-draw {
-    to {
-      stroke-dashoffset: 0;
+  .ha-track {
+    transform-box: view-box;
+    transform-origin: 196px 336px;
+    transform: scale(0.001);
+    animation: ha-track 900ms var(--ease) 300ms forwards;
+  }
+  @keyframes ha-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
     }
-  }
-  @keyframes lm-fade {
     to {
       opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes ha-track {
+    to {
+      transform: none;
     }
   }
 
@@ -467,6 +539,12 @@
   .lm-draw {
     animation: none !important;
     stroke-dashoffset: 0;
+  }
+  .ha-in,
+  .ha-track {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
   }
   .lm-ring {
     animation: none !important;

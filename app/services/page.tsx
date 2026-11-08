@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import { ArrowLink, ChallengeRows, CtaBand, PageHero, SectionHead } from "@/components/site/blocks";
+import { PageArt } from "@/components/site/art";
 import { services } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Services: Implement, Build, Run Agents | DaveroAI",
+  title: "Services: Implement, Build, Run Agents | DaVero AI",
   description:
     "Platform implementation through first close, agents for reconciliations, accruals and audit prep, and managed agents that improve after go-live.",
 };
@@ -18,7 +19,7 @@ const models = [
 export default function ServicesPage() {
   return (
     <>
-      <PageHero
+      <PageHero art={<PageArt kind="layers" />}
         eyebrow="Services"
         title="From first close to agents that keep getting better."
         lead={
@@ -28,7 +29,7 @@ export default function ServicesPage() {
         }
       />
 
-      <section id="service-lines" aria-labelledby="lines-title" className="section">
+      <section id="service-lines" aria-labelledby="lines-title" className="section band-paper">
         <div className="container-x">
           <SectionHead id="lines-title" eyebrow="Service lines" title="Implement · Build agents · Run and tune" />
           <ol>
@@ -72,7 +73,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section id="challenges" aria-labelledby="challenges-title" className="section">
+      <section id="challenges" aria-labelledby="challenges-title" className="section band-cloud">
         <div className="container-x">
           <SectionHead id="challenges-title" eyebrow="Why it matters" title="Top five challenges and our response" />
           <ChallengeRows />

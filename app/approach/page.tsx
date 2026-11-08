@@ -1,31 +1,32 @@
 import type { Metadata } from "next";
 import { ArrowLink, CtaBand, Eyebrow, PageHero, PodCards, Quote, SectionHead } from "@/components/site/blocks";
+import { PageArt } from "@/components/site/art";
 import { SkillLoop } from "@/components/site/skill-loop";
 import { StepStory } from "@/components/site/step-story";
 import { CLOSE_LINE, ENGAGEMENT_RESULT, GOLDEN_RULE, LIBRARY_LINE, POD_LINE, actors, engagement } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Our Approach: How an Engagement Runs | DaveroAI",
+  title: "Our Approach: How an Engagement Runs | DaVero AI",
   description:
     "Five steps from the first conversation to a skill running inside the platform: engage, build, harden with a constitution, converge, review.",
 };
 
 const loop = [
   { title: "Develop", body: "Skills are built and hardened in a factory setting." },
-  { title: "Reuse", body: "Each hardened skill becomes a reusable asset in the DaveroAI skill library for the next client." },
+  { title: "Reuse", body: "Each hardened skill becomes a reusable asset in the DaVero AI skill library for the next client." },
   { title: "Redeploy", body: "Forward Deployed Accountants move to the next client or process as skills mature." },
 ];
 
 export default function ApproachPage() {
   return (
     <>
-      <PageHero
+      <PageHero art={<PageArt kind="stairs" />}
         eyebrow="Our approach"
         title="Our Approach"
         lead={<p>Five steps from the first conversation to a skill running inside the platform.</p>}
       />
 
-      <section id="engagement" aria-labelledby="engagement-title" className="section">
+      <section id="engagement" aria-labelledby="engagement-title" className="section band-paper">
         <div className="container-x">
           <StepStory
             id="step"
@@ -38,12 +39,12 @@ export default function ApproachPage() {
               </>
             }
             steps={engagement.map((s, i) => ({ ...s, highlight: i === 2 }))}
-            footer={<p className="t-h3 mt-10 !font-light">{ENGAGEMENT_RESULT}</p>}
+            footer={<p className="t-h3 mt-10 !font-medium">{ENGAGEMENT_RESULT}</p>}
           />
         </div>
       </section>
 
-      <section id="golden-rule" aria-labelledby="golden-title" className="section">
+      <section id="golden-rule" aria-labelledby="golden-title" className="section band-cloud">
         <div className="container-x">
           <SectionHead id="golden-title" eyebrow="Our approach" title="The golden rule" />
           <ol className="border-t border-line">
@@ -66,7 +67,7 @@ export default function ApproachPage() {
               title="Built to scale: the skill factory"
               lead="Capacity grows with the skill library, not linear headcount."
             />
-            <p id="loop-cap" className="t-h3 !font-light">
+            <p id="loop-cap" className="t-h3 !font-medium">
               {LIBRARY_LINE}
             </p>
             <ol className="mt-8 border-t border-line">
@@ -85,15 +86,15 @@ export default function ApproachPage() {
         </div>
       </section>
 
-      <section id="pod" aria-labelledby="pod-title" className="section">
+      <section id="pod" aria-labelledby="pod-title" className="section band-paper">
         <div className="container-x">
           <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Accountant" />
           <PodCards />
-          <p className="t-h3 mt-10 !font-light">{POD_LINE}</p>
+          <p className="t-h3 mt-10 !font-medium">{POD_LINE}</p>
         </div>
       </section>
 
-      <section id="actors" aria-labelledby="actors-title" className="section">
+      <section id="actors" aria-labelledby="actors-title" className="section band-cloud">
         <div className="container-x">
           <SectionHead id="actors-title" eyebrow="Governance" title="Five actors around every agent" />
           <ul className="flex flex-wrap gap-3">

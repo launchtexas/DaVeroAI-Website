@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import headshot from "@/public/images/hemang-bhatt.jpg";
 import { CtaBand, PageHero, PodCards, SectionHead, WhereWhatHow } from "@/components/site/blocks";
+import { PageArt } from "@/components/site/art";
 import { CLOSE_LINE, POD_LINE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "About DaveroAI | Founder Hemang Bhatt",
+  title: "About DaVero AI | Founder Hemang Bhatt",
   description:
-    "DaveroAI delivers finished outcomes around AI-native platforms. Meet founder Hemang Bhatt and the pod that runs every engagement.",
+    "DaVero AI delivers finished outcomes around AI-native platforms. Meet founder Hemang Bhatt and the pod that runs every engagement.",
 };
 
 const experience = [
@@ -18,18 +21,18 @@ const experience = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero
+      <PageHero art={<PageArt kind="people" />}
         eyebrow="About"
         title="An AI-agentic company that delivers finished outcomes around AI-native platforms."
         lead={<p>Everything between &ldquo;the software is live&rdquo; and &ldquo;the final outcome is delivered.&rdquo;</p>}
       />
 
-      <section id="mission" aria-labelledby="mission-title" className="section">
+      <section id="mission" aria-labelledby="mission-title" className="section band-paper">
         <div className="container-x">
           <h2 id="mission-title" className="t-h2" data-reveal>
             Not software seats. Not billable hours.
           </h2>
-          <p className="t-lead mt-5">Platforms deliver the capability. DaveroAI delivers the finished outcome.</p>
+          <p className="t-lead mt-5">Platforms deliver the capability. DaVero AI delivers the finished outcome.</p>
         </div>
       </section>
 
@@ -40,7 +43,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="pod" aria-labelledby="pod-title" className="section">
+      <section id="pod" aria-labelledby="pod-title" className="section band-paper">
         <div className="container-x">
           <SectionHead id="pod-title" eyebrow="The delivery pod" title="Led by the Forward Deployed Accountant" />
           <PodCards compact />
@@ -51,18 +54,18 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="founder" aria-labelledby="founder-title" className="section">
+      <section id="founder" aria-labelledby="founder-title" className="section band-cloud">
         <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="lg:col-span-4">
-            {/* Placeholder headshot: neutral initials avatar until a photo is supplied. */}
-            <div
-              role="img"
-              aria-label="Hemang Bhatt"
-              className="flex aspect-square w-full max-w-64 items-center justify-center rounded-full border border-line bg-surface-2"
-            >
-              <span aria-hidden="true" className="t-display text-faint">
-                HB
-              </span>
+            <div className="relative max-w-sm">
+              <div aria-hidden="true" className="absolute -right-3 -bottom-3 h-full w-full rounded-[var(--r-card)] bg-[var(--brand)]" />
+              <Image
+                src={headshot}
+                alt="Hemang Bhatt, Founder and CEO"
+                sizes="(min-width: 1024px) 384px, (min-width: 640px) 384px, 90vw"
+                placeholder="blur"
+                className="relative aspect-[4/5] w-full rounded-[var(--r-card)] object-cover object-top"
+              />
             </div>
           </div>
           <div className="lg:col-span-7 lg:col-start-6">

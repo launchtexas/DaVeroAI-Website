@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Bot } from "lucide-react";
 import { CtaBand, PageHero, SectionHead } from "@/components/site/blocks";
+import { PageArt } from "@/components/site/art";
 import { HitlDemo } from "@/components/site/hitl-demo";
 import { ACTORS_KEY, HITL_HEADLINE, actors } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 // Copy: docs/governance.md (six sections). Design principles only; no certification, audit or compliance claim.
 export const metadata: Metadata = {
-  title: "Technology & Governance | DaveroAI",
+  title: "Technology & Governance | DaVero AI",
   description:
     "Human approval, clear responsibilities and traceable agent actions. Governance designed around your workflows, platform and data.",
 };
@@ -52,7 +53,7 @@ function Ref({ n }: { n: number }) {
 }
 
 function ActorCard({ a }: { a: (typeof actors)[number] }) {
-  const ours = a.who === "DaveroAI" || a.who === "DaveroAI pod";
+  const ours = a.who === "DaVero AI" || a.who === "DaVero AI pod";
   return (
     <li data-reveal className={cn("card !p-6", ours && "border-mark/60")}>
       <div className="flex items-center justify-between gap-3">
@@ -68,7 +69,7 @@ function ActorCard({ a }: { a: (typeof actors)[number] }) {
 export default function GovernancePage() {
   return (
     <>
-      <PageHero
+      <PageHero art={<PageArt kind="controls" />}
         eyebrow="Technology & governance"
         title={HITL_HEADLINE}
         lead={
@@ -79,7 +80,7 @@ export default function GovernancePage() {
         }
       />
 
-      <section id="hitl" aria-labelledby="hitl-title" className="section">
+      <section id="hitl" aria-labelledby="hitl-title" className="section band-paper">
         <div className="container-x">
           <SectionHead id="hitl-title" eyebrow="Prepare · Review · Approve · Record" title="Human in the loop" />
           <HitlDemo variant="full" />
@@ -91,7 +92,7 @@ export default function GovernancePage() {
         </div>
       </section>
 
-      <section id="actors" aria-labelledby="actors-title" className="section">
+      <section id="actors" aria-labelledby="actors-title" className="section band-cloud">
         <div className="container-x">
           <SectionHead id="actors-title" eyebrow="Who does what" title="Five actors around every agent" />
           <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -112,7 +113,7 @@ export default function GovernancePage() {
               <ActorCard key={a.key} a={a} />
             ))}
           </ul>
-          <p className="t-h3 mt-12 !font-light">{ACTORS_KEY}</p>
+          <p className="t-h3 mt-12 !font-medium">{ACTORS_KEY}</p>
         </div>
       </section>
 
@@ -146,7 +147,7 @@ export default function GovernancePage() {
         </div>
       </section>
 
-      <section id="platform-native" aria-labelledby="pn-title" className="section">
+      <section id="platform-native" aria-labelledby="pn-title" className="section band-paper">
         <div className="container-x">
           <SectionHead id="pn-title" eyebrow="Platform-native" title="Work inside your platform. Keep data within agreed boundaries." />
           <p className="max-w-[60ch] text-muted-fg">

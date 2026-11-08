@@ -1,7 +1,7 @@
-// §6.8 Landscape 2×2. Categories only, no company names; DaveroAI dot top-right.
+// §6.8 Landscape 2×2. Categories only, no company names; DaVero AI dot top-right.
 const quadrants = [
   { pos: "Top left", where: "Sells the tool, deep platform context", name: "AI-native platforms", body: "own the ledger, sell the tool" },
-  { pos: "Top right", where: "Sells the work, deep platform context", name: "Own the Last Mile (DaveroAI)", body: "Platform-native agents, sold as outcomes", ours: true },
+  { pos: "Top right", where: "Sells the work, deep platform context", name: "Own the Last Mile (DaVero AI)", body: "Platform-native agents, sold as outcomes", ours: true },
   { pos: "Bottom left", where: "Sells the tool, shallow platform context", name: "Platforms & legacy firms", body: "tools for firms, firms selling hours" },
   { pos: "Bottom right", where: "Sells the work, shallow platform context", name: "AI roll-ups & labs", body: "generic or enterprise-first" },
 ];
@@ -30,7 +30,7 @@ export function Landscape() {
                 {q.ours && (
                   <span className="mt-auto flex items-center gap-2 self-end">
                     <span className="size-4 rounded-full bg-mark ring-4 ring-mark/25" />
-                    <span className="t-mono text-fg">DaveroAI</span>
+                    <span className="t-mono text-fg">DaVero AI</span>
                   </span>
                 )}
               </div>

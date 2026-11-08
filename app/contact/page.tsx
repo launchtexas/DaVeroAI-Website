@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { HeroStripes } from "@/components/site/art";
 import { Suspense } from "react";
 import { CheckList, Eyebrow } from "@/components/site/blocks";
 import { ContactForm, ContactFormWithParams } from "@/components/site/contact-form";
 import { outcomes } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Start a Conversation | DaveroAI",
+  title: "Start a Conversation | DaVero AI",
   description:
     "Tell us the last-mile workflow you want finished. Expert help, your own workflows automated, AI at work under your approval.",
 };
@@ -15,6 +16,7 @@ const next = ["We reply", "We talk through your last mile", "We scope a first ag
 export default function ContactPage() {
   return (
     <div className="hero">
+      <HeroStripes />
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
         <section id="intro" aria-labelledby="intro-title" className="lg:col-span-5">
           <Eyebrow className="mb-6">Contact</Eyebrow>
@@ -39,7 +41,7 @@ export default function ContactPage() {
             </ol>
           </div>
         </section>
-        <section id="form" aria-label="Contact form" className="card self-start lg:col-span-7 lg:p-10">
+        <section id="form" aria-label="Contact form" className="card band-paper self-start lg:col-span-7 lg:p-10">
           <Suspense fallback={<ContactForm />}>
             <ContactFormWithParams />
           </Suspense>
