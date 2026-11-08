@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { CheckList, Eyebrow } from "@/components/site/blocks";
 import { ContactForm, ContactFormWithParams } from "@/components/site/contact-form";
-import { Tbd } from "@/components/site/tbd";
 import { outcomes } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -23,7 +22,7 @@ export default function ContactPage() {
             Start a conversation
           </h1>
           <p className="t-lead mt-6">
-            Tell us the workflow your platform doesn&apos;t finish. We reply by email. Reply time: <Tbd />
+            Tell us the workflow your platform doesn&apos;t finish. We reply by email.
           </p>
           <h2 className="t-mono mt-12 mb-5 text-faint">What you get</h2>
           <CheckList items={outcomes} />

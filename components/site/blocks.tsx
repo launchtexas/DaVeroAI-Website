@@ -16,7 +16,6 @@ import {
   pod,
   strategy,
 } from "@/lib/content";
-import { Tbd } from "./tbd";
 
 export function Eyebrow({ children, className }: { children: React.ReactNode; className?: string }) {
   return <p className={cn("eyebrow t-mono", className)}>{children}</p>;
@@ -118,7 +117,7 @@ export function CtaBand({ title, lead }: { title: string; lead?: string }) {
   );
 }
 
-export function Quote({ text, by, tbd, size = "h2" }: { text: string; by?: string; tbd?: string; size?: "h2" | "h3" }) {
+export function Quote({ text, by, size = "h2" }: { text: string; by?: string; size?: "h2" | "h3" }) {
   return (
     <figure>
       <blockquote className={cn(size === "h2" ? "t-h2" : "t-h3 !font-light", "max-w-none")}>
@@ -126,7 +125,7 @@ export function Quote({ text, by, tbd, size = "h2" }: { text: string; by?: strin
       </blockquote>
       {by && (
         <figcaption className="t-mono mt-4 text-faint">
-          {by} {tbd && <Tbd>{tbd}</Tbd>}
+          {by}
         </figcaption>
       )}
     </figure>
@@ -142,7 +141,7 @@ export function ClosingCta({ title = CLOSE_LINE, withQuotes }: { title?: string;
         <ul className="mb-16 grid gap-10 md:grid-cols-3">
           {closingQuotes.map((q) => (
             <li key={q.text} data-reveal className="border-t border-line pt-6">
-              <Quote text={q.text} by={q.by} tbd={q.tbd} size="h3" />
+              <Quote text={q.text} by={q.by} size="h3" />
             </li>
           ))}
         </ul>
@@ -210,7 +209,7 @@ export function ChallengeRows() {
               <p className="t-small mt-3 text-muted-fg">
                 <strong className="font-medium text-fg">{c.stat.value}</strong> {c.stat.label}
                 <span className="t-mono mt-1 block text-faint">
-                  Source: {c.stat.source} {c.stat.sourceTbd && <Tbd>{c.stat.sourceTbd}</Tbd>}
+                  Source: {c.stat.source}
                 </span>
               </p>
             )}
@@ -237,7 +236,7 @@ export function WhereWhatHow({ large }: { large?: boolean }) {
           <p className="t-mono mb-3 text-mark">{p.label}</p>
           <h3 className={large ? "t-h3" : "t-h3 text-lg"}>{p.title}</h3>
           <p className="t-small mt-3 text-muted-fg">
-            {p.body} {p.tbd && <Tbd>{p.tbd}</Tbd>}
+            {p.body}
           </p>
         </li>
       ))}
@@ -286,7 +285,7 @@ export function PodCards({ compact }: { compact?: boolean }) {
       </ul>
     );
   return (
-    <ul className="grid gap-6 lg:grid-cols-3">
+    <ul className="grid gap-6 lg:grid-cols-2">
       {pod.map((p) => (
         <li key={p.role} data-reveal className="card">
           <span className={cn("chip t-mono", p.tag === "Pod lead" && "border-mark text-fg")}>{p.tag}</span>
@@ -298,10 +297,10 @@ export function PodCards({ compact }: { compact?: boolean }) {
   );
 }
 
-/** Client journey: Referral → Embed and prove → Expand → Replicate. */
+/** Client journey: Embed and prove → Expand → Replicate. */
 export function Journey({ large }: { large?: boolean }) {
   return (
-    <ol className={cn("grid gap-6", large ? "md:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-4")}>
+    <ol className={cn("grid gap-6", large ? "md:grid-cols-3" : "sm:grid-cols-3")}>
       {journey.map((s, i) => (
         <li key={s.title} data-reveal className="relative border-t border-line-strong pt-5">
           <span aria-hidden="true" className="absolute -top-[5px] left-0 size-2.5 rounded-full bg-mark" />
@@ -311,7 +310,7 @@ export function Journey({ large }: { large?: boolean }) {
           <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
           <h3 className={large ? "t-h3 mt-2" : "mt-2 font-medium"}>{s.title}</h3>
           <p className="t-small mt-2 text-muted-fg">
-            {s.body} {s.tbd && <Tbd>{s.tbd}</Tbd>}
+            {s.body}
           </p>
         </li>
       ))}

@@ -1,7 +1,7 @@
 // Shared copy, verbatim from docs/content.md. Page-only copy lives in each page.
 
-// Delivery target for lib/contact.ts (mailto). Never rendered on the site (design.md §0.10, §7).
-export const EMAIL = "hello@davero.ai";
+// Enquiry inbox: delivery target for lib/contact.ts (mailto). Never rendered on the site (design.md §0.10, §7).
+export const EMAIL = "ask@daveroai.com";
 export const CTA_LABEL = "Start a conversation";
 export const CTA_HREF = "/contact#form";
 export const CLOSE_LINE = "The last mile is where software, services and context meet.";
@@ -54,7 +54,7 @@ export const STATS_KEY_LINE = "Delivery, not models, is the bottleneck. We sell 
 
 export type Challenge = {
   title: string;
-  stat?: { value: string; label: string; source: string; sourceTbd?: string };
+  stat?: { value: string; label: string; source: string };
   answer: string;
 };
 
@@ -81,8 +81,8 @@ export const challenges: Challenge[] = [
     answer: "Our pod develops skills and deploys working agents in days.",
   },
   {
+    // G2 "missing features" stat hidden until its report and date are known.
     title: "Product gaps (client-specific gaps)",
-    stat: { value: "#1", label: "“Missing features” still tops G2 complaints", source: "G2", sourceTbd: "report and date" },
     answer: "Real client gaps become product candidates, and our pod is the bridge between them.",
   },
 ];
@@ -163,10 +163,11 @@ export const services = [
 ];
 
 export const hitlSteps = [
-  { id: "prepare", actor: "agent", actorLabel: "Agent", title: "Prepare", line: "Agents prepare the work end to end." },
-  { id: "review", actor: "human", actorLabel: "Human", title: "Review", line: "The client’s subject-matter expert (SME) team reviews." },
-  { id: "approve", actor: "human", actorLabel: "Human", title: "Approve", line: "The SME team approves the result." },
-  { id: "record", actor: "record", actorLabel: "Platform", title: "Record", line: "Every action sits inside the Platform, with a full audit trail." },
+  // `detail` is the /governance wording (docs/governance.md); `line` is the short Home wording.
+  { id: "prepare", actor: "agent", actorLabel: "Agent", title: "Prepare", line: "Agents prepare the work end to end.", detail: "Prepare the work end to end, with supporting evidence and exceptions ready for review." },
+  { id: "review", actor: "human", actorLabel: "Human", title: "Review", line: "The client’s subject-matter expert (SME) team reviews.", detail: "Your subject-matter experts check the work against the workflow, rules and business context." },
+  { id: "approve", actor: "human", actorLabel: "Human", title: "Approve", line: "The SME team approves the result.", detail: "An authorised person approves the result before the workflow proceeds. Unresolved exceptions return for correction." },
+  { id: "record", actor: "record", actorLabel: "Platform", title: "Record", line: "Every action sits inside the Platform, with a full audit trail.", detail: "Keep a full audit trail of agent actions, human decisions and resulting changes inside the platform." },
 ] as const;
 export const HITL_HEADLINE = "Humans review and approve. Agents do the rest.";
 export const HITL_BAND = { title: "Controls CFOs and auditors trust", body: "Human approval plus a full audit trail on every agent action." };
@@ -180,8 +181,8 @@ export const outcomes = [
   "AI put to work under your own approval",
 ];
 
+// The "Referral" step is hidden until a referral relationship exists.
 export const journey = [
-  { title: "Referral", body: "We meet clients late in their platform implementation.", tbd: "confirm wording; deck says “Partners refer strategic accounts”, and no partnership is signed" },
   { title: "Embed and prove", body: "First agents live in weeks; before-and-after close metrics." },
   { title: "Expand", body: "AP, treasury, FP&A, revenue ops; then the next entity." },
   { title: "Replicate", body: "Library agents reused across the platform's customer base." },
@@ -191,12 +192,6 @@ export const PLATFORMS = ["Rillet", "Tabs", "Maxio", "Campfire"];
 export const PLATFORMS_FOOTNOTE =
   "DaveroAI has no commercial partnership with these platforms. Names are used to describe the platforms we work around.";
 
-export const methodology = [
-  { title: "Embed", body: "A forward-deployed pod (a Forward Deployed Accountant with engineers) joins the client in the last weeks of platform implementation." },
-  { title: "Develop skill", body: "Takes over the close and builds agents for the client's last-mile workflows, human-validated." },
-  { title: "Harvest", body: "Every agent is scored. Reusable ones join our owned library; bespoke ones run for that client." },
-  { title: "Scale", body: "Library agents deploy across new clients in days, not months." },
-];
 export const GOLDEN_RULE = ["The client identifies the gap.", "We build.", "The client validates.", "We own, run and improve the agent."];
 export const ADVISORY_FOOTNOTE = "Consultants and auditors keep their advisory and assurance roles.";
 
@@ -215,25 +210,25 @@ export const strategy = {
   parts: [
     { label: "Where", title: "Complex enterprise workflows in and around the platform", body: "Business-domain expertise is the key ingredient, and no one owns it today." },
     { label: "What", title: "Purpose-built agents, tightly coupled to the platform", body: "Agents built on the platform's own data and APIs close or narrow the existing gaps." },
-    { label: "How", title: "A partner firm dedicated to each platform ecosystem", body: "Focused on one platform, aligned with its roadmap, and referred by it, not competing with it.", tbd: "“referred by it” implies a referral relationship; confirm before publishing" },
+    { label: "How", title: "A partner firm dedicated to each platform ecosystem", body: "Focused on one platform, aligned with its roadmap, not competing with it." },
   ],
 };
 
 export const pod = [
   { role: "Forward Deployed Accountant", tag: "Pod lead", body: "Domain expert who engages enterprise clients, understands their processes, builds the skill and writes its constitution. A peer to controllers and CFOs." },
   { role: "Solutions Engineer", tag: "Integrations", body: "Platform integrations, data and APIs. Connects the client’s data so agents have what they need." },
-  { role: "Forward Deployed Agent Engineer", tag: "Agents", body: "Builds, fine-tunes and deploys agents." },
 ];
 export const POD_LINE = "One pod per client.";
 
+// docs/governance.md #actors. The builder is the pod (Forward Deployed Accountant + Solutions Engineer).
 export const actors = [
-  { key: "A", name: "Subject expert", who: "Client (or consultant)", body: "Defines the workflow, rules and edge cases" },
-  { key: "B", name: "Forward Deployed Agent Engineer", who: "DaveroAI pod", body: "Builds the agent in and around the Platform" },
-  { key: "C", name: "Validator", who: "Client (or consultant)", body: "Validates controls and approves in the Platform" },
-  { key: "D", name: "Operator", who: "DaveroAI", body: "Runs the agent every month and reviews exceptions", tbd: "Operator role conflicts with deck slide 17 (client finance team); confirm with client" },
-  { key: "E", name: "Owner", who: "DaveroAI", body: "Owns, runs and improves the agent." },
+  { key: "A", name: "Subject expert", who: "Client or consultant", body: "Defines the workflow, rules and edge cases." },
+  { key: "B", name: "Forward Deployed Accountant", who: "DaveroAI pod", body: "Builds the agent around those requirements, with the Solutions Engineer." },
+  { key: "C", name: "Validator", who: "Client or consultant", body: "Checks controls and approves results in the platform." },
+  { key: "D", name: "Operator", who: "DaveroAI", body: "Runs the agent, monitors exceptions and coordinates resolution." },
+  { key: "E", name: "Owner", who: "DaveroAI", body: "Owns the agent and its ongoing improvement." },
 ];
-export const ACTORS_KEY = "The client stays in control: defines and approves";
+export const ACTORS_KEY = "The client defines and approves. DaveroAI owns and runs the agents.";
 
 export const differentiators = [
   { title: "Context captured", body: "Every engagement turns client-specific rules and exceptions into agents we own.", quote: { text: "context is the moat.", by: "Nick Kopp, CEO, Rillet" } },
@@ -246,7 +241,7 @@ export const LIBRARY_LINE = "Every engagement adds to the library, so the next c
 
 export const closingQuotes = [
   { text: "The next $1T company sells the work, not the tool.", by: "Sequoia" },
-  { text: "Reasoning without context is guessing with confidence.", by: "Goldberg", tbd: "full name and source" },
+  { text: "Reasoning without context is guessing with confidence.", by: "Goldberg" },
   { text: "Context is the moat.", by: "Nick Kopp, CEO, Rillet" },
 ];
 

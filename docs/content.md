@@ -21,7 +21,7 @@
 - Tagline: "The last mile is where software, services and context meet." *(deck slide 25: Footer placement)*
 - Links: Agentic AI · Services · Our Approach · Technology & Governance · Industries · Insights · About · Contact
 - Legal: Privacy · Terms
-- Email: **[TBD: company inbox; no personal email]**
+- Email: ask@daveroai.com (enquiry inbox; the contact form's mailto target, not displayed on the site)
 - Copyright: © {year} DaveroAI. **[TBD: legal entity name]**
 
 ### Shared labels
@@ -411,10 +411,10 @@
   - Bad email: "Please enter a valid email address, like name@company.com."
   - Error summary at top: "Please fix the [n] fields marked below."
 - Success: "Thanks. Your message is on its way. We'll reply by email."
-- Failure: "Your message didn't send. Please try again." **[TBD: add company inbox as fallback once supplied]**
+- Failure: "Your message didn't send. Please try again."
 
 ### Email `#email`
-- **[TBD: company inbox. No personal email (deck CAUTION). Hide this section until supplied.]**
+- Enquiry inbox: ask@daveroai.com (contact-form mailto target). No personal email (deck CAUTION).
 
 ---
 
@@ -447,5 +447,5 @@
 4. Sources missing: 70%+ ERP stat (no source), G2 "missing features" (report/date), "Goldberg" quote (full name/source), core-strategy pull-quote (speaker).
 5. "Referred by it" / "Platform referral": implies a referral relationship that is not signed.
 6. Hemang: bio wording and headshot.
-7. Company inbox, legal entity name, reply time, Privacy and Terms text.
+7. Legal entity name, reply time, Privacy and Terms text. (Company inbox resolved: ask@daveroai.com.)
 8. Technology & Governance: no architecture or security content in the deck.

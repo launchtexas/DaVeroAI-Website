@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { CtaBand, PageHero, PodCards, SectionHead, WhereWhatHow } from "@/components/site/blocks";
-import { Tbd } from "@/components/site/tbd";
 import { CLOSE_LINE, POD_LINE } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -55,14 +54,16 @@ export default function AboutPage() {
       <section id="founder" aria-labelledby="founder-title" className="section">
         <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="lg:col-span-4">
-            <div className="flex aspect-square max-w-80 items-center justify-center rounded-[var(--r-card)] border border-line bg-surface-2">
+            {/* Placeholder headshot: neutral initials avatar until a photo is supplied. */}
+            <div
+              role="img"
+              aria-label="Hemang Bhatt"
+              className="flex aspect-square w-full max-w-64 items-center justify-center rounded-full border border-line bg-surface-2"
+            >
               <span aria-hidden="true" className="t-display text-faint">
                 HB
               </span>
             </div>
-            <p className="mt-3">
-              <Tbd>headshot: placeholder until Hemang supplies one</Tbd>
-            </p>
           </div>
           <div className="lg:col-span-7 lg:col-start-6">
             <p className="eyebrow t-mono mb-5">Leadership</p>
@@ -91,9 +92,6 @@ export default function AboutPage() {
                 </div>
               </li>
             </ul>
-            <p className="mt-6">
-              <Tbd>bio wording and headshot approved by Hemang</Tbd>
-            </p>
           </div>
         </div>
       </section>

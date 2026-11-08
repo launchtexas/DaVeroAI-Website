@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./logo";
 import { CLOSE_LINE, footerCols } from "@/lib/content";
-import { Tbd } from "./tbd";
 import { CtaButton } from "./blocks";
 
 async function currentYear() {
@@ -52,7 +51,7 @@ export async function Footer() {
           </li>
         </ul>
         <p>
-          &copy; {year} DaveroAI. <Tbd>legal entity name</Tbd>
+          &copy; {year} DaveroAI.
         </p>
       </div>
       <div aria-hidden="true" className="container-x mt-10">

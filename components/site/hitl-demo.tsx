@@ -102,7 +102,7 @@ export function HitlDemo({ variant = "compact" }: { variant?: "compact" | "full"
                   <Icon aria-hidden="true" strokeWidth={1.5} className={cn("size-5", h.actor === "human" ? "text-mark-human" : "text-mark")} />
                   <ActorChip actor={h.actor} label={h.actorLabel} />
                 </div>
-                <p className={cn("t-small mt-3 transition-colors duration-200", on || !js ? "text-fg" : "text-muted-fg")}>{h.line}</p>
+                <p className={cn("t-small mt-3 transition-colors duration-200", on || !js ? "text-fg" : "text-muted-fg")}>{variant === "full" ? h.detail : h.line}</p>
                 {h.id === "approve" && (
                   <span
                     aria-hidden="true"
@@ -146,7 +146,7 @@ export function HitlDemo({ variant = "compact" }: { variant?: "compact" | "full"
                 <li key={h.id} className="grid gap-1 border-b border-line py-4 sm:grid-cols-[7rem_14rem_1fr] sm:gap-6">
                   <span className="t-mono text-faint">Step {i + 1}</span>
                   <span className="t-mono text-muted-fg">{trailActor[i]}</span>
-                  <span>{h.line}</span>
+                  <span>{h.detail}</span>
                 </li>
               ),
             )}

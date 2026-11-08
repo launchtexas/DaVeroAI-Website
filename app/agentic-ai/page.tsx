@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { CtaBand, ComparisonTable, Eyebrow, PageHero, Quote, SectionHead, WhereWhatHow } from "@/components/site/blocks";
 import { Arbitrage } from "@/components/site/arbitrage";
 import { LastMile } from "@/components/site/last-mile";
-import { Tbd } from "@/components/site/tbd";
 import { WEDGE, arbitrage, strategy } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -19,7 +18,7 @@ export default function AgenticAiPage() {
         title="AI enablement is the bottleneck."
         lead={
           <p>
-            We enable and deliver finished outcome. <Tbd>deck grammar; suggest &ldquo;finished outcomes&rdquo; if the client agrees</Tbd>
+            We enable and deliver finished outcomes.
           </p>
         }
       />
@@ -99,9 +98,6 @@ export default function AgenticAiPage() {
           <SectionHead id="strategy-title" eyebrow="Strategy" title="Our core strategy" />
           <blockquote data-reveal className="mb-16 max-w-[56ch] border-l-2 border-mark pl-6">
             <p className="t-h3 !font-light">{strategy.quote}</p>
-            <p className="mt-4">
-              <Tbd>whose quote? The deck gives no speaker; if it is DaveroAI&rsquo;s own, show unattributed</Tbd>
-            </p>
           </blockquote>
           <WhereWhatHow large />
         </div>

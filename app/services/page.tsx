@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import { ArrowLink, ChallengeRows, CtaBand, PageHero, SectionHead } from "@/components/site/blocks";
-import { Tbd } from "@/components/site/tbd";
 import { services } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -24,8 +23,7 @@ export default function ServicesPage() {
         title="From first close to agents that keep getting better."
         lead={
           <p>
-            One platform and one partner, from first close to agents that keep getting better.{" "}
-            <Tbd>scope: Rillet only or multi-platform; copy here is platform-neutral</Tbd>
+            One platform and one partner, from first close to agents that keep getting better.
           </p>
         }
       />

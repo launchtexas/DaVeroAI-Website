@@ -14,6 +14,9 @@ export function LegalPage({ title }: { title: string }) {
           Last updated: <Tbd />
         </p>
         <p className="mt-12">
+          <Tbd>legal entity name</Tbd>
+        </p>
+        <p className="mt-4">
           <Tbd>legal text from the client</Tbd>
         </p>
       </div>
