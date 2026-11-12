@@ -71,8 +71,7 @@ export function About() {
             <span className="netlabel">Experience</span>
             <span className="li">View on LinkedIn →</span>
           </a>
-          {/* No LinkedIn URL yet, so this card is not a link. */}
-          <div className="member hb">
+          <a aria-label="Vishva Patel on LinkedIn (opens in a new tab)" className="member hb" href="https://www.linkedin.com/in/vishva-vp/" rel="noopener" target="_blank">
             <div className="av photo">
               <img alt="Vishva Patel" height="120" src="/images/v4/vishva-patel.jpg" width="120" />
               <span className="ok">
@@ -91,7 +90,8 @@ export function About() {
               ))}
             </div>
             <span className="netlabel">Experience</span>
-          </div>
+            <span className="li">View on LinkedIn →</span>
+          </a>
         </div>
         <div className="bench">
           <div aria-hidden="true" className="dots">
