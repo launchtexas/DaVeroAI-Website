@@ -1,9 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ASSESSMENT_HREF, ESTIMATE_HREF, FUNCTIONS, SECTION_LINKS, functionHref } from "./v4/nav";
-import { Mark } from "./v4/icons";
 
 // Markup 1:1 with docs/source/design-v4.html <header class="top">; the dropdown script is React state (CSP).
 export function Header() {
@@ -26,10 +26,8 @@ export function Header() {
     <header className="top">
       <div className="wrap">
         <Link className="brand" href="/">
-          <Mark />
-          <span>
-            DaVero <span className="accent">AI</span>
-          </span>
+          {/* Official brand-kit lockup, reversed for the Midnight header. */}
+          <Image alt="DaVero AI" height={36} priority src="/brand/davero-primary-reversed.png" style={{ width: 130, height: 36 }} width={130} />
         </Link>
         <nav aria-label="Primary" className="links">
           <div

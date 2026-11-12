@@ -113,10 +113,10 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
   if (status === "sent") {
     return (
       <div role="status" style={{ textAlign: "center", padding: "32px 0" }}>
-        <p ref={doneRef} tabIndex={-1} style={{ fontSize: 26, fontWeight: 800, color: "#0d1f33", margin: "0 0 10px", outline: "none" }}>
+        <p ref={doneRef} tabIndex={-1} style={{ fontSize: 26, fontWeight: 800, color: "#081630", margin: "0 0 10px", outline: "none" }}>
           Message sent.
         </p>
-        <p style={{ color: "#555", fontSize: 15 }}>We&apos;ll reply to your work email within one business day.</p>
+        <p style={{ color: "#536378", fontSize: 15 }}>We&apos;ll reply to your work email within one business day.</p>
         <Link className="btn btn-primary" href="/" style={{ display: "inline-block", marginTop: 20 }}>
           Back to home
         </Link>

@@ -58,7 +58,7 @@ export function LastMileTest({ id, title, miles }: { id: string; title: string; 
             </span>
             <span className="card">
               <span className="ico">
-                <svg aria-hidden="true" fill="none" stroke="#C2410C" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
+                <svg aria-hidden="true" fill="none" stroke="#FF6500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
                   {ICON_PATHS[i]}
                 </svg>
               </span>
@@ -70,7 +70,7 @@ export function LastMileTest({ id, title, miles }: { id: string; title: string; 
         ))}
         <div className="finish">
           <span className="flag">
-            <Mark size={26} fill={done ? "#081630" : "#FF7A2E"} />
+            <Mark size={26} fill={done ? "#081630" : "#FF6500"} />
           </span>
           <div className="result">
             <span className="k">THE LAST MILE</span>
