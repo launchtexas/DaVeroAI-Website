@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "./shadcn-tailwind.css";
 
 /* v4 design: docs/source/design-v4.html is the source of truth. Its stylesheet follows the compatibility
    layer below, unlayered, so it wins over Tailwind's preflight and the layered helpers. */
