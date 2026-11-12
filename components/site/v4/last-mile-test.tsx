@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Mark } from "./icons";
 import { ASSESSMENT_HREF, ASSESSMENT_LABEL } from "./nav";
 
@@ -21,20 +21,62 @@ const ICON_PATHS = [
   </g>,
 ];
 
-/** The four-mile test: tap each statement that is true; all four pressed marks a last-mile workflow. */
+const STEP_MS = 1100; // time between miles while the demo plays
+const HOLD_STEPS = 3; // extra steps the finished state stays on screen before the demo restarts
+
+/**
+ * The four-mile test: tap each statement that is true; all four pressed marks a last-mile workflow.
+ * While it is on screen and nobody has touched it, it plays itself: miles pass one by one, the last mile
+ * lights up, then it starts over. The first tap stops the demo and hands control to the visitor.
+ * No demo under reduced motion.
+ */
 export function LastMileTest({ id, title, miles }: { id: string; title: string; miles: Mile[] }) {
   const [on, setOn] = useState([false, false, false, false]);
+  const [auto, setAuto] = useState(true);
+  const ref = useRef<HTMLDivElement>(null);
   const n = on.filter(Boolean).length;
   const done = n === 4;
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!auto || !el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let step = 0;
+    let timer: number | undefined;
+    const tick = () => {
+      step = (step + 1) % (4 + HOLD_STEPS + 1);
+      setOn([0, 1, 2, 3].map((i) => i < Math.min(step, 4)));
+    };
+    const io = new IntersectionObserver(
+      ([e]) => {
+        window.clearInterval(timer);
+        timer = e.isIntersecting ? window.setInterval(tick, STEP_MS) : undefined;
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      window.clearInterval(timer);
+    };
+  }, [auto]);
+
+  const toggle = (i: number) => {
+    if (auto) {
+      setAuto(false);
+      setOn([0, 1, 2, 3].map((j) => j === i));
+      return;
+    }
+    setOn((s) => s.map((v, j) => (j === i ? !v : v)));
+  };
+
   return (
-    <div className={`lmt${done ? " is-done" : ""}`} id={id}>
+    <div ref={ref} className={`lmt${done ? " is-done" : ""}`} id={id}>
       <div className="lmt-head">
         <div>
           <h3>{title}</h3>
           <p>Tap each statement that&apos;s true for a workflow in your operation.</p>
         </div>
-        <p aria-live="polite" className="lmt-count">
+        <p aria-live={auto ? "off" : "polite"} className="lmt-count">
           <b>{n}</b> of 4 passed
         </p>
       </div>
@@ -45,7 +87,7 @@ export function LastMileTest({ id, title, miles }: { id: string; title: string; 
             aria-pressed={on[i]}
             className="gate"
             type="button"
-            onClick={() => setOn((s) => s.map((v, j) => (j === i ? !v : v)))}
+            onClick={() => toggle(i)}
           >
             <span className="marker">
               <span className="num">
@@ -75,7 +117,7 @@ export function LastMileTest({ id, title, miles }: { id: string; title: string; 
           <div className="result">
             <span className="k">THE LAST MILE</span>
             <h4>{done ? "It's a last-mile workflow" : "Pass all four and it's last-mile work"}</h4>
-            <p aria-live="polite">
+            <p aria-live={auto ? "off" : "polite"}>
               {done
                 ? "DaVero AI agents can run it, with every result approved by process owners."
                 : "That's where DaVero AI agents take over, approved by process owners."}
@@ -86,7 +128,7 @@ export function LastMileTest({ id, title, miles }: { id: string; title: string; 
           </div>
         </div>
       </div>
-      <p className="lmt-hint">Tip: tap a mile again to undo it.</p>
+      <p className="lmt-hint">{auto ? "Tap any mile to try it yourself." : "Tip: tap a mile again to undo it."}</p>
     </div>
   );
 }
