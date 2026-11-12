@@ -1,5 +1,4 @@
 import { EMAIL } from "@/lib/content";
-import { PageHero } from "./blocks";
 
 // Long-form legal page: hero, then a table of contents and numbered sections with anchor links.
 // Copy lives in each app/<page>/page.tsx; open facts are <Tbd> markers listed in docs/legal-review.md.
@@ -24,13 +23,24 @@ export function LegalDoc({
 }) {
   return (
     <>
-      <PageHero eyebrow="Legal" title={title} lead={lead} cta={false}>
-        <p className="t-mono mt-8 text-faint">
-          Effective {effective} · Last updated {updated}
-        </p>
-      </PageHero>
-      <section aria-label={`${title} text`} className="section band-paper">
-        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-8">
+      <section className="dark" aria-labelledby="legal-title">
+        <div className="hero">
+          <div className="wrap">
+            <div className="hero-copy">
+              <p className="eyebrow">Legal</p>
+              <h1 id="legal-title" style={{ fontSize: "clamp(36px,5vw,56px)" }}>
+                {title}
+              </h1>
+              <p className="lede">{lead}</p>
+              <p className="crumb" style={{ margin: "24px 0 0" }}>
+                Effective {effective} · Last updated {updated}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label={`${title} text`} className="section">
+        <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-8">
           <nav aria-labelledby="toc-title" className="lg:col-span-4">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+24px)]">
               <h2 id="toc-title" className="t-mono mb-4 text-faint">

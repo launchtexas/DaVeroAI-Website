@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
-import { Reveal } from "@/components/site/reveal";
 import { ScrollReset } from "@/components/site/scroll-reset";
 
 // Inter (brand kit typeface), self-hosted: variable weight 100–900, Latin subset (OFL, app/fonts/Inter-OFL.txt).
@@ -20,34 +19,30 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://daveroai.com"),
   title: { default: "DaVero AI | Own the Last Mile", template: "%s" },
   description:
-    "DaVero AI turns your business platforms into finished, end-to-end workflows, run by AI agents, with your team approving every result.",
+    "DaVero AI agents extend enterprise platforms through the last mile, from system of record to business outcome. Designed alongside domain experts, managed end to end, and approved by process owners.",
   applicationName: "DaVero AI",
   openGraph: { siteName: "DaVero AI", type: "website" },
 };
 
 export const viewport: Viewport = {
   themeColor: "#081630",
-  colorScheme: "dark",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
-        <a
-          href="#main"
-          className="sr-only z-50 rounded-md bg-accent px-4 py-3 font-medium text-on-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-        >
+    <html lang="en" data-scroll-behavior="smooth" className={inter.variable}>
+      <body>
+        <a href="#main" className="skip">
           Skip to main content
         </a>
         <Header />
-        <main id="main" tabIndex={-1} className="flex-1 outline-none">
+        <main id="main" tabIndex={-1} style={{ outline: "none" }}>
           {children}
         </main>
         <Footer />
         {/* Last in the tree so its layout effect runs after Next.js scrolls the new page into view. */}
         <ScrollReset />
-        <Reveal />
       </body>
     </html>
   );

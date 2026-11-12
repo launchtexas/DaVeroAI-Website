@@ -35,6 +35,18 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   cacheComponents: true,
   partialPrefetching: true,
+  // Pre-v4 pages, folded into the Home sections.
+  async redirects() {
+    return [
+      { source: "/about", destination: "/#about", permanent: true },
+      { source: "/approach", destination: "/#how", permanent: true },
+      { source: "/agentic-ai", destination: "/#problem", permanent: true },
+      { source: "/services", destination: "/#solutions", permanent: true },
+      { source: "/industries", destination: "/#solutions", permanent: true },
+      { source: "/insights", destination: "/#why-now", permanent: true },
+      { source: "/governance", destination: "/#controls", permanent: true },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

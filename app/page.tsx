@@ -1,243 +1,143 @@
-import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  ArrowLink,
-  ChallengeRows,
-  ClosingCta,
-  ComparisonTable,
-  CtaButton,
-  Differentiators,
-  Eyebrow,
-  GoldenRule,
-  Journey,
-  SectionHead,
-  WhereWhatHow,
-} from "@/components/site/blocks";
-import { Arbitrage } from "@/components/site/arbitrage";
-import { HeroArt, HeroStripes, StripeBand } from "@/components/site/art";
-import { EcosystemSection } from "@/components/site/ecosystem-section";
-import { HitlDemo } from "@/components/site/hitl-demo";
-import { LastMile } from "@/components/site/last-mile";
-import { StatTiles } from "@/components/site/stat-tiles";
-import { StepStory } from "@/components/site/step-story";
-import {
-  HITL_BAND,
-  HITL_HEADLINE,
-  LIBRARY_LINE,
-  POD_LINE,
-  STATS_KEY_LINE,
-  STATS_TAKEAWAY,
-  arbitrage,
-  engagement,
-  outcomes,
-  services,
-  stats,
-} from "@/lib/content";
+import { Hero } from "@/components/site/v4/hero";
+import { Platforms } from "@/components/site/v4/platforms";
+import { MILES, Problem } from "@/components/site/v4/problem";
+import { WhyNow } from "@/components/site/v4/why-now";
+import { FunctionCards } from "@/components/site/v4/solutions";
+import { How, Pod } from "@/components/site/v4/how";
+import { Controls } from "@/components/site/v4/controls";
+import { Pricing } from "@/components/site/v4/pricing";
+import { ATeam } from "@/components/site/v4/ateam";
+import { Estimate } from "@/components/site/v4/estimate";
+import { Assessment } from "@/components/site/v4/assessment";
+import { ICONS } from "@/components/site/v4/icons";
+import { functionHref } from "@/components/site/v4/nav";
 
-// Home §9 (Insights teaser) renders only when posts exist (design.md §1.2). None are published yet.
-const posts: { title: string }[] = [];
-
+// Copy verbatim from docs/source/design-v4.html, page-index.
 export default function Home() {
   return (
     <>
-      {/* 1 Hero */}
-      <section id="hero" aria-labelledby="hero-title" className="hero flex min-h-[min(900px,100svh)] flex-col">
-        <HeroStripes />
-        <div className="container-x grid flex-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-6">
-            <Eyebrow className="mb-6">Agentic AI &middot; Finished outcomes</Eyebrow>
-            <h1 id="hero-title" className="t-display">
-              Own the <span className="text-mark">Last Mile</span>
-            </h1>
-            <p className="t-lead mt-8">
-              DaVero AI is an agentic AI company that turns your business platforms into finished, end-to-end workflows, built, run and
-              continuously improved by AI agents, with your team approving every result.
-            </p>
-            <p className="mt-4 font-medium">Not software seats. Not billable hours.</p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <CtaButton />
-              <Button asChild variant="secondary" className="max-sm:w-full">
-                <Link href="/agentic-ai">What is the last mile?</Link>
-              </Button>
-            </div>
-          </div>
-          <div className="lg:col-span-6">
-            <HeroArt />
-          </div>
-        </div>
-        <p className="container-x t-mono mt-12 text-faint">Built, run and improved by agents &middot; Approved by your team</p>
-      </section>
-
-      {/* 2 Evolution */}
-      <section id="evolution" aria-labelledby="evolution-title" className="section band-paper">
-        <div className="container-x">
-          <SectionHead id="evolution-title" eyebrow="The shift" title="Platforms deliver the capability. DaVero AI delivers the finished outcome" />
-          <div data-reveal>
-            <ComparisonTable />
-          </div>
-          <h3 className="t-h3 mt-24 mb-8">{arbitrage.title}</h3>
-          <Arbitrage />
-        </div>
-      </section>
-
-      {/* 3 Challenges (paper band) */}
-      <section id="challenges" aria-labelledby="challenges-title" className="section band-cloud">
-        <div className="container-x">
-          <SectionHead
-            id="challenges-title"
-            eyebrow="Why now"
-            title="Demand is rising and DIY AI is stalling"
-            lead={<>Everything between &ldquo;the software is live&rdquo; and &ldquo;the final outcome is delivered.&rdquo;</>}
-          />
-          <LastMile variant="compact" />
-
-          <div className="mt-24">
-            <h3 className="t-h3 mb-8">Top five challenges and our response</h3>
-            <ChallengeRows />
-          </div>
-        </div>
-      </section>
-
-      {/* 3a Enterprise ecosystem: where the agents sit between the domains and the ERP */}
-      <EcosystemSection />
-
-      {/* 3b Why-now numbers: full-bleed Midnight moment */}
-      <StripeBand id="why-now" aria-labelledby="why-now-title" className="section">
-        <div className="container-x">
-          <h2 id="why-now-title" className="t-h2 mb-12 max-w-[22ch]">{STATS_KEY_LINE}</h2>
-          <StatTiles stats={stats} />
-          <p className="t-small mt-6 max-w-[70ch] text-muted-fg">{STATS_TAKEAWAY}</p>
-        </div>
-      </StripeBand>
-
-      {/* 4 Services */}
-      <section id="services" aria-labelledby="services-title" className="section band-paper">
-        <div className="container-x">
-          <SectionHead id="services-title" eyebrow="What we do" title="From first close to agents that keep getting better." />
-          <ul className="grid gap-6 lg:grid-cols-3">
-            {services.map((s, i) => (
-              <li key={s.id} data-reveal className="card flex flex-col">
-                <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="t-h3 mt-6">{s.title}</h3>
-                <p className="t-small mt-3 text-muted-fg">{s.line}</p>
-                <p className="mt-6 flex gap-2 border-t border-line pt-6 font-medium">
-                  <Check aria-hidden="true" className="mt-1 size-4 shrink-0 text-mark" />
-                  {s.outcome}
-                </p>
-                {s.agents && (
-                  <ul className="mt-4 flex flex-wrap gap-2" aria-label="Agent examples">
-                    {s.agents.map((a) => (
-                      <li key={a} className="chip t-mono">
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
-          <ArrowLink href="/services" className="mt-8">
-            See our services
-          </ArrowLink>
-        </div>
-      </section>
-
-      {/* 5 In action */}
-      <section id="in-action" aria-labelledby="in-action-title" className="section">
-        <div className="container-x">
-          <SectionHead id="in-action-title" eyebrow="Agentic AI in action" title={HITL_HEADLINE} lead={`${HITL_BAND.title}. ${HITL_BAND.body}`} />
-          <HitlDemo variant="compact" />
-          <ArrowLink href="/governance" className="mt-8">
-            How we govern agents
-          </ArrowLink>
-        </div>
-      </section>
-
-      {/* 6 Outcomes */}
-      <section id="outcomes" aria-labelledby="outcomes-title" className="section band-cloud">
-        <div className="container-x">
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
-            <div className="lg:col-span-5">
-              <SectionHead id="outcomes-title" eyebrow="Business outcomes" title="What you get" />
-            </div>
-            <ul className="grid gap-px self-start overflow-hidden rounded-[var(--r-card)] border border-line bg-line sm:grid-cols-2 lg:col-span-7">
-              {outcomes.map((o, i) => (
-                <li key={o} data-reveal className="bg-bg p-6 sm:p-8">
-                  <p className="t-mono text-faint">{String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="t-h3 mt-4">{o}</h3>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mt-20">
-            <h3 className="t-mono mb-8 text-faint">How a client starts</h3>
-            <Journey />
-            <ArrowLink href="/industries" className="mt-8">
-              Industries and platforms
-            </ArrowLink>
-          </div>
-        </div>
-      </section>
-
-      {/* 7 Methodology */}
-      <section id="methodology" aria-labelledby="methodology-title" className="section band-paper">
-        <div className="container-x">
-          <StepStory
-            id="method"
-            head={
-              <>
-                <Eyebrow className="mb-5">An outcomes company</Eyebrow>
-                <h2 id="methodology-title" className="t-h2">
-                  We build, own and run the agents around the platform
-                </h2>
-              </>
-            }
-            steps={engagement}
-            aside={<GoldenRule withFootnote />}
-            footer={
-              <ArrowLink href="/approach" className="mt-8">
-                How an engagement runs
-              </ArrowLink>
-            }
-          />
-        </div>
-      </section>
-
-      {/* 8 Why us */}
-      <section id="why-us" aria-labelledby="why-us-title" className="section">
-        <div className="container-x">
-          <SectionHead id="why-us-title" eyebrow="Why partner with us" title="Why we win and keep winning" />
-          <Differentiators />
-          <p className="t-small mt-8 text-muted-fg">
-            {POD_LINE} Forward Deployed Consultant (pod lead) &middot; Solutions Engineer (integrations).{" "}
-            <Link href="/about#pod" className="link">
-              Meet the pod
-            </Link>
-          </p>
-          <div className="mt-20">
-            <WhereWhatHow />
-          </div>
-          <p className="t-h3 mt-16 max-w-[40ch]">{LIBRARY_LINE}</p>
-        </div>
-      </section>
-
-      {/* 9 Insights: only when posts exist */}
-      {posts.length > 0 && (
-        <section id="insights" aria-labelledby="insights-title" className="section">
-          <div className="container-x">
-            <div className="flex items-end justify-between gap-6">
-              <SectionHead id="insights-title" eyebrow="Insights" title="Latest insights" />
-              <Link href="/insights" className="link link-arrow mb-[var(--head-gap)] shrink-0">
-                View all insights <ArrowRight aria-hidden="true" className="size-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 10 CTA */}
-      <ClosingCta withQuotes title="The last mile is where software, services and context meet" />
+      <Hero
+        eyebrow="Agentic AI for enterprise and mid-market companies"
+        title={
+          <>
+            Own the
+            <br />
+            <span className="accent">Last Mile.</span>
+          </>
+        }
+        lede="Davero AI agents extend enterprise platforms through the last mile, from system of record to business outcome. Designed alongside domain experts, managed end to end, and approved by process owners."
+        chips
+        flowTitle="Any last-mile workflow · Illustrative"
+        steps={[
+          { title: "Prepare", text: "Agent does the work end to end", who: "AGENT", kind: "agent" },
+          { title: "Review & Validate", text: "Process owner reviews the work", who: "PROCESS OWNER" },
+          { title: "Approve", text: "Sign-off stays with the process owner", who: "PROCESS OWNER" },
+          { title: "Record", text: "Posted with a full audit trail", who: "PLATFORM", kind: "sys" },
+        ]}
+      />
+      <Platforms
+        systems="ERP, procurement and supply chain systems"
+        existing={["ERP", "Procurement suite", "WMS and TMS", "Billing and revenue"]}
+        outcomes={["Faster close", "Fewer exceptions", "Accurate inventory and cost", "Suppliers paid right"]}
+      />
+      <Problem
+        title="The platform is live. The outcome still depends on manual work."
+        lede={
+          <>
+            The <strong>last mile</strong> is everything between <em>“the software is live”</em> and <em>“the outcome is delivered”</em>: the
+            domain-specific workflows in and around the core platform. Today these workflows run on disparate tools and manual effort. DaVero agents
+            are purpose-built and <em>tightly coupled</em> to the platform.
+          </>
+        }
+        zone1="Matches a native feature."
+        zone3="Company-specific work beyond standard configuration, run today on disparate tools and manual effort."
+        testTitle="Is it a last-mile workflow? Take the four-mile test."
+        miles={MILES}
+      />
+      <WhyNow
+        title="Buying AI is easy. Making it work inside enterprise operations isn't."
+        stats={[
+          { num: "40%+", text: "of agentic AI projects will be scrapped by end-2027", src: "Gartner via Reuters, Jun 2025", highlight: true },
+          { num: "12%", text: "of finance teams run AI in core processes", src: "insightsoftware, 2026 (311 leaders)" },
+          { num: "14%", text: "of mid-market CFOs fully trust AI with accounting data", src: "Wakefield Research, Feb 2026 (100 CFOs)" },
+        ]}
+      />
+      <FunctionCards
+        id="solutions"
+        eyebrow="Solutions"
+        title="Functions we support"
+        lede="Each function is led by its own domain specialists, with a dedicated workflow library and controls playbook."
+        firstRow={3}
+        cards={[
+          {
+            href: functionHref("finance-accounting"),
+            icon: ICONS.list,
+            title: "Finance & Accounting",
+            text: "Get to a faster, audit-ready close on AI-native ERPs.",
+            bullets: ["Intercompany eliminations", "Entity reconciliations", "Revenue-recognition edge cases"],
+            more: "Explore Finance & Accounting →",
+          },
+          {
+            href: functionHref("supply-chain"),
+            icon: ICONS.truck,
+            title: "Supply Chain",
+            text: "Clear the exceptions between warehouse, carrier, supplier and ledger.",
+            bullets: ["Inventory and stock movement reconciliation", "Order fulfilment exceptions", "Landed-cost accruals"],
+            more: "Explore Supply Chain →",
+          },
+          {
+            href: functionHref("procurement"),
+            icon: ICONS.bag,
+            title: "Procurement",
+            text: "Keep procure-to-pay moving without breaking internal controls.",
+            bullets: ["Supplier onboarding", "Requisition-to-PO approvals", "PO-receipt-invoice exceptions"],
+            more: "Explore Procurement →",
+          },
+          {
+            href: functionHref("security-governance"),
+            icon: ICONS.shield,
+            title: "Security & Governance",
+            text: "Keep access, compliance and risk controls current without manual overhead.",
+            bullets: ["Access review and certification cycles", "Policy exception tracking", "Audit evidence collection"],
+            more: "Explore Security & Governance →",
+          },
+          {
+            href: functionHref("insurance"),
+            icon: ICONS.doc,
+            title: "Insurance",
+            text: "Reduce manual effort across claims, bordereaux and premium workflows.",
+            bullets: ["Claims exception triage", "Bordereaux reconciliation", "Premium and commission accruals"],
+            more: "Explore Insurance →",
+          },
+        ]}
+      />
+      <How
+        lede="Every engagement is led by a Forward Deployed Consultant, a domain expert who works alongside finance and operations leaders from day one."
+        steps={[
+          {
+            kicker: "Step 1 · Weeks 1–5",
+            title: "Embed",
+            text: "A Forward Deployed Consultant embeds with the business, maps the process and identifies which last-mile workflows agents can take over.",
+          },
+          {
+            kicker: "Step 2 · Within the 6–10 week embed",
+            title: "Build & harden",
+            text: "We turn each workflow into an agent skill, harden it with rules, controls and edge cases, and business owners validate it before go-live.",
+          },
+          {
+            kicker: "Step 3 · Ongoing",
+            title: "Run & improve",
+            text: "We run, monitor and tune the agents every month, and every engagement adds to our workflow library.",
+          },
+        ]}
+        note="Then we expand to the next workflow, entity or function. Advisory and assurance roles remain with existing advisors and auditors."
+      />
+      <Pod />
+      <Controls />
+      <Pricing />
+      <ATeam />
+      <Estimate />
+      <Assessment title="How much of the operation still runs by hand?" />
     </>
   );
 }

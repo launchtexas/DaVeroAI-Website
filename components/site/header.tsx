@@ -1,111 +1,120 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Logo } from "./logo";
-import { CTA_HREF, CTA_LABEL, nav } from "@/lib/content";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
+import reversed from "@/public/brand/davero-primary-reversed.png";
+import { ASSESSMENT_HREF, ESTIMATE_HREF, FUNCTIONS, SECTION_LINKS, functionHref } from "./v4/nav";
+
+const Chevron = () => (
+  <svg aria-hidden="true" fill="none" height="12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" width="12">
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
 
 export function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const dd = useRef<HTMLDivElement>(null);
+  const menu = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (!dd.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [open]);
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const onFunctions = pathname.startsWith("/functions/");
+  const closeMenu = () => menu.current?.removeAttribute("open");
 
   return (
-    <header
-      className={cn(
-        // Solid surfaces only (no translucency): transparent over the Midnight hero at the top,
-        // solid White with the Primary_Color lockup once the page scrolls.
-        "sticky top-0 z-40 h-[var(--header-h)] border-b transition-[background-color,border-color] duration-200",
-        scrolled ? "band-paper border-line" : "border-transparent bg-transparent",
-      )}
-    >
-      <div className="container-x flex h-full items-center justify-between gap-6">
-        <Logo />
-        <nav aria-label="Main" className="hidden items-center gap-7 nav:flex">
-          <ul className="flex items-center gap-6">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cn(
-                    "relative inline-flex min-h-11 items-center text-[15px] font-medium transition-colors duration-150 hover:text-fg",
-                    isActive(item.href)
-                      ? "text-fg after:absolute after:inset-x-0 after:bottom-1.5 after:h-0.5 after:bg-[var(--brand)]"
-                      : "text-muted-foreground",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Button asChild>
-            <Link href={CTA_HREF} aria-current={pathname === "/contact" ? "page" : undefined}>
-              {CTA_LABEL}
-            </Link>
-          </Button>
-        </nav>
-
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" className="nav:hidden" aria-label="Open menu">
-              <Menu className="size-5" aria-hidden="true" />
-              <span aria-hidden="true">Menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="top" showCloseButton={false} className="h-dvh gap-0 overflow-y-auto border-0 bg-bg p-0">
-            <SheetTitle className="sr-only">Menu</SheetTitle>
-            <SheetDescription className="sr-only">Site navigation</SheetDescription>
-            <div className="container-x flex h-[var(--header-h)] items-center justify-between">
-              <Logo onClick={() => setOpen(false)} />
-              <SheetClose asChild>
-                <Button variant="ghost" size="icon" aria-label="Close menu">
-                  <X className="size-6" aria-hidden="true" />
-                </Button>
-              </SheetClose>
-            </div>
-            <nav aria-label="Main" className="container-x pb-6">
+    <header className="top">
+      <div className="wrap">
+        <Link className="brand" href="/" aria-label="DaVero AI home">
+          <Image src={reversed} alt="" sizes="180px" priority />
+        </Link>
+        <nav aria-label="Primary" className="links">
+          <div
+            ref={dd}
+            className={`dd${open ? " open" : ""}${onFunctions ? " is-current" : ""}`}
+            onKeyDown={(e) => {
+              if (e.key === "Escape" && open) {
+                setOpen(false);
+                dd.current?.querySelector("button")?.focus();
+              }
+            }}
+            onBlur={(e) => {
+              if (!dd.current?.contains(e.relatedTarget as Node)) setOpen(false);
+            }}
+          >
+            <button aria-expanded={open} aria-controls="dd-functions" className="dd-btn" type="button" onClick={() => setOpen((o) => !o)}>
+              Functions we support
+              <Chevron />
+            </button>
+            <div className="dd-menu" id="dd-functions" onClick={() => setOpen(false)}>
               <ul>
-                {nav.map((item) => (
-                  <li key={item.href} className="border-b border-line">
-                    <SheetClose asChild>
-                      <Link
-                        href={item.href}
-                        aria-current={isActive(item.href) ? "page" : undefined}
-                        className={cn(
-                          "flex min-h-14 items-center text-2xl font-medium tracking-[-0.025em]",
-                          isActive(item.href) ? "text-accent" : "text-fg",
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    </SheetClose>
+                {FUNCTIONS.map((f) => (
+                  <li key={f.slug}>
+                    <Link href={functionHref(f.slug)} aria-current={pathname === functionHref(f.slug) ? "page" : undefined}>
+                      {f.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
-              <SheetClose asChild>
-                <Button asChild className="mt-6 w-full">
-                  <Link href={CTA_HREF}>{CTA_LABEL}</Link>
-                </Button>
-              </SheetClose>
-            </nav>
-          </SheetContent>
-        </Sheet>
+            </div>
+          </div>
+          {SECTION_LINKS.map((l) => (
+            <Link key={l.href} href={l.href}>
+              {l.label}
+            </Link>
+          ))}
+          <Link className="nav-est" href={ESTIMATE_HREF}>
+            Estimate Savings
+          </Link>
+        </nav>
+        <Link className="btn btn-primary btn-sm cta-desktop" href={ASSESSMENT_HREF} aria-current={pathname === "/contact" ? "page" : undefined}>
+          Book an assessment
+        </Link>
+        <details className="menu" ref={menu}>
+          <summary>Menu</summary>
+          <nav aria-label="Mobile">
+            <ul>
+              <li>
+                <Link href="/" onClick={closeMenu}>
+                  Home
+                </Link>
+              </li>
+              {FUNCTIONS.map((f) => (
+                <li key={f.slug}>
+                  <Link href={functionHref(f.slug)} onClick={closeMenu} aria-current={pathname === functionHref(f.slug) ? "page" : undefined}>
+                    {f.label}
+                  </Link>
+                </li>
+              ))}
+              {SECTION_LINKS.filter((l) => l.href !== "/#controls").map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} onClick={closeMenu}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href={ESTIMATE_HREF} onClick={closeMenu}>
+                  Estimate Savings
+                </Link>
+              </li>
+              <li>
+                <Link href={ASSESSMENT_HREF} onClick={closeMenu}>
+                  Book an assessment
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </details>
       </div>
     </header>
   );
