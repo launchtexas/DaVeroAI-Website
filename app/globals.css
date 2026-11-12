@@ -298,13 +298,22 @@ h3{margin:0 0 8px;font-size:21px;line-height:1.25}
 
 
 /* Footer */
-footer{background:var(--navy-deep);color:var(--sky-2);font-size:14px}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px;padding-top:48px;padding-bottom:24px}
-footer .cols{display:flex;flex-wrap:wrap;gap:48px}
-footer .col{display:flex;flex-direction:column;gap:8px}
-footer strong{color:#fff}
-footer a{color:var(--sky);text-decoration:none} footer a:hover{color:#fff}
-footer .legal{padding-bottom:32px;font-size:13px}
+/* Footer: Deep Midnight, brand + 4 columns on one grid, hairline above the bottom bar. */
+.ft{background:var(--navy-deep);color:var(--sky-2);font-size:15px;line-height:1.55}
+.ft-main{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,1fr));gap:48px 40px;padding-top:80px;padding-bottom:64px}
+.ft-brand{display:flex;flex-direction:column;align-items:flex-start;gap:20px;max-width:340px}
+.ft-brand p{margin:0;color:var(--sky-2)}
+.ft-h{margin:0 0 16px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.ft-col ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.ft-col a{display:inline-flex;align-items:center;min-height:30px;color:var(--sky);text-decoration:none;transition:color .15s}
+.ft-col a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line-dark-2)}
+.ft-col address{margin-top:12px;font-style:normal;color:var(--sky-2)}
+.ft-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-top:24px;padding-bottom:32px;border-top:1px solid var(--line-dark);font-size:13px}
+.ft-bar p{margin:0}
+@media (max-width:1100px){.ft-main{grid-template-columns:repeat(4,minmax(0,1fr))}.ft-brand{grid-column:1/-1;max-width:460px}}
+@media (max-width:760px){.ft-main{grid-template-columns:repeat(2,minmax(0,1fr));padding-top:64px;padding-bottom:48px}.ft-col ul{gap:0}.ft-col a{min-height:44px}}
+@media (max-width:480px){.ft-main{grid-template-columns:1fr;gap:40px}.ft-bar{flex-direction:column}}
+@media (prefers-reduced-motion:reduce){.ft-col a{transition:none}}
 
 
 @media (max-width:640px){.section{padding:72px 0}.hero{padding:64px 0 56px}.stat .num{font-size:44px}}
