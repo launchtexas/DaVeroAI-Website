@@ -108,12 +108,39 @@ export function Motion() {
         arm(el, "m-rv", Math.min(i, 6) * 80);
       });
     }
-    const flows = document.querySelectorAll(".flow");
-    if (flows.length && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle("m-off", !e.isIntersecting)));
-      flows.forEach((f) => io.observe(f));
-      off.push(() => io.disconnect());
-    }
+    // Hero flow walkthrough: each step lights up in turn (active, then done), then the result bar completes;
+    // it holds, then starts over. Runs only while the card is on screen.
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!still) document.querySelectorAll<HTMLElement>(".flow").forEach((f) => {
+      const lis = Array.from(f.querySelectorAll("ol > li"));
+      const total = lis.length + 1 + 3; // steps, result, hold
+      let step = 0;
+      let timer: number | undefined;
+      const show = () => {
+        lis.forEach((li, i) => {
+          li.classList.toggle("is-done", i < step - 1);
+          li.classList.toggle("is-active", i === step - 1);
+        });
+        f.classList.toggle("is-complete", step > lis.length);
+      };
+      const tick = () => {
+        step = (step + 1) % (total + 1);
+        show();
+      };
+      f.classList.add("m-play");
+      show();
+      const io = new IntersectionObserver(([e]) => {
+        window.clearInterval(timer);
+        timer = e.isIntersecting ? window.setInterval(tick, 1100) : undefined;
+      });
+      io.observe(f);
+      off.push(() => {
+        io.disconnect();
+        window.clearInterval(timer);
+        f.classList.remove("m-play", "is-complete");
+        lis.forEach((li) => li.classList.remove("is-done", "is-active"));
+      });
+    });
     return () => off.forEach((f) => f());
   }, [path]);
   return null;
