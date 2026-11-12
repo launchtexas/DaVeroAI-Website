@@ -4,14 +4,11 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { CircleAlert, LoaderCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { domains, EMAIL } from "@/lib/content";
+import { EMAIL } from "@/lib/content";
 import { getFormToken, prefetchFormToken, submitContact, type ContactData } from "@/lib/contact";
 import { FIELDS, MESSAGE_MAX, validateField, type Field } from "@/lib/contact-rules";
 import { Turnstile, TURNSTILE_SITE_KEY } from "./turnstile";
+import s from "./v4/forms.module.css";
 
 type Errors = Partial<Record<Field, string>>;
 
@@ -25,9 +22,18 @@ const LABELS: Record<Field, string> = {
   message: "Which workflow do you want finished?",
 };
 
+// v4 function pages; ?domain=<id> pre-selects one.
+const domains = [
+  { id: "finance-accounting", name: "Finance & Accounting" },
+  { id: "supply-chain", name: "Supply Chain" },
+  { id: "procurement", name: "Procurement" },
+  { id: "security-governance", name: "Security & Governance" },
+  { id: "insurance", name: "Insurance" },
+];
+
 const empty: ContactData = { name: "", email: "", company: "", platform: "", domain: "", message: "" };
 
-// Pre-selects the domain from ?domain=<id> (links on /industries).
+// Pre-selects the domain from ?domain=<id>.
 // The static page renders <ContactForm /> as the Suspense fallback, so the form works before hydration.
 export function ContactFormWithParams() {
   const id = useSearchParams().get("domain");
@@ -107,11 +113,14 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
 
   if (status === "sent") {
     return (
-      <div role="status">
-        <h2 ref={doneRef} tabIndex={-1} className="t-h3 outline-none">
+      <div role="status" className={s.success}>
+        <h2 ref={doneRef} tabIndex={-1} className={s.successTitle}>
           Thank you. We will get back to you.
         </h2>
-        <p className="mt-3 text-muted-fg">Your message has been sent. We&apos;ll reply by email.</p>
+        <p className={s.successBody}>Your message has been sent. We&apos;ll reply by email.</p>
+        <Link className={s.btn} href="/">
+          Back to home
+        </Link>
       </div>
     );
   }
@@ -127,23 +136,22 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
     onBlur: blur(field),
     "aria-invalid": errors[field] ? (true as const) : undefined,
     "aria-describedby": describedBy(field, hint),
-    className: "field",
     disabled: status === "sending",
   });
 
   const error = (field: Field) =>
     errors[field] ? (
-      <p id={`${fid(field)}-error`} className="mt-2 flex items-start gap-1.5 text-sm text-error">
-        <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
+      <p id={`${fid(field)}-error`} className={s.fieldError}>
+        <CircleAlert aria-hidden="true" size={14} className="mt-px shrink-0" />
         {errors[field]}
       </p>
     ) : null;
 
   const label = (field: Field) => (
-    <Label htmlFor={fid(field)} className="mb-2 block text-[15px] font-medium">
+    <label htmlFor={fid(field)}>
       {LABELS[field]}
-      <span className="font-normal text-muted-fg">{REQUIRED.includes(field) ? " (required)" : " (optional)"}</span>
-    </Label>
+      {REQUIRED.includes(field) ? <span className={s.req}>(required)</span> : <span className={s.opt}>(optional)</span>}
+    </label>
   );
 
   const sending = status === "sending";
@@ -151,88 +159,85 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
 
   return (
     // method="post": if someone submits before JavaScript loads, the details go in the body, not the URL.
-    <form method="post" noValidate onSubmit={onSubmit} aria-labelledby="form-title" className="space-y-6">
-      <h2 id="form-title" className="t-h3">
+    <form method="post" noValidate onSubmit={onSubmit} aria-labelledby="form-title">
+      <h2 id="form-title" className={s.cardTitle}>
         Tell us your last-mile workflow
       </h2>
       {summary.length > 0 && (
-        <div ref={summaryRef} tabIndex={-1} role="alert" className="rounded-[var(--r-ctl)] border border-error p-4 text-error outline-none">
-          <p className="flex items-start gap-2">
-            <CircleAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
-            {summary.length > 1 ? `Please fix the ${summary.length} fields marked below.` : "Please fix the field marked below."}
-          </p>
-          <ul className="mt-2 ml-7 list-disc">
-            {summary.map((f) => (
-              <li key={f}>
-                <a href={`#${fid(f)}`} className="link !text-error">
-                  {LABELS[f]}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div ref={summaryRef} tabIndex={-1} role="alert" className={s.alert}>
+          <CircleAlert aria-hidden="true" size={18} className="mt-0.5 shrink-0" />
+          <div>
+            <p className="m-0">
+              {summary.length > 1 ? `Please fix the ${summary.length} fields marked below.` : "Please fix the field marked below."}
+            </p>
+            <ul>
+              {summary.map((f) => (
+                <li key={f}>
+                  <a href={`#${fid(f)}`}>{LABELS[f]}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
       {status === "failed" && (
-        <div role="alert" className="flex items-start gap-2 rounded-[var(--r-ctl)] border border-error p-4 text-error">
-          <CircleAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
-          <p>
+        <div role="alert" className={s.alert}>
+          <CircleAlert aria-hidden="true" size={18} className="mt-0.5 shrink-0" />
+          <p className="m-0">
             Your message didn&apos;t send. Please try again.
             <br />
-            If it still fails, email us at{" "}
-            <a className="link !text-error" href={`mailto:${EMAIL}`}>
-              {EMAIL}
-            </a>
-            .
+            If it still fails, email us at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
           </p>
         </div>
       )}
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div>
+      <div className={s.fRow}>
+        <div className={s.fGrp}>
           {label("name")}
-          <Input {...fieldProps("name")} autoComplete="name" required maxLength={100} />
+          <input {...fieldProps("name")} type="text" autoComplete="name" required maxLength={100} />
           {error("name")}
         </div>
-        <div>
+        <div className={s.fGrp}>
           {label("email")}
-          <Input {...fieldProps("email")} type="email" autoComplete="email" required />
+          <input {...fieldProps("email")} type="email" autoComplete="email" required />
           {error("email")}
         </div>
-        <div>
+      </div>
+      <div className={s.fRow}>
+        <div className={s.fGrp}>
           {label("company")}
-          <Input {...fieldProps("company")} autoComplete="organization" required maxLength={120} />
+          <input {...fieldProps("company")} type="text" autoComplete="organization" required maxLength={120} />
           {error("company")}
         </div>
-        <div>
+        <div className={s.fGrp}>
           {label("platform")}
-          <Input {...fieldProps("platform", true)} maxLength={100} />
-          <p id={`${fid("platform")}-hint`} className="mt-2 text-sm text-muted-fg">
+          <input {...fieldProps("platform", true)} type="text" maxLength={100} />
+          <span id={`${fid("platform")}-hint`} className={s.fieldHint}>
             e.g. ERP, CRM, procurement
-          </p>
+          </span>
           {error("platform")}
         </div>
-        <div className="sm:col-span-2">
-          {label("domain")}
-          <select {...fieldProps("domain")}>
-            <option value="">Select a domain</option>
-            {domains.map((d) => (
-              <option key={d.id} value={d.name}>
-                {d.name}
-              </option>
-            ))}
-            <option value="Other">Other</option>
-          </select>
-        </div>
       </div>
-
-      <div>
+      <div className={s.fGrp}>
+        {label("domain")}
+        <select {...fieldProps("domain")}>
+          <option value="">Select a domain</option>
+          {domains.map((d) => (
+            <option key={d.id} value={d.name}>
+              {d.name}
+            </option>
+          ))}
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div className={s.fGrp}>
         {label("message")}
-        <Textarea {...fieldProps("message", true)} rows={5} required maxLength={MESSAGE_MAX} />
-        <div className="mt-2 flex justify-between gap-4 text-sm text-muted-fg">
-          <p id={`${fid("message")}-hint`}>A sentence or two is enough.</p>
-          <p aria-hidden="true" className="tabular-nums">
+        <textarea {...fieldProps("message", true)} required maxLength={MESSAGE_MAX} />
+        <div className={s.charRow}>
+          <span id={`${fid("message")}-hint`}>A sentence or two is enough.</span>
+          <span aria-hidden="true">
             {data.message.length}/{MESSAGE_MAX}
-          </p>
+          </span>
         </div>
         <p aria-live="polite" className="sr-only">
           {nearLimit ? `${data.message.length} of ${MESSAGE_MAX} characters used.` : ""}
@@ -241,32 +246,26 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
       </div>
 
       {/* Honeypot, hidden from people and assistive tech */}
-      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+      <div aria-hidden="true" className={s.honeypot}>
         <label htmlFor={`${uid}-website`}>Website</label>
         <input id={`${uid}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       {TURNSTILE_SITE_KEY && <Turnstile resetKey={captchaReset} onToken={(t) => (captcha.current = t)} />}
 
-      <div>
-        <Button type="submit" className="w-full" disabled={sending}>
-          {sending ? (
-            <>
-              <LoaderCircle aria-hidden="true" className="animate-spin" />
-              Sending…
-            </>
-          ) : (
-            "Send message"
-          )}
-        </Button>
-        <p className="mt-4 text-sm text-muted-fg">
-          By sending this form you agree to our{" "}
-          <Link className="link" href="/privacy">
-            Privacy Policy
-          </Link>
-          .
-        </p>
-      </div>
+      <button type="submit" className={s.btnSend} disabled={sending}>
+        {sending ? (
+          <>
+            <LoaderCircle aria-hidden="true" size={18} className="animate-spin motion-reduce:animate-none" />
+            Sending…
+          </>
+        ) : (
+          "Send message"
+        )}
+      </button>
+      <p className={s.privacyNote}>
+        By sending this form you agree to our <Link href="/privacy">Privacy Policy</Link>.
+      </p>
     </form>
   );
 }
