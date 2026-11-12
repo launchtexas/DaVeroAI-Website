@@ -44,7 +44,7 @@ export default function Home() {
         lede={
           <>
             The <strong>last mile</strong> is everything between <em>“the software is live”</em> and <em>“the outcome is delivered”</em>: the
-            domain-specific workflows in and around the core platform. Today these workflows run on disparate tools and manual effort. DaVero agents
+            domain-specific workflows in and around the core platform. Today these workflows run on disparate tools and manual effort. DaVero AI agents
             are purpose-built and <em>tightly coupled</em> to the platform.
           </>
         }

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const money = (v: number) => (v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : `$${Math.round(v / 1e3)}K`);
+const money = (v: number) =>
+  v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : v >= 999_500 ? `$${(v / 1e6).toFixed(1)}M` : `$${Math.round(v / 1e3)}K`;
 
 // #estimate, markup 1:1 with docs/source/design-v4.html; the mock's calc() script is React state (CSP).
 export function Estimate({ hint = "Finance, supply chain or procurement staff" }: { hint?: string }) {
@@ -43,8 +44,9 @@ export function Estimate({ hint = "Finance, supply chain or procurement staff" }
                     value={pplText}
                     onChange={(e) => {
                       setPplText(e.target.value);
-                      setPpl(Math.min(parseInt(e.target.value) || 1, 9999));
+                      setPpl(Math.min(Math.max(parseInt(e.target.value) || 1, 1), 9999));
                     }}
+                    onBlur={() => setPplText(String(ppl))}
                   />
                 </span>
               </label>

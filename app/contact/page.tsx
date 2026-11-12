@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { ContactForm, ContactFormWithParams } from "@/components/site/contact-form";
 
 export const metadata: Metadata = {
-  title: "Start a Conversation | DaVero AI",
+  title: "Start a conversation | DaVero AI",
   description:
     "Tell us the last-mile workflow you want finished. Expert help, your own workflows automated, AI at work under your approval.",
 };
@@ -23,10 +23,10 @@ export default function ContactPage() {
               <span className="cl-check-icon">✓</span>Expert help in your platform
             </li>
             <li>
-              <span className="cl-check-icon">✓</span>Its own last-mile workflows automated
+              <span className="cl-check-icon">✓</span>Your own last-mile workflows automated
             </li>
             <li>
-              <span className="cl-check-icon">✓</span>Client teams move to higher-value work
+              <span className="cl-check-icon">✓</span>Your teams move to higher-value work
             </li>
             <li>
               <span className="cl-check-icon">✓</span>AI put to work under your own approval
@@ -35,7 +35,7 @@ export default function ContactPage() {
           <p className="cl-section-label">WHAT HAPPENS NEXT</p>
           <ul className="cl-steps">
             <li>
-              <span className="cl-step-num">01</span>We reply
+              <span className="cl-step-num">01</span>We reply within one business day
             </li>
             <li>
               <span className="cl-step-num">02</span>We talk through your last mile
