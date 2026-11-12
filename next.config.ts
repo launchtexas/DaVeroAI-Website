@@ -45,6 +45,7 @@ const nextConfig: NextConfig = {
       { source: "/industries", destination: "/#solutions", permanent: true },
       { source: "/insights", destination: "/#why-now", permanent: true },
       { source: "/governance", destination: "/#controls", permanent: true },
+      { source: "/functions/:slug(finance-accounting|supply-chain|procurement|security-governance|insurance)", destination: "/:slug", permanent: true },
     ];
   },
   async headers() {

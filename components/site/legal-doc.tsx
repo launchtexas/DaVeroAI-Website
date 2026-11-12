@@ -39,7 +39,7 @@ export function LegalDoc({
           </div>
         </div>
       </section>
-      <section aria-label={`${title} text`} className="section">
+      <section aria-label={`${title} text`} className="section legal-body">
         <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-8">
           <nav aria-labelledby="toc-title" className="lg:col-span-4">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+24px)]">

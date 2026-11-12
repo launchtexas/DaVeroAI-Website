@@ -7,8 +7,12 @@ export type ProblemProps = {
   lede: ReactNode;
   /** Zone 1 text, e.g. "Matches a native feature." */
   zone1: string;
+  /** Zone 2 text; same on every page except where a page overrides it. */
+  zone2?: string;
   /** Zone 3 text. */
   zone3: string;
+  /** DOM id of the four-mile test (the mock numbers them lmt1..lmt6). */
+  testId?: string;
   testTitle: string;
   miles: Mile[];
 };
@@ -27,7 +31,7 @@ const Covered = () => (
   </span>
 );
 
-export function Problem({ title, lede, zone1, zone3, testTitle, miles }: ProblemProps) {
+export function Problem({ title, lede, zone1, zone2 = "Covered after process standardization.", zone3, testId = "lmt1", testTitle, miles }: ProblemProps) {
   return (
     <section className="section alt" id="problem">
       <div className="wrap">
@@ -49,7 +53,7 @@ export function Problem({ title, lede, zone1, zone3, testTitle, miles }: Problem
               ZONE 2 · COVERED
             </p>
             <h3>Adopt the platform standard</h3>
-            <p>Covered after process standardization.</p>
+            <p>{zone2}</p>
           </div>
           <div className="zone ours">
             <p className="tag">
@@ -62,7 +66,7 @@ export function Problem({ title, lede, zone1, zone3, testTitle, miles }: Problem
             <p>{zone3}</p>
           </div>
         </div>
-        <LastMileTest title={testTitle} miles={miles} />
+        <LastMileTest id={testId} title={testTitle} miles={miles} />
       </div>
     </section>
   );

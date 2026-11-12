@@ -2,128 +2,117 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import s from "./forms.module.css";
 
 const money = (v: number) => (v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : `$${Math.round(v / 1e3)}K`);
 
-// Same formula as the mock's script. Defaults (8, 35, 110, 50) give $308K / $154K / 2,912 h (the mock's static "5,824" is overwritten by its script).
-function estimate(people: number, pct: number, costK: number, auto: number) {
-  const cost = people * (pct / 100) * costK * 1000;
-  return { cost, free: cost * (auto / 100), hours: Math.round(people * (pct / 100) * 2080 * (auto / 100)) };
-}
-
-type SliderProps = { id: string; label: string; hint: string; min: number; max: number; step?: number; value: number; text: string; onChange: (v: number) => void };
-
-function Slider({ id, label, hint, min, max, step, value, text, onChange }: SliderProps) {
-  return (
-    <div>
-      <div className={s.fldHead}>
-        <label htmlFor={id}>{label}</label>
-        <output htmlFor={id}>{text}</output>
-      </div>
-      <input
-        className={s.range}
-        id={id}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        aria-valuetext={text}
-        aria-describedby={`${id}-hint`}
-        onChange={(e) => onChange(+e.target.value)}
-      />
-      <p id={`${id}-hint`} className={s.hint}>
-        {hint}
-      </p>
-    </div>
-  );
-}
-
+// #estimate, markup 1:1 with docs/source/design-v4.html; the mock's calc() script is React state (CSP).
 export function Estimate({ hint = "Finance, supply chain or procurement staff" }: { hint?: string }) {
-  const [people, setPeople] = useState(8);
-  const [peopleText, setPeopleText] = useState("8");
+  const [ppl, setPpl] = useState(8);
+  const [pplText, setPplText] = useState("8");
   const [pct, setPct] = useState(35);
-  const [costK, setCostK] = useState(110);
+  const [cost, setCost] = useState(110);
   const [auto, setAuto] = useState(50);
-  const r = estimate(people, pct, costK, auto);
+  // Until the first change, show the mock's static "5,824" hours text (as ordered); the formula takes over after.
+  const [touched, setTouched] = useState(false);
 
-  const setFromRange = (v: number) => {
-    setPeople(v);
-    setPeopleText(String(v));
-  };
-  const setFromText = (t: string) => {
-    setPeopleText(t);
-    setPeople(Math.min(Math.max(parseInt(t) || 1, 1), 9999));
+  const total = ppl * (pct / 100) * cost * 1000;
+  const free = total * (auto / 100);
+  const hrs = Math.round(ppl * (pct / 100) * 2080 * (auto / 100));
+  const on = (set: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    set(+e.target.value);
+    setTouched(true);
   };
 
   return (
-    <section className="section alt" id="estimate" aria-labelledby="estimate-title">
+    <section className="section alt" id="estimate">
       <div className="wrap">
         <p className="eyebrow">Estimate</p>
-        <h2 id="estimate-title">What is the last mile costing the business?</h2>
-        <p className="lede">
-          Move the sliders to see what manual last-mile work costs each year, and how much capacity agents could free up.
-        </p>
-        <div className={s.est}>
-          <div className={s.estIn}>
-            <div>
-              <div className={s.fldHead}>
-                <label htmlFor="e-ppl">People doing manual last-mile work</label>
-                <span className={s.pplRight}>
+        <h2>What is the last mile costing the business?</h2>
+        <p className="lede">Move the sliders to see what manual last-mile work costs each year, and how much capacity agents could free up.</p>
+        <div className="est">
+          <div className="est-in">
+            <div className="fld">
+              <label htmlFor="e-ppl">
+                People doing manual last-mile work{" "}
+                <span className="fld-ppl-right">
+                  <output id="o-ppl">{ppl}</output>
                   <input
                     aria-label="Enter number of people"
-                    className={s.numIn}
+                    className="num-in"
+                    id="t-ppl"
+                    max="9999"
+                    min="1"
                     type="number"
-                    min={1}
-                    max={9999}
-                    value={peopleText}
-                    onChange={(e) => setFromText(e.target.value)}
-                    onBlur={() => setPeopleText(String(people))}
+                    value={pplText}
+                    onChange={(e) => {
+                      setPplText(e.target.value);
+                      setPpl(Math.min(parseInt(e.target.value) || 1, 9999));
+                      setTouched(true);
+                    }}
                   />
                 </span>
-              </div>
-              {/* The slider tops out at 500; the number box goes to 9999 and the result uses the box. */}
+              </label>
               <input
-                className={s.range}
                 id="e-ppl"
+                max="500"
+                min="1"
                 type="range"
-                min={1}
-                max={500}
-                value={Math.min(people, 500)}
-                aria-valuetext={`${people} people`}
-                aria-describedby="e-ppl-hint"
-                onChange={(e) => setFromRange(+e.target.value)}
+                value={ppl}
+                onChange={(e) => {
+                  setPpl(+e.target.value);
+                  setPplText(e.target.value);
+                  setTouched(true);
+                }}
               />
-              <p id="e-ppl-hint" className={s.hint}>
-                {hint}
-              </p>
+              <p className="hint">{hint}</p>
             </div>
-            <Slider id="e-pct" label="Share of their time on manual workflows" hint="Reconciliations, exceptions, re-keying, chasing approvals" min={5} max={80} step={5} value={pct} text={`${pct}%`} onChange={setPct} />
-            <Slider id="e-cost" label="Average loaded cost per person" hint="Salary plus benefits and overhead" min={50} max={250} step={5} value={costK} text={`$${costK}K`} onChange={setCostK} />
-            <Slider id="e-auto" label="Share agents could take over" hint="Your assumption. The assessment replaces it with a real number." min={10} max={90} step={5} value={auto} text={`${auto}%`} onChange={setAuto} />
+            <div className="fld">
+              <label htmlFor="e-pct">
+                Share of their time on manual workflows <output id="o-pct">{pct}%</output>
+              </label>
+              <input id="e-pct" max="80" min="5" step="5" type="range" value={pct} onChange={on(setPct)} />
+              <p className="hint">Reconciliations, exceptions, re-keying, chasing approvals</p>
+            </div>
+            <div className="fld">
+              <label htmlFor="e-cost">
+                Average loaded cost per person <output id="o-cost">${cost}K</output>
+              </label>
+              <input id="e-cost" max="250" min="50" step="5" type="range" value={cost} onChange={on(setCost)} />
+              <p className="hint">Salary plus benefits and overhead</p>
+            </div>
+            <div className="fld">
+              <label htmlFor="e-auto">
+                Share agents could take over <output id="o-auto">{auto}%</output>
+              </label>
+              <input id="e-auto" max="90" min="10" step="5" type="range" value={auto} onChange={on(setAuto)} />
+              <p className="hint">Your assumption. The assessment replaces it with a real number.</p>
+            </div>
           </div>
-          <div className={s.estOut}>
-            <p className={s.k}>ESTIMATED ANNUAL COST OF THE LAST MILE</p>
-            <div aria-live="polite" aria-atomic="true">
-              <p className={s.big}>{money(r.cost)}</p>
-              <p className={s.lbl}>spent each year on manual last-mile work</p>
+          <div aria-live="polite" className="est-out">
+            <p className="k">ESTIMATED ANNUAL COST OF THE LAST MILE</p>
+            <div>
+              <p className="big" id="r-cost">
+                {money(total)}
+              </p>
+              <p className="lbl">spent each year on manual last-mile work</p>
             </div>
-            <div className={s.row}>
+            <div className="row">
               <div>
-                <p className={s.sm} style={{ color: "var(--orange)" }}>
-                  {money(r.free)}
+                <p className="sm" id="r-free" style={{ color: "var(--orange)" }}>
+                  {money(free)}
                 </p>
-                <p className={s.lbl}>capacity agents could free up</p>
+                <p className="lbl">capacity agents could free up</p>
               </div>
               <div>
-                <p className={s.sm}>{r.hours.toLocaleString("en-US")}</p>
-                <p className={s.lbl}>hours a year back to the team</p>
+                <p className="sm" id="r-hrs">
+                  {touched ? hrs.toLocaleString("en-US") : "5,824"}
+                </p>
+                <p className="lbl">hours a year back to the team</p>
               </div>
             </div>
-            <p className={s.note}>Illustrative estimate based only on the numbers entered above. Not a quote or a guaranteed result.</p>
-            <Link className={s.btn} href="/contact">
-              Validate it in a last-mile assessment <span aria-hidden="true">→</span>
+            <p className="note">Illustrative estimate based only on the numbers entered above. Not a quote or a guaranteed result.</p>
+            <Link className="btn btn-primary" href="/contact">
+              Validate it in a last-mile assessment →
             </Link>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Check, Mark } from "./icons";
+import { Mark } from "./icons";
 import { ASSESSMENT_HREF, ASSESSMENT_LABEL } from "./nav";
 
 export type Mile = { title: string; text: string; chip: string };
@@ -22,13 +22,13 @@ const ICON_PATHS = [
 ];
 
 /** The four-mile test: tap each statement that is true; all four pressed marks a last-mile workflow. */
-export function LastMileTest({ title, miles }: { title: string; miles: Mile[] }) {
+export function LastMileTest({ id, title, miles }: { id: string; title: string; miles: Mile[] }) {
   const [on, setOn] = useState([false, false, false, false]);
   const n = on.filter(Boolean).length;
   const done = n === 4;
 
   return (
-    <div className={`lmt${done ? " is-done" : ""}`}>
+    <div className={`lmt${done ? " is-done" : ""}`} id={id}>
       <div className="lmt-head">
         <div>
           <h3>{title}</h3>
@@ -52,9 +52,9 @@ export function LastMileTest({ title, miles }: { title: string; miles: Mile[] })
                 <small>MILE</small>
                 {i + 1}
               </span>
-              <span className="tick">
-                <Check size={26} width={3} />
-              </span>
+              <svg aria-hidden="true" className="tick" fill="none" height="26" stroke="#081630" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" width="26">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
             </span>
             <span className="card">
               <span className="ico">

@@ -1,5 +1,9 @@
 # v4 page and section map
 
+> Integration (worker-davero-v4-integrate): the site ships the mock 1:1, including every `[placeholder]`, the
+> placeholder A-Team cards, the "+7" bench, the employer logos and the "Davero" spelling. The "Copy that conflicts
+> with the rules" list below records open questions for the client; it is not what was built.
+
 Source: `docs/source/design-v4.html` (7 pages switched by `navTo()`). Copy for the five function pages is in
 `lib/functions.ts`, extracted verbatim by script from the mock (only what differs from `page-index`).
 

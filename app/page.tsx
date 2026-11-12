@@ -2,15 +2,14 @@ import { Hero } from "@/components/site/v4/hero";
 import { Platforms } from "@/components/site/v4/platforms";
 import { MILES, Problem } from "@/components/site/v4/problem";
 import { WhyNow } from "@/components/site/v4/why-now";
-import { FunctionCards } from "@/components/site/v4/solutions";
-import { How, Pod } from "@/components/site/v4/how";
+import { Solutions } from "@/components/site/v4/solutions";
+import { How } from "@/components/site/v4/how";
+import { Pod } from "@/components/site/v4/pod";
 import { Controls } from "@/components/site/v4/controls";
 import { Pricing } from "@/components/site/v4/pricing";
-import { ATeam } from "@/components/site/v4/ateam";
+import { About } from "@/components/site/v4/about";
 import { Estimate } from "@/components/site/v4/estimate";
 import { Assessment } from "@/components/site/v4/assessment";
-import { ICONS } from "@/components/site/v4/icons";
-import { functionHref } from "@/components/site/v4/nav";
 
 // Copy verbatim from docs/source/design-v4.html, page-index.
 export default function Home() {
@@ -36,7 +35,7 @@ export default function Home() {
         ]}
       />
       <Platforms
-        systems="ERP, procurement and supply chain systems"
+        lede="DaVero AI orchestrates agents around existing ERP, procurement and supply chain systems, so platform investments deliver a higher return and AI moves from pilot to business results faster."
         existing={["ERP", "Procurement suite", "WMS and TMS", "Billing and revenue"]}
         outcomes={["Faster close", "Fewer exceptions", "Accurate inventory and cost", "Suppliers paid right"]}
       />
@@ -62,82 +61,14 @@ export default function Home() {
           { num: "14%", text: "of mid-market CFOs fully trust AI with accounting data", src: "Wakefield Research, Feb 2026 (100 CFOs)" },
         ]}
       />
-      <FunctionCards
-        id="solutions"
-        eyebrow="Solutions"
-        title="Functions we support"
-        lede="Each function is led by its own domain specialists, with a dedicated workflow library and controls playbook."
-        firstRow={3}
-        cards={[
-          {
-            href: functionHref("finance-accounting"),
-            icon: ICONS.list,
-            title: "Finance & Accounting",
-            text: "Get to a faster, audit-ready close on AI-native ERPs.",
-            bullets: ["Intercompany eliminations", "Entity reconciliations", "Revenue-recognition edge cases"],
-            more: "Explore Finance & Accounting →",
-          },
-          {
-            href: functionHref("supply-chain"),
-            icon: ICONS.truck,
-            title: "Supply Chain",
-            text: "Clear the exceptions between warehouse, carrier, supplier and ledger.",
-            bullets: ["Inventory and stock movement reconciliation", "Order fulfilment exceptions", "Landed-cost accruals"],
-            more: "Explore Supply Chain →",
-          },
-          {
-            href: functionHref("procurement"),
-            icon: ICONS.bag,
-            title: "Procurement",
-            text: "Keep procure-to-pay moving without breaking internal controls.",
-            bullets: ["Supplier onboarding", "Requisition-to-PO approvals", "PO-receipt-invoice exceptions"],
-            more: "Explore Procurement →",
-          },
-          {
-            href: functionHref("security-governance"),
-            icon: ICONS.shield,
-            title: "Security & Governance",
-            text: "Keep access, compliance and risk controls current without manual overhead.",
-            bullets: ["Access review and certification cycles", "Policy exception tracking", "Audit evidence collection"],
-            more: "Explore Security & Governance →",
-          },
-          {
-            href: functionHref("insurance"),
-            icon: ICONS.doc,
-            title: "Insurance",
-            text: "Reduce manual effort across claims, bordereaux and premium workflows.",
-            bullets: ["Claims exception triage", "Bordereaux reconciliation", "Premium and commission accruals"],
-            more: "Explore Insurance →",
-          },
-        ]}
-      />
-      <How
-        lede="Every engagement is led by a Forward Deployed Consultant, a domain expert who works alongside finance and operations leaders from day one."
-        steps={[
-          {
-            kicker: "Step 1 · Weeks 1–5",
-            title: "Embed",
-            text: "A Forward Deployed Consultant embeds with the business, maps the process and identifies which last-mile workflows agents can take over.",
-          },
-          {
-            kicker: "Step 2 · Within the 6–10 week embed",
-            title: "Build & harden",
-            text: "We turn each workflow into an agent skill, harden it with rules, controls and edge cases, and business owners validate it before go-live.",
-          },
-          {
-            kicker: "Step 3 · Ongoing",
-            title: "Run & improve",
-            text: "We run, monitor and tune the agents every month, and every engagement adds to our workflow library.",
-          },
-        ]}
-        note="Then we expand to the next workflow, entity or function. Advisory and assurance roles remain with existing advisors and auditors."
-      />
+      <Solutions />
+      <How />
       <Pod />
       <Controls />
       <Pricing />
-      <ATeam />
+      <About />
       <Estimate />
-      <Assessment title="How much of the operation still runs by hand?" />
+      <Assessment />
     </>
   );
 }

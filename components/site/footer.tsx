@@ -1,13 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import reversed from "@/public/brand/davero-primary-reversed.png";
 import { FUNCTIONS, functionHref } from "./v4/nav";
 
-async function currentYear() {
-  "use cache";
-  return new Date().getFullYear();
-}
-
+// Markup 1:1 with docs/source/design-v4.html <footer>; the mock's "#" legal links point at the real pages.
 const company = [
   { href: "/#how", label: "How we work" },
   { href: "/#controls", label: "Controls" },
@@ -15,39 +9,33 @@ const company = [
   { href: "/contact", label: "Contact" },
 ];
 
-// Cookies and Legal notice stay alongside the design's three legal links (the pages exist and must stay reachable).
 const legal = [
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
   { href: "/security", label: "Security" },
-  { href: "/cookies", label: "Cookies" },
-  { href: "/legal", label: "Legal notice" },
 ];
 
 function Col({ title, links }: { title: string; links: { href: string; label: string }[] }) {
   return (
-    <nav aria-label={title} className="col">
+    <div className="col">
       <strong>{title}</strong>
-      <ul>
-        {links.map((l) => (
-          <li key={l.href}>
-            <Link href={l.href}>{l.label}</Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
+      {links.map((l) => (
+        <Link key={l.href} href={l.href}>
+          {l.label}
+        </Link>
+      ))}
+    </div>
   );
 }
 
-export async function Footer() {
-  const year = await currentYear();
+export function Footer() {
   return (
     <footer>
       <div className="wrap">
         <div style={{ flex: "1 1 280px" }}>
-          <Link className="brand" href="/" aria-label="DaVero AI home">
-            <Image src={reversed} alt="" sizes="200px" />
-          </Link>
+          <p style={{ margin: 0, fontSize: 18, fontWeight: 800, color: "#fff" }}>
+            DaVero <span className="accent">AI</span>
+          </p>
           <p style={{ margin: "10px 0 0", lineHeight: 1.6 }}>The last mile is where software, services and context meet.</p>
         </div>
         <div className="cols">
@@ -56,7 +44,7 @@ export async function Footer() {
           <Col title="Legal" links={legal} />
         </div>
       </div>
-      <div className="wrap legal">&copy; {year} DaVero AI. All rights reserved.</div>
+      <div className="wrap legal">© 2026 DaVero AI. All rights reserved.</div>
     </footer>
   );
 }

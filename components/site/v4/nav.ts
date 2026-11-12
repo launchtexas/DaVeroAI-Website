@@ -1,4 +1,4 @@
-// Site navigation for the v4 design. Function pages live at /functions/<slug>.
+// Site navigation for the v4 design. Function pages live at /<slug> (the mock's navTo('<slug>')).
 // shortcut: slugs and labels duplicated here for the header and footer; switch to lib/functions.ts once it exports them.
 export const FUNCTIONS = [
   { slug: "finance-accounting", label: "Finance & Accounting" },
@@ -8,7 +8,7 @@ export const FUNCTIONS = [
   { slug: "insurance", label: "Insurance" },
 ] as const;
 
-export const functionHref = (slug: string) => `/functions/${slug}`;
+export const functionHref = (slug: string) => `/${slug}`;
 
 export const SECTION_LINKS = [
   { href: "/#why-now", label: "Why Now" },

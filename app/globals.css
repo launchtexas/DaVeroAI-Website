@@ -62,6 +62,21 @@
   --radius-xl: 14px;
 }
 @layer base {
+  /* The design is written against browser defaults, so undo Tailwind's preflight reset (margins, list
+     styles, link colours, form controls, block images). Its own unlayered rules and the utilities still win.
+     SVG internals are skipped: reverting them would drop their geometry attributes (d, cx, fill...).
+     Legal page bodies (not in the design) keep the reset. */
+  *:not(svg, svg *, .legal-body *),
+  ::before,
+  ::after,
+  ::placeholder,
+  ::file-selector-button {
+    all: revert;
+  }
+  svg {
+    display: revert;
+    vertical-align: revert;
+  }
   * {
     @apply border-border;
   }
@@ -626,6 +641,7 @@ section[id]{scroll-margin-top:72px}
 .member.hb .cred{margin-top:2px;display:inline-block;font-size:12px;font-weight:700;color:var(--navy);background:var(--orange);border-radius:999px;padding:5px 10px}
 .member.hb .exp{display:flex;gap:6px;margin-top:4px}
 .member.hb .exp span{width:46px;height:46px;border-radius:50%;border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;letter-spacing:.02em;color:var(--navy);background:#fff;transition:border-color .2s,color .2s,background .2s}
+.member .netlabel{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
 .member.hb .netlabel{color:var(--muted-2)}
 .member.hb .li{font-size:13px;font-weight:700;color:var(--orange-ink);margin-top:2px}
 .member.hb:hover,.member.hb:focus-visible{background:var(--navy);border-color:var(--navy);color:#fff}
@@ -704,7 +720,7 @@ section[id]{scroll-margin-top:72px}
 .fld label output{color:var(--orange-ink);font-variant-numeric:tabular-nums}
 .fld input[type=range]{width:100%;margin-top:12px;accent-color:#FF7A2E;height:28px}
 .fld-ppl-right{display:flex;align-items:center;gap:8px}
-.num-in{width:62px;padding:3px 6px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--orange-ink);font-size:14px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+.num-in{width:62px;padding:3px 6px;border:1px solid var(--line);border-radius:7px;background:transparent;color:var(--orange-ink);font-size:14px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
 .num-in::-webkit-inner-spin-button,.num-in::-webkit-outer-spin-button{opacity:1}
 .fld .hint{margin:4px 0 0;font-size:13px;color:var(--muted-2)}
 .est-out{background:var(--navy);color:#fff;border-radius:20px;padding:30px;display:flex;flex-direction:column;gap:18px}
@@ -857,23 +873,21 @@ section[id]{scroll-margin-top:72px}
 @media (prefers-reduced-motion:reduce){.stall .pt,.stall text{transition:none}}
 
 /* ---------- Additions to the design for the real site ---------- */
-/* Tailwind's preflight strips list bullets and heading weights; the design relies on browser defaults. */
-ul{list-style:disc}
-h3,h4{font-weight:700}
-.flow ol,.cl-checks,.cl-steps{list-style:none}
 /* Visible keyboard focus everywhere (WCAG 2.4.7, 1.4.11): deep orange on light, brand orange on navy. */
 :focus-visible{outline:3px solid var(--orange-ink);outline-offset:3px}
 .dark :focus-visible,.top :focus-visible,footer :focus-visible,.baro :focus-visible,.ttv-panel :focus-visible{outline-color:var(--orange)}
 .stall:focus-visible{outline:none}
 .skip{position:absolute;left:12px;top:-200px;z-index:50;background:var(--orange);color:var(--navy);font-weight:700;padding:12px 16px;border-radius:8px;text-decoration:none}
 .skip:focus{top:12px;color:var(--navy)}
-.brand img{height:40px;width:auto}
-footer .brand img{height:44px}
-.dd-menu ul,.menu nav ul,footer .col ul{list-style:none;margin:0;padding:0;display:contents}
 @media (prefers-reduced-motion:reduce){.card,.card.link,.member,.gate .card,.gate .marker,.chip{transition:none!important;transform:none!important}}
-.dd-menu li a{margin:0!important}.dd-menu li:first-child a{margin-top:6px!important}.dd-menu li:last-child a{margin-bottom:6px!important}
 /* Legal pages: section headings at h3 scale (the design's h2 is a display size). */
 .legal-prose h2,#toc-title{font-size:21px;font-weight:700;letter-spacing:0;line-height:1.3;max-width:none}
 #toc-title{font-size:13px;letter-spacing:.08em}
-.member .netlabel{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.menu nav a{display:block}
+
+/* Contact form states the mock has no markup for (validation errors, failure alert, spam honeypot). */
+.cf-error{display:flex;align-items:flex-start;gap:6px;margin:3px 0 0;font-size:12px;color:#B42318}
+.cf-alert{display:flex;align-items:flex-start;gap:8px;margin:0 0 20px;padding:12px 14px;border:1.5px solid #B42318;border-radius:8px;color:#B42318;font-size:14px;outline:none}
+.cf-alert ul{margin:6px 0 0;padding-left:18px}
+.cf-alert a{color:inherit;text-decoration:underline}
+.cf-honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.f-grp .cf-invalid{border-color:#B42318}

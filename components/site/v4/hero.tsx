@@ -19,10 +19,12 @@ export type HeroProps = {
   /** Right-hand label of the card head; defaults to the "AGENT + PROCESS OWNER" pair. */
   flowLabel?: string;
   steps: FlowStep[];
-  platforms?: string[];
+  strip?: { label: string; names: readonly string[]; tbd: string };
 };
 
-export function Hero({ crumb, eyebrow, title, lede, howHref = "#how", chips, flowTitle, flowLabel, steps, platforms = ["Rillet", "Tabs"] }: HeroProps) {
+const HOME_STRIP = { label: "Built for AI-native platforms", names: ["Rillet", "Tabs"], tbd: "More coming soon +" };
+
+export function Hero({ crumb, eyebrow, title, lede, howHref = "#how", chips, flowTitle, flowLabel, steps, strip = HOME_STRIP }: HeroProps) {
   return (
     <section className="dark" aria-labelledby="hero-title">
       <div className="hero">
@@ -95,13 +97,13 @@ export function Hero({ crumb, eyebrow, title, lede, howHref = "#how", chips, flo
       </div>
       <div className="strip">
         <div className="wrap">
-          <span className="label">Built for AI-native platforms</span>
-          {platforms.map((p) => (
+          <span className="label">{strip.label}</span>
+          {strip.names.map((p) => (
             <span key={p} className="name">
               {p}
             </span>
           ))}
-          <span className="tbd">More coming soon +</span>
+          <span className="tbd">{strip.tbd}</span>
         </div>
       </div>
     </section>

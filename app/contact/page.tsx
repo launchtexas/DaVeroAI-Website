@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ContactForm, ContactFormWithParams } from "@/components/site/contact-form";
-import s from "@/components/site/v4/forms.module.css";
-import { outcomes } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Start a Conversation | DaVero AI",
@@ -10,46 +8,48 @@ export const metadata: Metadata = {
     "Tell us the last-mile workflow you want finished. Expert help, your own workflows automated, AI at work under your approval.",
 };
 
-const next = ["We reply", "We talk through your last mile", "We scope a first agent"];
-
+// Markup 1:1 with docs/source/design-v4.html page-contact.
 export default function ContactPage() {
   return (
-    <div className={s.contactPage}>
-      <div className={s.contactInner}>
-        <section aria-labelledby="intro-title">
-          <p className={s.clEyebrow}>Contact</p>
-          <h1 id="intro-title" className={s.clH1}>
-            Start a conversation
-          </h1>
-          <p className={s.clSub}>Tell us the workflow your platform doesn&apos;t finish.</p>
-          <h2 className={s.clSectionLabel}>What you get</h2>
-          <ul className={s.clChecks}>
-            {outcomes.map((o) => (
-              <li key={o}>
-                <span aria-hidden="true" className={s.clCheckIcon}>
-                  ✓
-                </span>
-                {o}
-              </li>
-            ))}
+    <div className="contact-page">
+      <div className="contact-inner">
+        <div>
+          <p className="cl-eyebrow">CONTACT</p>
+          <h1 className="cl-h1">Start a conversation</h1>
+          <p className="cl-sub">Tell us the workflow your platform doesn&apos;t finish.</p>
+          <p className="cl-section-label">WHAT YOU GET</p>
+          <ul className="cl-checks">
+            <li>
+              <span className="cl-check-icon">✓</span>Expert help in your platform
+            </li>
+            <li>
+              <span className="cl-check-icon">✓</span>Its own last-mile workflows automated
+            </li>
+            <li>
+              <span className="cl-check-icon">✓</span>Client teams move to higher-value work
+            </li>
+            <li>
+              <span className="cl-check-icon">✓</span>AI put to work under your own approval
+            </li>
           </ul>
-          <h2 className={s.clSectionLabel}>What happens next</h2>
-          <ol className={s.clSteps}>
-            {next.map((n, i) => (
-              <li key={n}>
-                <span aria-hidden="true" className={s.clStepNum}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                {n}
-              </li>
-            ))}
-          </ol>
-        </section>
-        <section id="form" aria-label="Contact form" className={s.contactCard}>
+          <p className="cl-section-label">WHAT HAPPENS NEXT</p>
+          <ul className="cl-steps">
+            <li>
+              <span className="cl-step-num">01</span>We reply
+            </li>
+            <li>
+              <span className="cl-step-num">02</span>We talk through your last mile
+            </li>
+            <li>
+              <span className="cl-step-num">03</span>We scope a first agent
+            </li>
+          </ul>
+        </div>
+        <div className="contact-card" id="form">
           <Suspense fallback={<ContactForm />}>
             <ContactFormWithParams />
           </Suspense>
-        </section>
+        </div>
       </div>
     </div>
   );

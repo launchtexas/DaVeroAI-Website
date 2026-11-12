@@ -1,10 +1,9 @@
 import { CardIcon, ICONS } from "./icons";
 
 export type PlatformsProps = {
-  /** Systems named in the lede, e.g. "ERP, procurement and supply chain systems". */
-  systems: string;
-  existing: string[];
-  outcomes: string[];
+  lede: string;
+  existing: readonly string[];
+  outcomes: readonly string[];
 };
 
 const BENEFITS = [
@@ -25,16 +24,13 @@ const BENEFITS = [
   },
 ];
 
-export function Platforms({ systems, existing, outcomes }: PlatformsProps) {
+export function Platforms({ lede, existing, outcomes }: PlatformsProps) {
   return (
     <section className="section" id="platforms">
       <div className="wrap">
         <p className="eyebrow">Platform investments, made to deliver</p>
         <h2>We build on existing platforms.</h2>
-        <p className="lede">
-          DaVero AI orchestrates agents around existing {systems}, so platform investments deliver a higher return and AI moves from pilot to business
-          results faster.
-        </p>
+        <p className="lede">{lede}</p>
         <div aria-label="Existing platforms, DaVero agents, business outcomes" role="group" className="layers">
           <div className="layer">
             <p className="kicker">Existing platforms</p>

@@ -12,7 +12,9 @@ const inter = localFont({
   style: "normal",
   display: "swap",
   variable: "--font-inter",
-  fallback: ["Arial", "sans-serif"],
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+  // The design falls back to the system font (as the mock does), not a metric-adjusted Arial.
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {

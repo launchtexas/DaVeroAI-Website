@@ -8,7 +8,6 @@ import { EMAIL } from "@/lib/content";
 import { getFormToken, prefetchFormToken, submitContact, type ContactData } from "@/lib/contact";
 import { FIELDS, MESSAGE_MAX, validateField, type Field } from "@/lib/contact-rules";
 import { Turnstile, TURNSTILE_SITE_KEY } from "./turnstile";
-import s from "./v4/forms.module.css";
 
 type Errors = Partial<Record<Field, string>>;
 
@@ -48,7 +47,7 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
   const [summary, setSummary] = useState<Field[]>([]);
   const summaryRef = useRef<HTMLDivElement>(null);
-  const doneRef = useRef<HTMLHeadingElement>(null);
+  const doneRef = useRef<HTMLParagraphElement>(null);
   const fid = (f: Field) => `${uid}-${f}`;
   const captcha = useRef("");
   const [captchaReset, setCaptchaReset] = useState(0);
@@ -113,12 +112,12 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
 
   if (status === "sent") {
     return (
-      <div role="status" className={s.success}>
-        <h2 ref={doneRef} tabIndex={-1} className={s.successTitle}>
-          Thank you. We will get back to you.
-        </h2>
-        <p className={s.successBody}>Your message has been sent. We&apos;ll reply by email.</p>
-        <Link className={s.btn} href="/">
+      <div role="status" style={{ textAlign: "center", padding: "32px 0" }}>
+        <p ref={doneRef} tabIndex={-1} style={{ fontSize: 26, fontWeight: 800, color: "#0d1f33", margin: "0 0 10px", outline: "none" }}>
+          Message sent.
+        </p>
+        <p style={{ color: "#555", fontSize: 15 }}>We&apos;ll reply to your work email within one business day.</p>
+        <Link className="btn btn-primary" href="/" style={{ display: "inline-block", marginTop: 20 }}>
           Back to home
         </Link>
       </div>
@@ -135,13 +134,14 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
     onChange: set(field),
     onBlur: blur(field),
     "aria-invalid": errors[field] ? (true as const) : undefined,
+    className: errors[field] ? "cf-invalid" : undefined,
     "aria-describedby": describedBy(field, hint),
     disabled: status === "sending",
   });
 
   const error = (field: Field) =>
     errors[field] ? (
-      <p id={`${fid(field)}-error`} className={s.fieldError}>
+      <p id={`${fid(field)}-error`} className="cf-error">
         <CircleAlert aria-hidden="true" size={14} className="mt-px shrink-0" />
         {errors[field]}
       </p>
@@ -150,7 +150,8 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
   const label = (field: Field) => (
     <label htmlFor={fid(field)}>
       {LABELS[field]}
-      {REQUIRED.includes(field) ? <span className={s.req}>(required)</span> : <span className={s.opt}>(optional)</span>}
+      {" "}
+      {REQUIRED.includes(field) ? <span className="req">(required)</span> : <span className="opt">(optional)</span>}
     </label>
   );
 
@@ -160,11 +161,11 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
   return (
     // method="post": if someone submits before JavaScript loads, the details go in the body, not the URL.
     <form method="post" noValidate onSubmit={onSubmit} aria-labelledby="form-title">
-      <h2 id="form-title" className={s.cardTitle}>
+      <p id="form-title" className="card-title">
         Tell us your last-mile workflow
-      </h2>
+      </p>
       {summary.length > 0 && (
-        <div ref={summaryRef} tabIndex={-1} role="alert" className={s.alert}>
+        <div ref={summaryRef} tabIndex={-1} role="alert" className="cf-alert">
           <CircleAlert aria-hidden="true" size={18} className="mt-0.5 shrink-0" />
           <div>
             <p className="m-0">
@@ -181,7 +182,7 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
         </div>
       )}
       {status === "failed" && (
-        <div role="alert" className={s.alert}>
+        <div role="alert" className="cf-alert">
           <CircleAlert aria-hidden="true" size={18} className="mt-0.5 shrink-0" />
           <p className="m-0">
             Your message didn&apos;t send. Please try again.
@@ -191,34 +192,34 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
         </div>
       )}
 
-      <div className={s.fRow}>
-        <div className={s.fGrp}>
+      <div className="f-row">
+        <div className="f-grp">
           {label("name")}
           <input {...fieldProps("name")} type="text" autoComplete="name" required maxLength={100} />
           {error("name")}
         </div>
-        <div className={s.fGrp}>
+        <div className="f-grp">
           {label("email")}
           <input {...fieldProps("email")} type="email" autoComplete="email" required />
           {error("email")}
         </div>
       </div>
-      <div className={s.fRow}>
-        <div className={s.fGrp}>
+      <div className="f-row">
+        <div className="f-grp">
           {label("company")}
           <input {...fieldProps("company")} type="text" autoComplete="organization" required maxLength={120} />
           {error("company")}
         </div>
-        <div className={s.fGrp}>
+        <div className="f-grp">
           {label("platform")}
-          <input {...fieldProps("platform", true)} type="text" maxLength={100} />
-          <span id={`${fid("platform")}-hint`} className={s.fieldHint}>
+          <input {...fieldProps("platform", true)} type="text" maxLength={100} placeholder="e.g. ERP, CRM, procurement" />
+          <span id={`${fid("platform")}-hint`} className="field-hint">
             e.g. ERP, CRM, procurement
           </span>
           {error("platform")}
         </div>
       </div>
-      <div className={s.fGrp}>
+      <div className="f-grp">
         {label("domain")}
         <select {...fieldProps("domain")}>
           <option value="">Select a domain</option>
@@ -230,10 +231,10 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
           <option value="Other">Other</option>
         </select>
       </div>
-      <div className={s.fGrp}>
+      <div className="f-grp">
         {label("message")}
         <textarea {...fieldProps("message", true)} required maxLength={MESSAGE_MAX} />
-        <div className={s.charRow}>
+        <div className="char-row">
           <span id={`${fid("message")}-hint`}>A sentence or two is enough.</span>
           <span aria-hidden="true">
             {data.message.length}/{MESSAGE_MAX}
@@ -246,14 +247,14 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
       </div>
 
       {/* Honeypot, hidden from people and assistive tech */}
-      <div aria-hidden="true" className={s.honeypot}>
+      <div aria-hidden="true" className="cf-honeypot">
         <label htmlFor={`${uid}-website`}>Website</label>
         <input id={`${uid}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       {TURNSTILE_SITE_KEY && <Turnstile resetKey={captchaReset} onToken={(t) => (captcha.current = t)} />}
 
-      <button type="submit" className={s.btnSend} disabled={sending}>
+      <button type="submit" className="btn-send" disabled={sending}>
         {sending ? (
           <>
             <LoaderCircle aria-hidden="true" size={18} className="animate-spin motion-reduce:animate-none" />
@@ -263,7 +264,7 @@ export function ContactForm({ initialDomain = "" }: { initialDomain?: string }) 
           "Send message"
         )}
       </button>
-      <p className={s.privacyNote}>
+      <p className="privacy-note">
         By sending this form you agree to our <Link href="/privacy">Privacy Policy</Link>.
       </p>
     </form>

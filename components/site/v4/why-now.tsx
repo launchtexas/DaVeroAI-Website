@@ -1,6 +1,6 @@
 import { TtvChart } from "./ttv-chart";
 
-export type Stat = { num: string; text: string; src: string; highlight?: boolean };
+export type Stat = { num: string; text: string; src: string; highlight?: boolean; placeholder?: boolean };
 
 export function WhyNow({ title, stats }: { title: string; stats: Stat[] }) {
   return (
@@ -12,7 +12,7 @@ export function WhyNow({ title, stats }: { title: string; stats: Stat[] }) {
         <div className="stats">
           {stats.map((s) => (
             <div key={s.text} className="stat">
-              <p className="num" style={s.highlight ? { color: "var(--orange-ink)" } : undefined}>
+              <p className={s.placeholder ? "num ph" : "num"} style={s.highlight ? { color: "var(--orange-ink)" } : undefined}>
                 {s.num}
               </p>
               <p>{s.text}</p>
