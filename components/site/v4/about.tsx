@@ -1,32 +1,6 @@
-// #about (the A-Team) from docs/source/design-v4.html: barometer, Hemang's card with past-employer logos,
-// three [placeholder] member cards and the bench line, kept exactly as the mock has them.
-/* eslint-disable @next/next/no-img-element -- fixed-size 120px images, markup kept 1:1 with the mock */
-
-const EXPERIENCE = [
-  { name: "JPMorgan Chase", src: "/images/v4/jpmorgan-chase.jpg" },
-  { name: "American Express", src: "/images/v4/american-express.jpg" },
-  { name: "Oracle", src: "/images/v4/oracle.jpg" },
-];
-
-const Placeholder = () => (
-  <a aria-label="[Full name] on LinkedIn ([URL to add])" className="member hb" href="#">
-    <div className="av">
-      <svg aria-hidden="true" fill="none" height="44" stroke="#5A6780" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="44">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-      </svg>
-    </div>
-    <h3>[Full name]</h3>
-    <p className="role">[Role]</p>
-    <div aria-label="Experience: [companies to add]" className="exp ph-exp">
-      <span className="tip" data-tip="[Company]" />
-      <span className="tip" data-tip="[Company]" />
-      <span className="tip" data-tip="[Company]" />
-    </div>
-    <span className="netlabel">Experience</span>
-    <span className="li">View on LinkedIn →</span>
-  </a>
-);
+// #about (the A-Team) from docs/source/design-v4.html: barometer, Hemang's card and the bench line.
+// The mock's 3 placeholder cards are left out and past employers are plain text (no third-party logos).
+/* eslint-disable @next/next/no-img-element -- fixed-size 120px photo, markup kept 1:1 with the mock */
 
 export function About() {
   return (
@@ -63,7 +37,8 @@ export function About() {
             </div>
           </div>
         </div>
-        <div className="crew crew-4">
+        {/* one card: a single fixed-width column instead of a mostly empty 4-column grid */}
+        <div className="crew" style={{ gridTemplateColumns: "minmax(0, 280px)" }}>
           <a aria-label="Hemang Bhatt on LinkedIn (opens in a new tab)" className="member hb" href="https://www.linkedin.com/in/hemangbhatt/" rel="noopener" target="_blank">
             <div className="av photo">
               <img alt="Hemang Bhatt" height="120" src="/images/v4/hemang-bhatt.jpg" width="120" />
@@ -75,19 +50,10 @@ export function About() {
             </div>
             <h3>Hemang Bhatt</h3>
             <p className="role">Founding Partner &amp; CEO</p>
-            <div aria-label="Experience: JPMorgan Chase, American Express, Oracle" className="exp">
-              {EXPERIENCE.map((e) => (
-                <span className="tip" data-tip={e.name} key={e.name}>
-                  <img alt={e.name} height="46" src={e.src} width="46" />
-                </span>
-              ))}
-            </div>
+            <p className="role">JPMorgan Chase · American Express · Oracle</p>
             <span className="netlabel">Experience</span>
             <span className="li">View on LinkedIn →</span>
           </a>
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
         </div>
         <div className="bench">
           <div aria-hidden="true" className="dots">

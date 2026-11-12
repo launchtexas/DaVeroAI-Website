@@ -152,7 +152,7 @@ const sections: LegalSection[] = [
       <>
         <p>
           For client work, our{" "}
-          <Link className="link" href="/governance">
+          <Link className="link" href="/#controls">
             governance approach
           </Link>{" "}
           is built on these practices:

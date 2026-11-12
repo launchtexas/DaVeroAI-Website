@@ -103,7 +103,7 @@ export function Hero({ crumb, eyebrow, title, lede, howHref = "#how", chips, flo
               {p}
             </span>
           ))}
-          <span className="tbd">{strip.tbd}</span>
+          {strip.tbd && <span className="tbd">{strip.tbd}</span>}
         </div>
       </div>
     </section>

@@ -12,15 +12,12 @@ export function Estimate({ hint = "Finance, supply chain or procurement staff" }
   const [pct, setPct] = useState(35);
   const [cost, setCost] = useState(110);
   const [auto, setAuto] = useState(50);
-  // Until the first change, show the mock's static "5,824" hours text (as ordered); the formula takes over after.
-  const [touched, setTouched] = useState(false);
 
   const total = ppl * (pct / 100) * cost * 1000;
   const free = total * (auto / 100);
   const hrs = Math.round(ppl * (pct / 100) * 2080 * (auto / 100));
   const on = (set: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
     set(+e.target.value);
-    setTouched(true);
   };
 
   return (
@@ -47,7 +44,6 @@ export function Estimate({ hint = "Finance, supply chain or procurement staff" }
                     onChange={(e) => {
                       setPplText(e.target.value);
                       setPpl(Math.min(parseInt(e.target.value) || 1, 9999));
-                      setTouched(true);
                     }}
                   />
                 </span>
@@ -61,7 +57,6 @@ export function Estimate({ hint = "Finance, supply chain or procurement staff" }
                 onChange={(e) => {
                   setPpl(+e.target.value);
                   setPplText(e.target.value);
-                  setTouched(true);
                 }}
               />
               <p className="hint">{hint}</p>
@@ -105,7 +100,7 @@ export function Estimate({ hint = "Finance, supply chain or procurement staff" }
               </div>
               <div>
                 <p className="sm" id="r-hrs">
-                  {touched ? hrs.toLocaleString("en-US") : "5,824"}
+                  {hrs.toLocaleString("en-US")}
                 </p>
                 <p className="lbl">hours a year back to the team</p>
               </div>

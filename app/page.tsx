@@ -24,7 +24,7 @@ export default function Home() {
             <span className="accent">Last Mile.</span>
           </>
         }
-        lede="Davero AI agents extend enterprise platforms through the last mile, from system of record to business outcome. Designed alongside domain experts, managed end to end, and approved by process owners."
+        lede="DaVero AI agents extend enterprise platforms through the last mile, from system of record to business outcome. Designed alongside domain experts, managed end to end, and approved by process owners."
         chips
         flowTitle="Any last-mile workflow · Illustrative"
         steps={[

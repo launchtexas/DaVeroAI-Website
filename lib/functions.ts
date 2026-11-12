@@ -1,7 +1,7 @@
 // v4 function pages: copy extracted verbatim from docs/source/design-v4.html (pages page-finance-accounting,
 // page-supply-chain, page-procurement, page-security-governance, page-insurance). Only copy that differs from
 // page-index lives here; everything else is shared with the home page. Section map: docs/v4-map.md.
-// Placeholders the mock marks with [brackets] are kept as `placeholder: true` / `tbd` so the UI can omit them.
+// The mock's [bracketed] placeholders (unsourced stats, unconfirmed platform names) are left out; `tbd` "" renders nothing.
 
 export type FunctionSlug =
   | "finance-accounting"
@@ -459,7 +459,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       strip: {
         label: "Built around existing ERP, WMS and TMS",
         names: [],
-        tbd: "[Platform names to confirm]"
+        tbd: ""
       }
     },
     platforms: {
@@ -516,18 +516,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     whyNow: {
       title: "Supply chain teams are stretched, and AI alone isn't closing the gap",
       stats: [
-        {
-          value: "[Sourced stat]",
-          text: "Supply chain talent or labor gap",
-          source: "[Source to add]",
-          placeholder: true
-        },
-        {
-          value: "[Sourced stat]",
-          text: "Cost or frequency of inventory and fulfilment exceptions",
-          source: "[Source to add]",
-          placeholder: true
-        },
         {
           value: "40%+",
           text: "of agentic AI projects will be scrapped by end-2027",
@@ -727,7 +715,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       strip: {
         label: "Built around existing procurement suite and ERP",
         names: [],
-        tbd: "[Platform names to confirm]"
+        tbd: ""
       }
     },
     platforms: {
@@ -784,18 +772,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     whyNow: {
       title: "Procurement teams are stretched, and AI alone isn't closing the gap",
       stats: [
-        {
-          value: "[Sourced stat]",
-          text: "Share of invoices that fail first-pass matching",
-          source: "[Source to add]",
-          placeholder: true
-        },
-        {
-          value: "[Sourced stat]",
-          text: "Average supplier onboarding time",
-          source: "[Source to add]",
-          placeholder: true
-        },
         {
           value: "40%+",
           text: "of agentic AI projects will be scrapped by end-2027",
@@ -995,7 +971,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       strip: {
         label: "Built around existing GRC, IAM and ITSM platforms",
         names: [],
-        tbd: "[Platform names to confirm]"
+        tbd: ""
       }
     },
     platforms: {
@@ -1053,18 +1029,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     whyNow: {
       title: "Security and compliance teams are stretched, and AI alone isn't closing the gap",
       stats: [
-        {
-          value: "[Sourced stat]",
-          text: "Share of access certifications completed on time",
-          source: "[Source to add]",
-          placeholder: true
-        },
-        {
-          value: "[Sourced stat]",
-          text: "Average time to close a policy exception",
-          source: "[Source to add]",
-          placeholder: true
-        },
         {
           value: "40%+",
           text: "of agentic AI projects will be scrapped by end-2027",
@@ -1264,7 +1228,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       strip: {
         label: "Built around existing policy admin, claims and finance platforms",
         names: [],
-        tbd: "[Platform names to confirm]"
+        tbd: ""
       }
     },
     platforms: {
@@ -1322,18 +1286,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     whyNow: {
       title: "Insurance operations teams are stretched, and AI alone isn't closing the gap",
       stats: [
-        {
-          value: "[Sourced stat]",
-          text: "Share of claims requiring manual exception handling",
-          source: "[Source to add]",
-          placeholder: true
-        },
-        {
-          value: "[Sourced stat]",
-          text: "Average bordereaux reconciliation cycle time",
-          source: "[Source to add]",
-          placeholder: true
-        },
         {
           value: "40%+",
           text: "of agentic AI projects will be scrapped by end-2027",
