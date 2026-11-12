@@ -817,7 +817,9 @@ section[id]{scroll-margin-top:72px}
 .dd-menu a:first-child{margin-top:6px}.dd-menu a:last-child{margin-bottom:6px}
 .dd-menu a:hover,.dd-menu a:focus-visible{background:var(--navy-3);color:var(--orange-soft)}
 .dd-menu a[aria-current="page"]{color:var(--orange-soft)}
-.dd:hover .dd-menu,.dd:focus-within .dd-menu,.dd.open .dd-menu{opacity:1;visibility:visible;transform:none}
+.dd:hover .dd-menu,.dd.open .dd-menu{opacity:1;visibility:visible;transform:none}
+/* Escape or a pick closes the menu even while the pointer still rests on it (header.tsx). */
+.dd.hide .dd-menu{opacity:0;visibility:hidden}
 @media (prefers-reduced-motion:reduce){.dd-menu,.dd-btn svg{transition:none}}
 
 /* Shorter nav: show full bar down to 1100px */

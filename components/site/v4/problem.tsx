@@ -62,7 +62,7 @@ export function Problem({ title, lede, zone1, zone2 = "Covered after process sta
               </span>
               ZONE 3 · WHERE DAVERO AI WORKS
             </p>
-            <h3>The Last Mile</h3>
+            <h3>The last mile</h3>
             <p>{zone3}</p>
           </div>
         </div>

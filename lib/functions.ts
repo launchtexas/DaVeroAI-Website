@@ -131,7 +131,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     navLabel: "Finance & Accounting",
     metadata: {
       title: "Finance & Accounting | DaVero AI",
-      description: "AI agents that extend the ERP into company-specific closing and audit work, from intercompany eliminations to revenue edge cases and entity reconciliations. Every result is approved by the controller."
+      description: "AI agents that extend the ERP into company-specific close work, from intercompany eliminations to reconciliations, approved by the controller."
     },
     sections: ORDER,
     hero: {
@@ -418,7 +418,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     navLabel: "Supply Chain",
     metadata: {
       title: "Supply Chain | DaVero AI",
-      description: "AI agents that extend ERP, WMS and planning platforms into exception-heavy supply chain work, from stock reconciliation to landed-cost accruals. Every result is approved by operations and finance owners."
+      description: "AI agents that extend ERP, WMS and planning platforms into supply chain exceptions, from stock reconciliation to landed-cost accruals, with human approval."
     },
     sections: ORDER,
     hero: {
@@ -674,7 +674,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     navLabel: "Procurement",
     metadata: {
       title: "Procurement | DaVero AI",
-      description: "AI agents that extend sourcing and ERP platforms across procure-to-pay, from supplier onboarding to three-way-match exceptions. Every result is approved by procurement and AP leads."
+      description: "AI agents that extend sourcing and ERP platforms across procure-to-pay, from supplier onboarding to three-way-match exceptions, approved by AP leads."
     },
     sections: ORDER,
     hero: {
@@ -713,7 +713,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
         ]
       },
       strip: {
-        label: "Built around existing procurement suite and ERP",
+        label: "Built around existing procurement suites and ERP",
         names: [],
         tbd: ""
       }
@@ -930,7 +930,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     navLabel: "Security & Governance",
     metadata: {
       title: "Security & Governance | DaVero AI",
-      description: "AI agents that keep access certifications, policy exceptions and audit evidence current, so security and compliance teams spend less time chasing and more time on decisions."
+      description: "AI agents that keep access certifications, policy exceptions and audit evidence current, so security and compliance teams chase less and decide more."
     },
     sections: ORDER,
     hero: {
@@ -963,7 +963,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
           {
             kind: "sys",
             title: "Record",
-            text: "Decision logged in GRC platform with full audit trail",
+            text: "Decision logged in the GRC platform with a full audit trail",
             who: "GRC / IAM"
           }
         ]
@@ -1187,7 +1187,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
     navLabel: "Insurance",
     metadata: {
       title: "Insurance | DaVero AI",
-      description: "AI agents that extend core insurance platforms across claims triage, bordereaux reconciliation and premium accruals. Every result is approved by operations and finance leads."
+      description: "AI agents that extend core insurance platforms across claims triage, bordereaux reconciliation and premium accruals, approved by operations and finance."
     },
     sections: ORDER,
     hero: {
@@ -1220,7 +1220,7 @@ export const FUNCTION_PAGES: FunctionPage[] = [
           {
             kind: "sys",
             title: "Record",
-            text: "Decision logged in policy admin system with full audit trail",
+            text: "Decision logged in the policy admin system with a full audit trail",
             who: "POLICY ADMIN / ERP"
           }
         ]

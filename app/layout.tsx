@@ -20,8 +20,7 @@ const inter = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://daveroai.com"),
   title: { default: "DaVero AI | Own the Last Mile", template: "%s" },
-  description:
-    "DaVero AI agents extend enterprise platforms through the last mile, from system of record to business outcome. Designed alongside domain experts, managed end to end, and approved by process owners.",
+  description: "DaVero AI agents extend enterprise platforms through the last mile, from system of record to business outcome, approved by process owners.",
   applicationName: "DaVero AI",
   openGraph: { siteName: "DaVero AI", type: "website" },
 };

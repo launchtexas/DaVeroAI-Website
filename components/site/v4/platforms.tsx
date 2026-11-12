@@ -31,7 +31,7 @@ export function Platforms({ lede, existing, outcomes }: PlatformsProps) {
         <p className="eyebrow">Platform investments, made to deliver</p>
         <h2>We build on existing platforms.</h2>
         <p className="lede">{lede}</p>
-        <div aria-label="Existing platforms, DaVero agents, business outcomes" role="group" className="layers">
+        <div aria-label="Existing platforms, DaVero AI agents, business outcomes" role="group" className="layers">
           <div className="layer">
             <p className="kicker">Existing platforms</p>
             <ul>
@@ -44,7 +44,7 @@ export function Platforms({ lede, existing, outcomes }: PlatformsProps) {
             →
           </div>
           <div className="layer ours">
-            <p className="kicker">DaVero agents</p>
+            <p className="kicker">DaVero AI agents</p>
             <p>Orchestrated across enterprise systems through native platform data and APIs, approved by process owners.</p>
           </div>
           <div aria-hidden="true" className="arrow">
