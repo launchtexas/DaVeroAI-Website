@@ -1,5 +1,9 @@
-/** Commercial model. `outcome` is the Managed outcome card's text, which differs per function page. */
-export function Pricing({ outcome = "Priced on results, such as days to close, exceptions cleared or invoices matched." }: { outcome?: string }) {
+// #pricing from docs/source/design-v4.html. Only the "Managed outcome" body varies per page.
+export function Pricing({
+  outcomeText = "Priced on results, such as days to close, exceptions cleared or invoices matched.",
+}: {
+  outcomeText?: string;
+}) {
   return (
     <section className="section alt" id="pricing">
       <div className="wrap">
@@ -19,7 +23,7 @@ export function Pricing({ outcome = "Priced on results, such as days to close, e
           <div className="card inverse">
             <p className="kicker">Outcome-based</p>
             <h3 style={{ fontSize: 24 }}>Managed outcome</h3>
-            <p>{outcome}</p>
+            <p>{outcomeText}</p>
           </div>
         </div>
       </div>

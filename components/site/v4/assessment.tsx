@@ -1,8 +1,17 @@
+// #assessment (final CTA) from docs/source/design-v4.html. Title and deliverables vary per page.
 import Link from "next/link";
-import { ASSESSMENT_HREF, ASSESSMENT_LABEL } from "./nav";
 
-/** Closing call to action. `scope` names the workflows, e.g. "last-mile finance workflows". */
-export function Assessment({ title, scope = "last-mile workflows" }: { title: string; scope?: string }) {
+export function Assessment({
+  title = "How much of the operation still runs by hand?",
+  deliverables = [
+    "A map of last-mile workflows",
+    "The two or three best first candidates for agents",
+    "A rough timeline and engagement shape",
+  ],
+}: {
+  title?: string;
+  deliverables?: readonly string[];
+}) {
   return (
     <section className="section dark" id="assessment">
       <div className="wrap split center">
@@ -14,12 +23,12 @@ export function Assessment({ title, scope = "last-mile workflows" }: { title: st
           <div className="cta-box">
             <p style={{ margin: "0 0 14px", fontSize: 15, fontWeight: 700 }}>Assessment deliverables:</p>
             <ul>
-              <li>A map of {scope}</li>
-              <li>The two or three best first candidates for agents</li>
-              <li>A rough timeline and engagement shape</li>
+              {deliverables.map((d) => (
+                <li key={d}>{d}</li>
+              ))}
             </ul>
-            <Link className="btn btn-primary" href={ASSESSMENT_HREF}>
-              {ASSESSMENT_LABEL} →
+            <Link className="btn btn-primary" href="/contact">
+              Book a last-mile assessment →
             </Link>
           </div>
         </div>

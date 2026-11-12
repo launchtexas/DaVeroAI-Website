@@ -1,17 +1,23 @@
-const CONTROLS = [
-  ["Control ownership stays with management", "Management and external auditors retain control ownership."],
-  [
-    "Least-privilege agent access",
-    "Each agent gets only the permissions its workflow needs, through scoped, revocable credentials. No shared logins, no standing admin rights.",
-  ],
-  [
-    "Guardrails and kill switch",
-    "Agents run inside defined rules and thresholds, are monitored continuously, and can be paused instantly by the business.",
-  ],
-  ["Client data stays protected", "Data is encrypted in transit and at rest, never used to train shared models, and stays within approved systems."],
+// #controls from docs/source/design-v4.html. Function pages pass their own first card; cards 2-4 are shared.
+type Card = { title: string; text: string };
+
+const CARDS: Card[] = [
+  { title: "Control ownership stays with management", text: "Management and external auditors retain control ownership." },
+  {
+    title: "Least-privilege agent access",
+    text: "Each agent gets only the permissions its workflow needs, through scoped, revocable credentials. No shared logins, no standing admin rights.",
+  },
+  {
+    title: "Guardrails and kill switch",
+    text: "Agents run inside defined rules and thresholds, are monitored continuously, and can be paused instantly by the business.",
+  },
+  {
+    title: "Client data stays protected",
+    text: "Data is encrypted in transit and at rest, never used to train shared models, and stays within approved systems.",
+  },
 ];
 
-export function Controls() {
+export function Controls({ firstCard = CARDS[0] }: { firstCard?: Card }) {
   return (
     <section className="section dark" id="controls">
       <div className="wrap split">
@@ -22,10 +28,10 @@ export function Controls() {
         </div>
         <div className="b">
           <div className="grid grid-4" style={{ marginTop: 0 }}>
-            {CONTROLS.map(([t, p]) => (
-              <div key={t} className="card">
-                <h3 style={{ fontSize: 18 }}>{t}</h3>
-                <p>{p}</p>
+            {[firstCard, ...CARDS.slice(1)].map((c) => (
+              <div className="card" key={c.title}>
+                <h3 style={{ fontSize: 18 }}>{c.title}</h3>
+                <p>{c.text}</p>
               </div>
             ))}
           </div>
