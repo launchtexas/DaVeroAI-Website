@@ -355,9 +355,9 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       ]
     },
     how: {
-      lede: "Every engagement is led by a Forward Deployed Accountant, a domain expert who works alongside finance and accounting leaders from day one.",
+      lede: "Every engagement is led by a Forward Deployed Consultant, a domain expert who works alongside finance and accounting leaders from day one.",
       stepTexts: [
-        "A Forward Deployed Accountant embeds with the finance team in the last weeks of ERP implementation, maps the close and identifies which workflows agents can take over.",
+        "A Forward Deployed Consultant embeds with the finance team in the last weeks of ERP implementation, maps the close and identifies which workflows agents can take over.",
         "We turn each workflow into an agent skill, harden it with rules, controls and edge cases, and business owners validate it before go-live.",
         "We run, monitor and tune the agents every month."
       ],

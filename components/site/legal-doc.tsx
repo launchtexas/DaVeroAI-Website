@@ -32,7 +32,7 @@ export function LegalDoc({
               <h1 id="legal-title" style={{ fontSize: "clamp(36px,5vw,56px)" }}>
                 {title}
               </h1>
-              <p className="lede">{lead}</p>
+              <div className="lede">{lead}</div>
               <p className="crumb" style={{ margin: "24px 0 0" }}>
                 Effective {effective} · Last updated {updated}
               </p>
