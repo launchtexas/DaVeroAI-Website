@@ -11,7 +11,7 @@ const EXPERIENCE = [
 const Placeholder = () => (
   <a aria-label="[Full name] on LinkedIn ([URL to add])" className="member hb" href="#">
     <div className="av">
-      <svg aria-hidden="true" fill="none" height="44" stroke="#5A6780" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="44">
+      <svg aria-hidden="true" fill="none" height="44" stroke="#536378" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="44">
         <circle cx="12" cy="8" r="4" />
         <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
       </svg>

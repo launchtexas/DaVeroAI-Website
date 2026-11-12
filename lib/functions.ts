@@ -69,7 +69,7 @@ export type FunctionPage = {
   workflows: {
     title: string;
     lede: string;
-    /** `icon` is the inner markup of a 24x24 stroke icon (stroke="#C2410C", width 2, round caps/joins). */
+    /** `icon` is the inner markup of a 24x24 stroke icon (stroke="#FF6500", width 2, round caps/joins). */
     cards: { icon: string; title: string; text: string; items: string[] }[];
   };
   agentsAtWork: { feedLabel: string; events: FeedEvent[] };

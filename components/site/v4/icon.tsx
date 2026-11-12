@@ -5,7 +5,7 @@ export function Icon({ paths }: { paths: string }) {
       aria-hidden="true"
       className="icon"
       fill="none"
-      stroke="#C2410C"
+      stroke="#FF6500"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

@@ -1,6 +1,6 @@
 // Inline icons from docs/source/design-v4.html. All decorative (aria-hidden).
 
-export const Mark = ({ size = 28, fill = "#FF7A2E" }: { size?: number; fill?: string }) => (
+export const Mark = ({ size = 28, fill = "#FF6500" }: { size?: number; fill?: string }) => (
   <svg aria-hidden="true" height={size} width={size} viewBox="0 0 28 28">
     <path d="M3 4h12l10 10-10 10H3l10-10z" fill={fill} />
   </svg>
@@ -14,7 +14,7 @@ export const Check = ({ size = 20, stroke = "#081630", width = 2.5 }: { size?: n
 
 /** Card icon: one or more stroke paths, drawn in deep orange (`.icon`). */
 export const CardIcon = ({ d }: { d: string }) => (
-  <svg aria-hidden="true" className="icon" fill="none" stroke="#C2410C" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
+  <svg aria-hidden="true" className="icon" fill="none" stroke="#FF6500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
     <path d={d} />
   </svg>
 );

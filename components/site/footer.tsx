@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FUNCTIONS, functionHref } from "./v4/nav";
 
@@ -13,6 +14,8 @@ const legal = [
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
   { href: "/security", label: "Security" },
+  { href: "/cookies", label: "Cookies" },
+  { href: "/legal", label: "Legal notice" },
 ];
 
 function Col({ title, links }: { title: string; links: { href: string; label: string }[] }) {
@@ -33,9 +36,8 @@ export function Footer() {
     <footer>
       <div className="wrap">
         <div style={{ flex: "1 1 280px" }}>
-          <p style={{ margin: 0, fontSize: 18, fontWeight: 800, color: "#fff" }}>
-            DaVero <span className="accent">AI</span>
-          </p>
+          {/* Official brand-kit lockup, reversed for the Deep Midnight footer. */}
+          <Image alt="DaVero AI" height={28} src="/brand/davero-primary-reversed.png" style={{ width: 101, height: 28 }} width={101} />
           <p style={{ margin: "10px 0 0", lineHeight: 1.6 }}>The last mile is where software, services and context meet.</p>
         </div>
         <div className="cols">

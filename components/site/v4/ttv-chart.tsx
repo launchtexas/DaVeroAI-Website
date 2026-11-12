@@ -94,11 +94,11 @@ export function TtvChart() {
     const ms = msG.current!;
     for (const [label, f, dx, dy, anchor] of MILESTONES) {
       const p = D.getPointAtLength(LD * f);
-      ms.appendChild(el("circle", { cx: p.x, cy: p.y, r: 7, fill: "#FF7A2E", stroke: "#081630", "stroke-width": 3 }));
-      ms.appendChild(el("text", { x: p.x + dx, y: p.y + dy, "text-anchor": anchor, style: "fill:#FF9A5C;font-weight:700" }, label));
+      ms.appendChild(el("circle", { cx: p.x, cy: p.y, r: 7, fill: "#FF6500", stroke: "#081630", "stroke-width": 3 }));
+      ms.appendChild(el("text", { x: p.x + dx, y: p.y + dy, "text-anchor": anchor, style: "fill:#FF962E;font-weight:700" }, label));
     }
     const end = D.getPointAtLength(LD);
-    ms.appendChild(el("rect", { x: end.x - 150, y: end.y - 46, width: 150, height: 28, rx: 14, fill: "#FF7A2E" }));
+    ms.appendChild(el("rect", { x: end.x - 150, y: end.y - 46, width: 150, height: 28, rx: 14, fill: "#FF6500" }));
     ms.appendChild(el("text", { x: end.x - 75, y: end.y - 27, "text-anchor": "middle", style: "fill:#081630;font-weight:800" }, "Accurate results"));
 
     // Gap bracket between the two lines
@@ -113,10 +113,10 @@ export function TtvChart() {
       return path.getPointAtLength(lo).y;
     };
     const X = 740, y1 = yAt(D, X), y2 = yAt(T, X);
-    G.appendChild(el("line", { x1: X, y1: y1 + 8, x2: X, y2: y2 - 8, stroke: "#FF9A5C", "stroke-width": 2, "stroke-dasharray": "4 4" }));
-    G.appendChild(el("path", { d: `M${X - 6},${y1 + 8} h12 M${X - 6},${y2 - 8} h12`, stroke: "#FF9A5C", "stroke-width": 2 }));
-    G.appendChild(el("text", { x: X + 12, y: (y1 + y2) / 2 - 4, style: "fill:#FF9A5C;font-weight:800" }, "Value unlocked"));
-    G.appendChild(el("text", { x: X + 12, y: (y1 + y2) / 2 + 15, style: "fill:#FF9A5C;font-weight:800" }, "sooner"));
+    G.appendChild(el("line", { x1: X, y1: y1 + 8, x2: X, y2: y2 - 8, stroke: "#FF962E", "stroke-width": 2, "stroke-dasharray": "4 4" }));
+    G.appendChild(el("path", { d: `M${X - 6},${y1 + 8} h12 M${X - 6},${y2 - 8} h12`, stroke: "#FF962E", "stroke-width": 2 }));
+    G.appendChild(el("text", { x: X + 12, y: (y1 + y2) / 2 - 4, style: "fill:#FF962E;font-weight:800" }, "Value unlocked"));
+    G.appendChild(el("text", { x: X + 12, y: (y1 + y2) / 2 + 15, style: "fill:#FF962E;font-weight:800" }, "sooner"));
 
     // Story animation
     const kids = Array.from(ms.children) as SVGElement[];
@@ -244,7 +244,7 @@ export function TtvChart() {
   return (
     <div className="ttv-panel" ref={panel}>
       <div className="ttv-legend">
-        <span style={{ color: "#7FA6F2" }}>
+        <span style={{ color: "var(--sky)" }}>
           <i className="dash" />
           What business expects
         </span>
@@ -267,13 +267,13 @@ export function TtvChart() {
             <rect ref={clipRect} x="0" y="0" width="1000" height="445" />
           </clipPath>
         </defs>
-        <g stroke="#1E2E4D" strokeWidth="1">
+        <g style={{ stroke: "var(--line-dark)" }} strokeWidth="1">
           <line x1="90" x2="960" y1="70" y2="70" />
           <line x1="90" x2="960" y1="160" y2="160" />
           <line x1="90" x2="960" y1="250" y2="250" />
         </g>
-        <line stroke="#5A6E92" strokeWidth="2" x1="90" x2="960" y1="360" y2="360" />
-        <line stroke="#5A6E92" strokeWidth="2" x1="90" x2="90" y1="40" y2="360" />
+        <line style={{ stroke: "var(--sky-2)" }} strokeWidth="2" x1="90" x2="960" y1="360" y2="360" />
+        <line style={{ stroke: "var(--sky-2)" }} strokeWidth="2" x1="90" x2="90" y1="40" y2="360" />
         <text textAnchor="end" x="960" y="425">
           Time →
         </text>
@@ -283,18 +283,18 @@ export function TtvChart() {
         <text textAnchor="start" x="90" y="425">
           Decide to automate
         </text>
-        <path ref={blue} d="M90,350 L560,62" fill="none" stroke="#5B8DEF" strokeDasharray="10 8" strokeWidth="3" />
-        <text ref={blueLbl} style={{ fill: "#7FA6F2" }} x="570" y="56">
+        <path ref={blue} d="M90,350 L560,62" fill="none" style={{ stroke: "var(--sky)" }} strokeDasharray="10 8" strokeWidth="3" />
+        <text ref={blueLbl} style={{ fill: "var(--sky)" }} x="570" y="56">
           Buy AI, save time
         </text>
         <path
           ref={typ}
           d="M90,350 C190,348 250,336 320,326 C380,318 410,342 460,350 C510,358 560,322 640,300 C740,272 860,210 960,176"
           fill="none"
-          stroke="#5A6E92"
+          style={{ stroke: "var(--sky-2)" }}
           strokeWidth="4"
         />
-        <path ref={dv} d="M90,350 C220,346 300,270 400,190 C480,126 600,92 960,72" fill="none" stroke="#FF7A2E" strokeLinecap="round" strokeWidth="3.5" />
+        <path ref={dv} d="M90,350 C220,346 300,270 400,190 C480,126 600,92 960,72" fill="none" stroke="#FF6500" strokeLinecap="round" strokeWidth="3.5" />
         <g ref={gap} />
         <g ref={nodesG} />
         <g ref={msG} />
