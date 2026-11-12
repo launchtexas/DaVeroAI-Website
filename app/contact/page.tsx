@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { HeroStripes } from "@/components/site/art";
 import { Suspense } from "react";
-import { CheckList, Eyebrow } from "@/components/site/blocks";
 import { ContactForm, ContactFormWithParams } from "@/components/site/contact-form";
+import s from "@/components/site/v4/forms.module.css";
 import { outcomes } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,33 +14,38 @@ const next = ["We reply", "We talk through your last mile", "We scope a first ag
 
 export default function ContactPage() {
   return (
-    <div className="hero">
-      <HeroStripes />
-      <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-6">
-        <section id="intro" aria-labelledby="intro-title" className="lg:col-span-5">
-          <Eyebrow className="mb-6">Contact</Eyebrow>
-          <h1 id="intro-title" className="t-h1">
+    <div className={s.contactPage}>
+      <div className={s.contactInner}>
+        <section aria-labelledby="intro-title">
+          <p className={s.clEyebrow}>Contact</p>
+          <h1 id="intro-title" className={s.clH1}>
             Start a conversation
           </h1>
-          <p className="t-lead mt-6">
-            Tell us the workflow your platform doesn&apos;t finish. We reply by email.
-          </p>
-          <h2 className="t-mono mt-12 mb-5 text-faint">What you get</h2>
-          <CheckList items={outcomes} />
-
-          <div id="next" className="mt-12">
-            <h2 className="t-mono mb-5 text-faint">What happens next</h2>
-            <ol className="border-t border-line">
-              {next.map((n, i) => (
-                <li key={n} className="flex gap-4 border-b border-line py-4">
-                  <span className="t-mono pt-1 text-mark">{String(i + 1).padStart(2, "0")}</span>
-                  {n}
-                </li>
-              ))}
-            </ol>
-          </div>
+          <p className={s.clSub}>Tell us the workflow your platform doesn&apos;t finish.</p>
+          <h2 className={s.clSectionLabel}>What you get</h2>
+          <ul className={s.clChecks}>
+            {outcomes.map((o) => (
+              <li key={o}>
+                <span aria-hidden="true" className={s.clCheckIcon}>
+                  ✓
+                </span>
+                {o}
+              </li>
+            ))}
+          </ul>
+          <h2 className={s.clSectionLabel}>What happens next</h2>
+          <ol className={s.clSteps}>
+            {next.map((n, i) => (
+              <li key={n}>
+                <span aria-hidden="true" className={s.clStepNum}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {n}
+              </li>
+            ))}
+          </ol>
         </section>
-        <section id="form" aria-label="Contact form" className="card band-paper self-start lg:col-span-7 lg:p-10">
+        <section id="form" aria-label="Contact form" className={s.contactCard}>
           <Suspense fallback={<ContactForm />}>
             <ContactFormWithParams />
           </Suspense>
