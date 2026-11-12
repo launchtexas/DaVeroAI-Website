@@ -1,6 +1,12 @@
 // #about (the A-Team) from docs/source/design-v4.html: barometer, Hemang's card and the bench line.
-// The mock's 3 placeholder cards are left out and past employers are plain text (no third-party logos).
-/* eslint-disable @next/next/no-img-element -- fixed-size 120px photo, markup kept 1:1 with the mock */
+// The mock's 3 placeholder cards are left out; Hemang's past-employer logos are kept as in the mock.
+/* eslint-disable @next/next/no-img-element -- fixed-size photo and logos, markup kept 1:1 with the mock */
+
+const EXPERIENCE = [
+  { name: "JPMorgan Chase", src: "/images/v4/jpmorgan-chase.jpg" },
+  { name: "American Express", src: "/images/v4/american-express.jpg" },
+  { name: "Oracle", src: "/images/v4/oracle.jpg" },
+];
 
 export function About() {
   return (
@@ -50,7 +56,13 @@ export function About() {
             </div>
             <h3>Hemang Bhatt</h3>
             <p className="role">Founding Partner &amp; CEO</p>
-            <p className="role">JPMorgan Chase · American Express · Oracle</p>
+            <div aria-label="Experience: JPMorgan Chase, American Express, Oracle" className="exp">
+              {EXPERIENCE.map((e) => (
+                <span className="tip" data-tip={e.name} key={e.name}>
+                  <img alt={e.name} height="46" src={e.src} width="46" />
+                </span>
+              ))}
+            </div>
             <span className="netlabel">Experience</span>
             <span className="li">View on LinkedIn →</span>
           </a>
