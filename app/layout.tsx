@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { ScrollReset } from "@/components/site/scroll-reset";
+import { Motion } from "@/components/site/v4/motion";
 
 // Inter (brand kit typeface), self-hosted: variable weight 100–900, Latin subset (OFL, app/fonts/Inter-OFL.txt).
 const inter = localFont({
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         {/* Last in the tree so its layout effect runs after Next.js scrolls the new page into view. */}
         <ScrollReset />
+        <Motion />
       </body>
     </html>
   );

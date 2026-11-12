@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useCountIn } from "./motion";
 
 const money = (v: number) =>
   v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : v >= 999_500 ? `$${(v / 1e6).toFixed(1)}M` : `$${Math.round(v / 1e3)}K`;
@@ -13,6 +14,9 @@ export function Estimate({ hint = "Finance, supply chain or procurement staff" }
   const [pct, setPct] = useState(35);
   const [cost, setCost] = useState(110);
   const [auto, setAuto] = useState(50);
+  const out = useRef<HTMLDivElement>(null);
+  // Results count up the first time the section enters view; slider changes stay instant (k is 1 afterwards).
+  const k = useCountIn(out);
 
   const total = ppl * (pct / 100) * cost * 1000;
   const free = total * (auto / 100);
@@ -85,24 +89,24 @@ export function Estimate({ hint = "Finance, supply chain or procurement staff" }
               <p className="hint">Your assumption. The assessment replaces it with a real number.</p>
             </div>
           </div>
-          <div aria-live="polite" className="est-out">
+          <div aria-live={k < 1 ? "off" : "polite"} className="est-out" ref={out}>
             <p className="k">ESTIMATED ANNUAL COST OF THE LAST MILE</p>
             <div>
               <p className="big" id="r-cost">
-                {money(total)}
+                {money(total * k)}
               </p>
               <p className="lbl">spent each year on manual last-mile work</p>
             </div>
             <div className="row">
               <div>
                 <p className="sm" id="r-free" style={{ color: "var(--orange)" }}>
-                  {money(free)}
+                  {money(free * k)}
                 </p>
                 <p className="lbl">capacity agents could free up</p>
               </div>
               <div>
                 <p className="sm" id="r-hrs">
-                  {hrs.toLocaleString("en-US")}
+                  {Math.round(hrs * k).toLocaleString("en-US")}
                 </p>
                 <p className="lbl">hours a year back to the team</p>
               </div>

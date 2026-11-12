@@ -1,3 +1,4 @@
+import { CountUp } from "./motion";
 import { TtvChart } from "./ttv-chart";
 
 export type Stat = { num: string; text: string; src: string; highlight?: boolean; placeholder?: boolean };
@@ -13,7 +14,7 @@ export function WhyNow({ title, stats }: { title: string; stats: Stat[] }) {
           {stats.map((s) => (
             <div key={s.text} className="stat">
               <p className={s.placeholder ? "num ph" : "num"} style={s.highlight ? { color: "var(--orange-ink)" } : undefined}>
-                {s.num}
+                {s.placeholder ? s.num : <CountUp text={s.num} />}
               </p>
               <p>{s.text}</p>
               <p className="src">{s.src}</p>

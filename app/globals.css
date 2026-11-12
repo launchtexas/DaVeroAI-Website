@@ -847,3 +847,30 @@ section[id]{scroll-margin-top:72px}
   .legal-table td::before{content:attr(data-label);display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 }
 @media (prefers-reduced-motion:reduce){.legal-toc-list a,.legal-toc-toggle svg{transition:none}}
+
+/* Scroll and entrance motion (components/site/v4/motion.tsx). JS adds m-rv / m-grp only below the fold and only
+   without reduced motion, then m-go on entry; without those classes everything shows in its final state. */
+@media (prefers-reduced-motion:no-preference){
+  @keyframes m-rise{from{opacity:0;transform:translateY(12px)}}
+  @keyframes m-pop{0%{opacity:0;scale:.6}60%{opacity:1;scale:1.3}100%{scale:1}}
+  @keyframes m-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes m-travel{0%{transform:translateY(0);opacity:0}8%{opacity:1}62%{transform:translateY(calc(100% - 10px));opacity:1}72%,100%{transform:translateY(calc(100% - 10px));opacity:0}}
+  .m-rv:not(.m-go),.m-grp:not(.m-go)>*{opacity:0}
+  .m-rv.m-go,.m-grp.m-go>*{animation:m-rise .55s cubic-bezier(.22,1,.36,1) var(--m-d,0s) backwards}
+  .m-grp.m-go>:nth-child(2){--m-d:.15s} .m-grp.m-go>:nth-child(3){--m-d:.3s} .m-grp.m-go>:nth-child(4){--m-d:.45s} .m-grp.m-go>:nth-child(5){--m-d:.6s}
+  /* Platforms: the arrows pop between the layers (scale, so the mobile rotate(90deg) is kept). */
+  .layers.m-go>.arrow{animation-name:m-pop}
+  /* How we work: the steps' orange top rule fills left to right, one step after another, like a progress line. */
+  #how .grid.m-grp .card.step{position:relative;border-top-color:var(--line)}
+  #how .grid.m-grp .card.step::before{content:"";position:absolute;left:-1px;right:-1px;top:-4px;height:4px;border-radius:var(--radius) var(--radius) 0 0;background:var(--orange);transform:scaleX(0);transform-origin:left}
+  #how .grid.m-go>*{--m-d:0s} #how .grid.m-go>:nth-child(2){--m-d:.5s} #how .grid.m-go>:nth-child(3){--m-d:1s}
+  #how .grid.m-go .card.step::before{animation:m-fill .6s cubic-bezier(.65,0,.35,1) calc(var(--m-d) + .2s) forwards}
+  /* Hero flow: steps enter in order on load (CSS only, so it never waits for JS), then an orange dot runs down the
+     step numbers every 4s; .m-off (set by JS) pauses it while the card is off screen. */
+  .flow li,.flow .done{animation:m-rise .5s cubic-bezier(.22,1,.36,1) backwards}
+  .flow li:nth-child(2){animation-delay:.12s} .flow li:nth-child(3){animation-delay:.24s} .flow li:nth-child(4){animation-delay:.36s} .flow .done{animation-delay:.5s}
+  .flow ol{position:relative;overflow:clip}
+  .flow ol::after{content:"";position:absolute;top:9px;left:25px;width:10px;height:calc(100% - 18px);pointer-events:none;background:radial-gradient(circle at 5px 5px,var(--orange) 3px,#fff 3.5px,#fff 4.5px,transparent 5px) no-repeat;opacity:0;animation:m-travel 4s ease-in-out 1s infinite}
+  .flow.m-off ol::after{animation-play-state:paused}
+  .m-num{font-variant-numeric:tabular-nums}
+}
