@@ -67,7 +67,6 @@ export function Footer() {
       <div className="wrap">
         <div className="ft-bar">
           <p>© 2026 DaVero AI LLC. All rights reserved.</p>
-          <p>Richardson, Texas</p>
         </div>
       </div>
     </footer>
