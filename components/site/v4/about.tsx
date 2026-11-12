@@ -1,5 +1,7 @@
 // #about (the A-Team) from docs/source/design-v4.html: barometer, Hemang's card and the bench line.
 // The mock's 3 placeholder cards are left out; Hemang's past-employer logos are kept as in the mock.
+import { BaroTrack } from "./baro-track";
+
 /* eslint-disable @next/next/no-img-element -- fixed-size photo and logos, markup kept 1:1 with the mock */
 
 const EXPERIENCE = [
@@ -25,10 +27,7 @@ export function About() {
             <div aria-label="Barometer: agents execute, humans validate and approve" className="baro" role="img">
               <p className="k">OUR BAROMETER</p>
               <h3>Human in the loop, always!</h3>
-              <div className="track">
-                <span className="fill" />
-                <span className="pin" />
-              </div>
+              <BaroTrack />
               <div className="ticks">
                 <span>
                   <b>Humans Validate &amp; Approve</b>
