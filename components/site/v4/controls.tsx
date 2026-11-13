@@ -1,33 +1,25 @@
 import { Check } from "./icons";
 
-// #controls from docs/source/design-v4.html plus the trust showcase. Function pages pass their own first card;
-// cards 2-4 and the showcase are shared. `defences` adds the AI-specific block (security-governance only).
+// #controls from docs/source/design-v4.html plus the trust showcase, in a compact layout. Function pages pass
+// their own first card; cards 2-4 and the showcase are shared. `defences` adds the AI-specific block
+// (security-governance only).
 type Card = { title: string; text: string };
 
 const CARDS: Card[] = [
   { title: "Control ownership stays with management", text: "Management keeps control ownership; auditors get the evidence." },
-  {
-    title: "Least-privilege agent access",
-    text: "Each agent gets only the permissions its workflow needs, through scoped, revocable credentials. No shared logins, no standing admin rights.",
-  },
-  {
-    title: "Guardrails and kill switch",
-    text: "Agents run inside defined rules and thresholds, are monitored continuously, and can be paused instantly by the business.",
-  },
-  {
-    title: "Client data stays protected",
-    text: "Data is encrypted in transit and at rest, never used to train shared models, and stays within approved systems.",
-  },
+  { title: "Least-privilege agent access", text: "Scoped, revocable credentials per workflow. No shared logins, no standing admin rights." },
+  { title: "Guardrails and kill switch", text: "Set rules and thresholds, continuous monitoring, and an instant pause for the business." },
+  { title: "Client data stays protected", text: "Encrypted in transit and at rest, kept in approved systems, never used to train shared models." },
 ];
 
 // kind drives the dot colour, as in the hero flow: agent = orange, sys = mist, none = white (a person).
 const RUN: { title: string; text: string; who: string; kind?: "agent" | "sys" }[] = [
-  { title: "Reads only scoped data", text: "Read access to the records this workflow needs, nothing else.", who: "AGENT", kind: "agent" },
-  { title: "Proposes a change", text: "Drafts the update with its reasoning and sources attached.", who: "AGENT", kind: "agent" },
-  { title: "Policy checks", text: "Rules, thresholds and segregation of duties checked first.", who: "GUARDRAILS", kind: "sys" },
-  { title: "Human approves", text: "The process owner reviews and signs off, or sends it back.", who: "OWNER" },
-  { title: "Writes to the system of record", text: "Only the approved change, through a scoped credential.", who: "SYSTEM", kind: "sys" },
-  { title: "Logged", text: "Who, what, when, data touched and approver, on record.", who: "AUDIT LOG", kind: "sys" },
+  { title: "Reads only scoped data", text: "Just the records this workflow needs.", who: "AGENT", kind: "agent" },
+  { title: "Proposes a change", text: "Reasoning and sources attached.", who: "AGENT", kind: "agent" },
+  { title: "Policy checks", text: "Rules, thresholds, segregation of duties.", who: "GUARDRAILS", kind: "sys" },
+  { title: "Human approves", text: "The owner signs off or sends it back.", who: "OWNER" },
+  { title: "Writes to the system of record", text: "Only the approved change.", who: "SYSTEM", kind: "sys" },
+  { title: "Logged", text: "Who, what, when, data and approver.", who: "AUDIT LOG", kind: "sys" },
 ];
 
 const NEVER = [
@@ -39,12 +31,12 @@ const NEVER = [
 ];
 
 const LOG: [string, string][] = [
-  ["Who", "Reconciliation agent, scoped credential"],
-  ["What", "Proposed accrual adjustment"],
+  ["Who", "Access-review agent, scoped credential"],
+  ["What", "Proposed removing 3 stale entitlements"],
   ["When", "Timestamped at each step"],
-  ["Data touched", "Vendor ledger (read), open invoices (read)"],
-  ["Approver", "Controller, signed off"],
-  ["Outcome", "Written to the ERP, evidence pack updated"],
+  ["Data touched", "User roster, entitlements (read)"],
+  ["Approver", "System owner, signed off"],
+  ["Outcome", "Written to IAM, evidence pack updated"],
 ];
 
 const FRAMEWORKS = ["SOC 2", "ISO 27001", "NIST AI RMF", "EU AI Act"];
@@ -52,92 +44,95 @@ const FRAMEWORKS = ["SOC 2", "ISO 27001", "NIST AI RMF", "EU AI Act"];
 export function Controls({ firstCard = CARDS[0], defences }: { firstCard?: Card; defences?: Card[] }) {
   return (
     <section className="section dark" id="controls">
-      <div className="wrap split">
-        <div className="a">
-          <p className="eyebrow">Controls</p>
-          <h2>Controls your auditors will recognize.</h2>
+      <div className="wrap">
+        <div className="ctl-head">
+          <div>
+            <p className="eyebrow">Controls</p>
+            <h2>Controls your auditors will recognize.</h2>
+          </div>
           <p className="lede">Every agent runs inside the business&apos;s controls, with a human sign-off on every result and a full audit trail.</p>
         </div>
-        <div className="b">
-          <div className="grid grid-4" style={{ marginTop: 0 }}>
-            {[firstCard, ...CARDS.slice(1)].map((c) => (
-              <div className="card" key={c.title}>
-                <h3 style={{ fontSize: 18 }}>{c.title}</h3>
-                <p>{c.text}</p>
-              </div>
-            ))}
-          </div>
+        <div className="ctl-cards">
+          {[firstCard, ...CARDS.slice(1)].map((c) => (
+            <div className="card" key={c.title}>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className="wrap trust">
-        <div className="trust-row">
-          <div aria-label="Guardrails on every run" role="group" className="flow guard">
-            <div className="flow-head">
-              <b>Guardrails on every run</b>
-              <span>Illustrative</span>
-            </div>
-            <ol>
-              {RUN.map((s, i) => (
-                <li key={s.title}>
+        <div aria-label="Guardrails on every run" role="group" className="flow guard">
+          <div className="flow-head">
+            <b>Guardrails on every run</b>
+            <span>Illustrative</span>
+          </div>
+          <ol>
+            {RUN.map((s, i) => (
+              <li key={s.title}>
+                <span className="step-top">
                   <span className={`dot${s.kind ? ` ${s.kind}` : ""}`} aria-hidden="true">
                     {i + 1}
                   </span>
-                  <span className="txt">
-                    <strong>{s.title}</strong>
-                    <span>{s.text}</span>
-                  </span>
                   <span className={`who${s.kind ? ` ${s.kind}` : ""}`}>{s.who}</span>
+                </span>
+                <strong>{s.title}</strong>
+                <span className="step-txt">{s.text}</span>
+              </li>
+            ))}
+          </ol>
+          <div className="done">
+            <Check size={16} />
+            <span>Approved, written and on record</span>
+          </div>
+        </div>
+
+        <div className="trust-row">
+          <div className="never">
+            <h3>What an agent can never do</h3>
+            <ul>
+              {NEVER.map((t) => (
+                <li key={t}>
+                  <span className="sr-only">Never: </span>
+                  {t}
                 </li>
               ))}
-            </ol>
-            <div className="done">
-              <Check />
-              <span>Approved, written and on record</span>
-            </div>
+            </ul>
           </div>
 
-          <div className="trust-col">
-            <div className="card never">
-              <h3>What an agent can never do</h3>
-              <ul>
-                {NEVER.map((t) => (
-                  <li key={t}>
-                    <span className="sr-only">Never: </span>
-                    {t}
-                  </li>
-                ))}
-              </ul>
+          <div className="audit">
+            <div className="audit-head">
+              <h3>Every action leaves evidence</h3>
+              <span className="pill">Illustrative</span>
             </div>
-
-            <div className="card audit">
-              <div className="audit-head">
-                <h3>Every action leaves evidence</h3>
-                <span className="pill">Illustrative</span>
-              </div>
-              <dl>
-                {LOG.map(([k, v]) => (
-                  <div key={k}>
-                    <dt>{k}</dt>
-                    <dd>{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            <dl>
+              {LOG.map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 
         {defences && (
           <div className="defences">
             <h3>AI-specific defences</h3>
-            <div className="grid">
+            <ul>
               {defences.map((d) => (
-                <div className="card" key={d.title}>
-                  <h4>{d.title}</h4>
-                  <p>{d.text}</p>
-                </div>
+                <li key={d.title}>
+                  <span className="ic" aria-hidden="true">
+                    <Check size={12} stroke="#FF962E" width={3} />
+                  </span>
+                  <span>
+                    <strong>{d.title}</strong>
+                    <span>{d.text}</span>
+                  </span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         )}
 
