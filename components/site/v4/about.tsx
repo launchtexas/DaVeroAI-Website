@@ -95,12 +95,10 @@ export function About() {
         </div>
         <div className="bench">
           <div aria-hidden="true" className="dots">
-            {[0, 1, 2, 3].map((i) => (
+            {/* Stock photos (Unsplash licence), decorative: they stand for the bench, not named people. */}
+            {[1, 2, 3, 4].map((i) => (
               <span key={i}>
-                <svg fill="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="9" r="4" />
-                  <path d="M4 21a8 8 0 0 1 16 0z" />
-                </svg>
+                <img alt="" height={34} loading="lazy" src={`/images/v4/bench-${i}.jpg`} width={34} />
               </span>
             ))}
             <b>+7</b>
