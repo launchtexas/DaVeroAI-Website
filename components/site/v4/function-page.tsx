@@ -71,7 +71,7 @@ export function FunctionPageView({ page: p }: { page: FunctionPage }) {
         foot={A.foot}
       />
       <How lede={p.how.lede} stepTexts={p.how.stepTexts} expand={p.how.expand} />
-      <Controls firstCard={p.controls.firstCard} />
+      <Controls firstCard={p.controls.firstCard} defences={p.controls.defences} />
       <Pricing outcomeText={p.pricing.outcomeText} />
       <About />
       <Explore cards={p.explore.cards.map((c) => ({ href: functionHref(c.slug), icon: c.icon, title: c.title, text: c.text }))} />
