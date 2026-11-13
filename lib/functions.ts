@@ -80,7 +80,8 @@ export type FunctionPage = {
     expand: string;
   };
   /** First of the four controls cards; cards 2-4 are shared with page-index. */
-  controls: { firstCard: { title: string; text: string } };
+  /** `defences` (optional) adds the AI-specific defences block under the shared trust showcase. */
+  controls: { firstCard: { title: string; text: string }; defences?: { title: string; text: string }[] };
   /** Body of the third ("Managed outcome") pricing card. */
   pricing: { outcomeText: string };
   explore: { cards: { slug: FunctionSlug; icon: string; title: string; text: string }[] };
@@ -1136,7 +1137,14 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       firstCard: {
         title: "Segregation of duties kept",
         text: "No agent approves its own access decisions, and high-risk entitlement changes always require human review."
-      }
+      },
+      defences: [
+        { title: "Prompt-injection handling", text: "Text inside documents, emails and tickets is treated as data to read, never as instructions to follow." },
+        { title: "Output checks before writing", text: "Every proposed change is checked against format, policy and thresholds before it can reach a system of record." },
+        { title: "Rate and scope limits", text: "Each agent works within set volumes and a fixed scope. Anything outside it is blocked, not attempted." },
+        { title: "Stop and escalate when unsure", text: "Low-confidence or out-of-policy cases go to a named person instead of a best guess." },
+        { title: "Instant pause", text: "The business can pause any agent at once, with in-flight work held for review." }
+      ]
     },
     pricing: {
       outcomeText: "Priced on results, such as certifications completed, exceptions closed or audit evidence packs delivered."
