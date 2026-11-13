@@ -543,8 +543,9 @@ section[id]{scroll-margin-top:72px}
 /* bench */
 .bench{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;background:var(--orange);color:var(--navy);border-radius:16px;padding:22px 28px}
 .bench .dots{display:flex;align-items:center}
-.bench .dots span{width:34px;height:34px;border-radius:50%;background:#fff;border:3px solid var(--orange);margin-left:-10px;box-shadow:0 0 0 2px var(--navy)}
+.bench .dots span{width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;color:var(--navy);border:3px solid var(--orange);margin-left:-10px;box-shadow:0 0 0 2px var(--navy)}
 .bench .dots span:first-child{margin-left:0}
+.bench .dots svg{width:24px;height:24px;margin-bottom:-3px}
 .bench .dots b{margin-left:14px;font-size:30px;font-weight:800;letter-spacing:-.02em}
 .bench p{margin:0;font-size:18px;font-weight:700;flex:1 1 320px}
 .bench a{font-weight:800;color:var(--navy);white-space:nowrap}

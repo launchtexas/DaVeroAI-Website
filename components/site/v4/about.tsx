@@ -95,10 +95,14 @@ export function About() {
         </div>
         <div className="bench">
           <div aria-hidden="true" className="dots">
-            <span />
-            <span />
-            <span />
-            <span />
+            {[0, 1, 2, 3].map((i) => (
+              <span key={i}>
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="9" r="4" />
+                  <path d="M4 21a8 8 0 0 1 16 0z" />
+                </svg>
+              </span>
+            ))}
             <b>+7</b>
           </div>
           <p>Specialist profiles ready to scale with each engagement.</p>
