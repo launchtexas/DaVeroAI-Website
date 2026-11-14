@@ -18,7 +18,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          This policy explains how DaVero AI, of 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States (
+          This policy explains how DaVero AI (
           <strong>DaVero AI</strong>, <strong>we</strong>, <strong>us</strong>) handles personal information collected through
           daveroai.com (the <strong>website</strong>).
         </p>
@@ -266,8 +266,7 @@ const sections: LegalSection[] = [
     title: "Contact",
     body: (
       <p>
-        For any question about this policy or your personal information, email <Mail subject="Privacy request" /> or write to{" "}
-        DaVero AI, 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States.
+        For any question about this policy or your personal information, email <Mail subject="Privacy request" />.
       </p>
     ),
   },

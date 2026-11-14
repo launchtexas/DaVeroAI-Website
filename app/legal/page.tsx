@@ -21,9 +21,6 @@ const sections: LegalSection[] = [
             DaVero AI
           </li>
           <li>
-            Address: 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States
-          </li>
-          <li>
             Email: <Mail />
           </li>
         </ul>
@@ -99,8 +96,7 @@ const sections: LegalSection[] = [
     title: "Contact",
     body: (
       <p>
-        Legal questions and notices: email <Mail subject="Legal notice" /> or write to DaVero AI,{" "}
-        2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States.
+        Legal questions and notices: email <Mail subject="Legal notice" />.
       </p>
     ),
   },

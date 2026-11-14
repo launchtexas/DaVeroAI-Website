@@ -16,8 +16,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          These terms apply to your use of daveroai.com (the <strong>website</strong>), operated by DaVero AI,
-          of 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States (<strong>DaVero AI</strong>, <strong>we</strong>,{" "}
+          These terms apply to your use of daveroai.com (the <strong>website</strong>), operated by DaVero AI (<strong>DaVero AI</strong>, <strong>we</strong>,{" "}
           <strong>us</strong>). By using the website you accept them. If you do not accept them, do not use the website.
         </p>
         <p>
