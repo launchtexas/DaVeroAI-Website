@@ -9,7 +9,6 @@ import { AgentsAtWork } from "./agents-at-work";
 import { How } from "./how";
 import { Controls } from "./controls";
 import { Pricing } from "./pricing";
-import { About } from "./about";
 import { Explore } from "./explore";
 import { Estimate } from "./estimate";
 import { Assessment } from "./assessment";
@@ -42,7 +41,6 @@ export function FunctionPageView({ page: p }: { page: FunctionPage }) {
         flowTitle={p.hero.flow.title}
         flowLabel={p.hero.flow.subtitle}
         steps={p.hero.flow.steps.map((s) => ({ ...s, kind: s.kind === "owner" ? undefined : s.kind }))}
-        strip={p.hero.strip}
       />
       <Platforms lede={p.platforms.lede} existing={p.platforms.existing} outcomes={p.platforms.outcomes} />
       <Problem
@@ -73,7 +71,6 @@ export function FunctionPageView({ page: p }: { page: FunctionPage }) {
       <How lede={p.how.lede} stepTexts={p.how.stepTexts} expand={p.how.expand} />
       <Controls firstCard={p.controls.firstCard} defences={p.controls.defences} />
       <Pricing outcomeText={p.pricing.outcomeText} />
-      <About />
       <Explore cards={p.explore.cards.map((c) => ({ href: functionHref(c.slug), icon: c.icon, title: c.title, text: c.text }))} />
       <Estimate hint={p.estimate.peopleHint} />
       <Assessment title={p.assessment.title} deliverables={p.assessment.deliverables} />

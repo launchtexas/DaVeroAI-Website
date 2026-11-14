@@ -53,20 +53,11 @@ export function Footer() {
               <a href="mailto:ask@daveroai.com">ask@daveroai.com</a>
             </li>
           </ul>
-          <address>
-            DaVero AI LLC
-            <br />
-            2100 N Greenville Ave
-            <br />
-            Ste 217
-            <br />
-            Richardson, TX 75082
-          </address>
         </div>
       </div>
       <div className="wrap">
         <div className="ft-bar">
-          <p>© 2026 DaVero AI LLC. All rights reserved.</p>
+          <p>© 2026 DaVero AI. All rights reserved.</p>
         </div>
       </div>
     </footer>

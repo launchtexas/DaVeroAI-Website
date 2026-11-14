@@ -7,7 +7,6 @@ import { How } from "@/components/site/v4/how";
 import { Pod } from "@/components/site/v4/pod";
 import { Controls } from "@/components/site/v4/controls";
 import { Pricing } from "@/components/site/v4/pricing";
-import { About } from "@/components/site/v4/about";
 import { Estimate } from "@/components/site/v4/estimate";
 import { Assessment } from "@/components/site/v4/assessment";
 
@@ -66,7 +65,6 @@ export default function Home() {
       <Pod />
       <Controls />
       <Pricing />
-      <About />
       <Estimate />
       <Assessment />
     </>

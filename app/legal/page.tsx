@@ -18,7 +18,7 @@ const sections: LegalSection[] = [
         <p>This website is operated by:</p>
         <ul>
           <li>
-            DaVero AI LLC
+            DaVero AI
           </li>
           <li>
             Registered address: 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States
@@ -99,7 +99,7 @@ const sections: LegalSection[] = [
     title: "Contact",
     body: (
       <p>
-        Legal questions and notices: email <Mail subject="Legal notice" /> or write to DaVero AI LLC,{" "}
+        Legal questions and notices: email <Mail subject="Legal notice" /> or write to DaVero AI,{" "}
         2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States.
       </p>
     ),

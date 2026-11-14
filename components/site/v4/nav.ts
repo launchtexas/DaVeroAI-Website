@@ -14,7 +14,6 @@ export const SECTION_LINKS = [
   { href: "/#why-now", label: "Why now" },
   { href: "/#how", label: "How we work" },
   { href: "/#controls", label: "Controls" },
-  { href: "/#about", label: "About" },
 ] as const;
 
 export const ESTIMATE_HREF = "/#estimate";

@@ -21,7 +21,6 @@ export type FunctionSectionId =
   | "how"
   | "controls"
   | "pricing"
-  | "about"
   | "explore"
   | "estimate"
   | "assessment";
@@ -53,8 +52,6 @@ export type FunctionPage = {
     titleAccent: string;
     lede: string;
     flow: { title: string; subtitle: string; steps: FlowStep[] };
-    /** Logo strip under the hero. `names` are platform names in text, `tbd` the trailing muted label. */
-    strip: { label: string; names: string[]; tbd: string };
   };
   platforms: { lede: string; existing: string[]; outcomes: string[] };
   problem: {
@@ -123,7 +120,7 @@ export const FUNCTION_SHARED = {
   }
 } as const;
 
-const ORDER = ["hero", "platforms", "problem", "why-now", "workflows", "agents-at-work", "how", "controls", "pricing", "about", "explore", "estimate", "assessment"] as const satisfies readonly FunctionSectionId[];
+const ORDER = ["hero", "platforms", "problem", "why-now", "workflows", "agents-at-work", "how", "controls", "pricing", "explore", "estimate", "assessment"] as const satisfies readonly FunctionSectionId[];
 
 export const FUNCTION_PAGES: FunctionPage[] = [
   {
@@ -169,14 +166,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
             who: "ERP"
           }
         ]
-      },
-      strip: {
-        label: "Built for AI-native platforms",
-        names: [
-          "Rillet",
-          "Tabs"
-        ],
-        tbd: "More coming soon +"
       }
     },
     platforms: {
@@ -456,11 +445,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
             who: "ERP"
           }
         ]
-      },
-      strip: {
-        label: "Built around existing ERP, WMS and TMS",
-        names: [],
-        tbd: ""
       }
     },
     platforms: {
@@ -712,11 +696,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
             who: "ERP"
           }
         ]
-      },
-      strip: {
-        label: "Built around existing procurement suites and ERP",
-        names: [],
-        tbd: ""
       }
     },
     platforms: {
@@ -968,11 +947,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
             who: "GRC / IAM"
           }
         ]
-      },
-      strip: {
-        label: "Built around existing GRC, IAM and ITSM platforms",
-        names: [],
-        tbd: ""
       }
     },
     platforms: {
@@ -1232,11 +1206,6 @@ export const FUNCTION_PAGES: FunctionPage[] = [
             who: "POLICY ADMIN / ERP"
           }
         ]
-      },
-      strip: {
-        label: "Built around existing policy admin, claims and finance platforms",
-        names: [],
-        tbd: ""
       }
     },
     platforms: {
