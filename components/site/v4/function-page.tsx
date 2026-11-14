@@ -8,6 +8,7 @@ import { Workflows } from "./workflows";
 import { AgentsAtWork } from "./agents-at-work";
 import { How } from "./how";
 import { Controls } from "./controls";
+import { Motion } from "./motion";
 import { Pricing } from "./pricing";
 import { Explore } from "./explore";
 import { Estimate } from "./estimate";
@@ -74,6 +75,7 @@ export function FunctionPageView({ page: p }: { page: FunctionPage }) {
       <Explore cards={p.explore.cards.map((c) => ({ href: functionHref(c.slug), icon: c.icon, title: c.title, text: c.text }))} />
       <Estimate hint={p.estimate.peopleHint} />
       <Assessment title={p.assessment.title} deliverables={p.assessment.deliverables} />
+      <Motion />
     </>
   );
 }

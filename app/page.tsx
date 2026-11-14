@@ -1,3 +1,4 @@
+import { Motion } from "@/components/site/v4/motion";
 import { Hero } from "@/components/site/v4/hero";
 import { Platforms } from "@/components/site/v4/platforms";
 import { MILES, Problem } from "@/components/site/v4/problem";
@@ -67,6 +68,8 @@ export default function Home() {
       <Pricing />
       <Estimate />
       <Assessment />
+      {/* Inside the page, not the layout: its effect must run after this content hydrates (it adds classes). */}
+      <Motion />
     </>
   );
 }
