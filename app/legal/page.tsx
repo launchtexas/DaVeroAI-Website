@@ -21,7 +21,7 @@ const sections: LegalSection[] = [
             DaVero AI
           </li>
           <li>
-            Registered address: 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States
+            Address: 2100 N Greenville Ave, Ste 217, Richardson, TX 75082, United States
           </li>
           <li>
             Email: <Mail />
