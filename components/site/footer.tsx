@@ -58,6 +58,13 @@ export function Footer() {
       <div className="wrap">
         <div className="ft-bar">
           <p>© 2026 DaVero AI. All rights reserved.</p>
+          {/* "#top" scrolls to the top of the page natively; smooth unless reduced motion (globals.css). */}
+          <a className="ft-top" href="#top">
+            Back to top
+            <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="16">
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </a>
         </div>
       </div>
     </footer>
