@@ -86,6 +86,7 @@ Font setup after this work: one variable file, `InterVariable-latin.woff2`, weig
 1. **Orange text on light bands** (C-6): `--orange-deep #B34700` deleted. On White/Cloud, marks, list markers and selected states are Midnight; eyebrows are Orange on all bands by owner decision 2026-11-22 (accepted contrast exception, 2.95:1 on White/Cloud); Orange there is only a fill (buttons with Midnight text) or a decorative stripe (eyebrow bar, header underline, chart highlight). Orange as text only on Midnight.
 2. **Errors** (C-3): the kit has no red. Errors use Amber on Midnight (8:1) and Midnight on light, always with a warning icon, a text message and a 2 px border on the field. If the client wants a red for errors, it must be added to the kit first.
 3. **Tints** (C-4) and **ratio** (C-7): met by the readings above; listed for the client to confirm.
+4. **Approve green** (owner request 2026-11-22): green (`--approve`, #16A34A; #22C55E on Midnight bands) is an owner-approved status colour for approval steps only: the approve step in the animated flows and the APPROVED feed chips. It is outside the 9-colour kit and is never used elsewhere.
 
 ## Verification (after fixes)
 

@@ -70,7 +70,7 @@ export function Controls({ firstCard = CARDS[0], defences }: { firstCard?: Card;
           </div>
           <ol>
             {RUN.map((s, i) => (
-              <li key={s.title}>
+              <li key={s.title} data-approve={/\bapproves?\b/i.test(s.title) || undefined}>
                 <span className="step-top">
                   <span className={`dot${s.kind ? ` ${s.kind}` : ""}`} aria-hidden="true">
                     {i + 1}

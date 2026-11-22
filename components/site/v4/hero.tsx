@@ -73,7 +73,7 @@ export function Hero({ crumb, eyebrow, title, lede, howHref = "#how", chips, flo
             </div>
             <ol>
               {steps.map((s, i) => (
-                <li key={s.title}>
+                <li key={s.title} data-approve={/\bapproves?\b/i.test(s.title) || undefined}>
                   <span className={`dot${s.kind ? ` ${s.kind}` : ""}`} aria-hidden="true">
                     {i + 1}
                   </span>
