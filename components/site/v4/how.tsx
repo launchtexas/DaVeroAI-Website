@@ -1,3 +1,5 @@
+import { HowBuild } from "./how-build";
+
 const KICKERS = ["Step 1 · Weeks 1–5", "Step 2 · Within the 6–10 week embed", "Step 3 · Ongoing"] as const;
 const TITLES = ["Embed", "Build & harden", "Run & improve"] as const;
 
@@ -22,9 +24,14 @@ export function How({
   return (
     <section className="section alt" id="how">
       <div className="wrap">
-        <p className="eyebrow">{eyebrow}</p>
-        <h2>{title}</h2>
-        <p className="lede">{lede}</p>
+        <div className="how-head">
+          <div>
+            <p className="eyebrow">{eyebrow}</p>
+            <h2>{title}</h2>
+            <p className="lede">{lede}</p>
+          </div>
+          <HowBuild />
+        </div>
         <div className="grid">
           {stepTexts.map((text, i) => (
             <div className="card step" key={KICKERS[i]}>

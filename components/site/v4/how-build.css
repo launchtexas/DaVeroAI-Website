@@ -1,0 +1,88 @@
+/* HowBuild (#how): isometric build line. Same visual family as .lmf in globals.css. Static paint is the finished
+   state (validated, live, desk cleared); .m-in builds the line once, .m-play runs a 12s story loop while on screen. */
+.how-head{margin-bottom:8px}
+.how-head .hbl{margin:28px auto 0;max-width:640px}
+@media (min-width:1024px){.how-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:40px;align-items:center}.how-head .hbl{margin:0;max-width:none}}
+.hbl{display:block;width:100%;height:auto;overflow:visible;--ok-b:var(--approve);--ok-f:#fff;--ok-l:var(--approve);--ok-d:color-mix(in srgb,var(--approve) 30%,#fff);--sl:var(--orange-soft);--pile:0}
+.hbl polygon{stroke-linejoin:round;stroke-width:.8}
+.hbl .slab polygon{fill:#fff;stroke:var(--orange)}
+.hbl .slab.under polygon{fill:var(--mist);stroke:color-mix(in srgb,var(--orange) 55%,transparent)}
+.hbl .grid{fill:none;stroke:color-mix(in srgb,var(--navy) 16%,transparent);stroke-dasharray:3 5}
+.hbl .route{fill:none;stroke:var(--orange);stroke-width:2.2;stroke-dasharray:7 5;stroke-linecap:round;opacity:.55}
+.hbl .pad{fill:var(--ok-d);stroke:var(--ok-l);stroke-width:.8;transition:fill .3s,stroke .3s}
+.hbl .desk polygon{fill:#fff;stroke:color-mix(in srgb,var(--navy) 22%,transparent)}
+.hbl .desk .l{fill:var(--mist)} .hbl .desk .r{fill:var(--line)}
+.hbl .mon polygon{fill:var(--navy);stroke:var(--navy)}
+.hbl .tile polygon{fill:color-mix(in srgb,var(--navy) 8%,#fff);stroke:color-mix(in srgb,var(--navy) 35%,transparent);stroke-width:.5}
+.hbl .tile .l,.hbl .tile .r{fill:color-mix(in srgb,var(--navy) 22%,#fff)}
+.hbl .pile{opacity:var(--pile);transition:opacity .4s}
+.hbl .mv{opacity:0}
+.hbl .cube .t{fill:var(--orange-soft)} .hbl .cube .l{fill:var(--orange)} .hbl .cube .r{fill:color-mix(in srgb,var(--orange) 78%,#081630)}
+.hbl .cube polygon{stroke:color-mix(in srgb,var(--orange) 70%,#081630);stroke-width:.5}
+.hbl .item{transform:translate(var(--lx),var(--ly))}
+.hbl .item .shadow{fill:color-mix(in srgb,var(--navy) 18%,transparent)}
+.hbl .gate polygon{fill:var(--ok-b);stroke:var(--ok-l);transition:fill .3s,stroke .3s}
+.hbl .gate .l,.hbl .gate .r{fill:color-mix(in srgb,var(--ok-l) 82%,#081630)}
+.hbl .rack polygon{stroke:var(--navy)} .hbl .rack .t{fill:var(--navy-3)} .hbl .rack .l{fill:var(--navy)} .hbl .rack .r{fill:var(--navy-deep)}
+.hbl .slot polyline{fill:none;stroke:var(--sl);stroke-width:1.5;opacity:.9;transition:stroke .4s}
+.hbl .ring{fill:none;stroke:var(--orange);stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
+.hbl .flag line{stroke:var(--navy)} .hbl .dia{fill:var(--navy)}
+.hbl .flag rect{fill:#fff;stroke:var(--navy)}
+.hbl text{text-anchor:middle;font-family:var(--mono,ui-monospace,monospace);font-size:11px;font-weight:700;letter-spacing:.08em;fill:var(--navy)}
+.hbl .flag .sub{font-size:9px;fill:var(--muted)}
+.hbl .lbl.sh{display:none}
+.hbl .ok rect{fill:var(--ok-b);stroke:var(--ok-l)} .hbl .ok text,.hbl .ok .sub{fill:var(--ok-f)}
+.hbl .ok line{stroke:var(--ok-l)} .hbl .ok .dia{fill:var(--ok-l)}
+.hbl .ok *{transition:fill .3s,stroke .3s}
+.hbl .hot rect{fill:var(--orange);stroke:var(--orange)} .hbl .hot text,.hbl .hot .sub{fill:var(--orange-ink)} .hbl .hot line{stroke:var(--orange)} .hbl .hot .dia{fill:var(--orange)}
+/* phones: one-word labels scale up to stay >= 10px; the long label and its sub line are hidden */
+@media (max-width:640px){.hbl .lbl{transform-box:fill-box;transform-origin:0 100%;scale:1.9;display:none}.hbl .lbl.sh{display:inline}}
+
+@media (prefers-reduced-motion:no-preference){
+  .hbl.m-in .rise{animation:hbl-rise 1.1s cubic-bezier(.33,1,.68,1) both}
+  .hbl.m-in .fade{animation:hbl-fade .9s ease-out var(--d) both}
+  .hbl.m-in .grow{transform-box:fill-box;transform-origin:50% 100%;animation:hbl-grow .9s cubic-bezier(.23,1,.32,1) var(--d) both}
+  .hbl.m-in .dk{animation:hbl-land .55s cubic-bezier(.23,1,.32,1) var(--d) both}
+  .hbl.m-in .flag{animation:hbl-tag .5s cubic-bezier(.23,1,.32,1) var(--d) both}
+  .hbl.m-play{animation:hbl-ok 12s 3s infinite both,hbl-live 12s 3s infinite both}
+  .hbl.m-play .route{animation:hbl-fade .9s ease-out var(--d) both,hbl-dash 1.6s linear infinite}
+  .hbl.m-play .mv{animation:hbl-mv 12s calc(3s + var(--k)) infinite both}
+  .hbl.m-play .item{animation:hbl-item 12s 3s infinite both}
+  .hbl.m-play .cb{transform-box:fill-box;transform-origin:50% 100%;animation:hbl-cb 12s 3s infinite both}
+  .hbl.m-play .ring{animation:hbl-ring 12s 3s ease-out infinite both}
+  @keyframes hbl-rise{from{transform:translateY(22px);opacity:0}}
+  @keyframes hbl-fade{from{opacity:0}}
+  @keyframes hbl-grow{from{transform:scaleY(0);opacity:0}}
+  @keyframes hbl-land{from{transform:translateY(-16px);opacity:0}}
+  @keyframes hbl-tag{from{transform:translateY(6px);opacity:0}}
+  @keyframes hbl-dash{to{stroke-dashoffset:-12}}
+  /* map (0-8%), tiles travel to the bench (8-28%), assemble (30-38%), test gate (52-62%), plug in (76%), desk clears */
+  @keyframes hbl-mv{
+    0%,8%{transform:none;opacity:0;animation-timing-function:ease-out}
+    10%{transform:none;opacity:1;animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    18%{transform:translate(calc(var(--mx)*.5),calc(var(--my)*.5 - 26px));animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    26%,30%{transform:translate(var(--mx),var(--my));opacity:1;scale:1}
+    34%,100%{transform:translate(var(--mx),var(--my));opacity:0;scale:.4}
+  }
+  @keyframes hbl-item{
+    0%,31%{transform:translate(var(--bx),var(--by));opacity:0}
+    32%,40%{transform:translate(var(--bx),var(--by));opacity:1;animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    50%,60%{transform:translate(var(--gx),var(--gy));animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    69%{transform:translate(var(--tx),var(--ty));animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    76%,94%{transform:translate(var(--lx),var(--ly));opacity:1}
+    98%,100%{transform:translate(var(--lx),var(--ly));opacity:0}
+  }
+  @keyframes hbl-cb{0%,31%{scale:0} 35%{scale:1.12} 38%,100%{scale:1}}
+  @keyframes hbl-ok{
+    0%,53%{--ok-b:#fff;--ok-f:var(--navy);--ok-l:var(--navy);--ok-d:var(--mist)}
+    54%,95%{--ok-b:var(--approve);--ok-f:#fff;--ok-l:var(--approve);--ok-d:color-mix(in srgb,var(--approve) 30%,#fff)}
+    96%,100%{--ok-b:#fff;--ok-f:var(--navy);--ok-l:var(--navy);--ok-d:var(--mist)}
+  }
+  @keyframes hbl-live{
+    0%,75%{--sl:color-mix(in srgb,var(--sky) 45%,var(--navy));--pile:1}
+    76%,79%{--sl:var(--orange-soft);--pile:1}
+    80%,96%{--sl:var(--orange-soft);--pile:0}
+    97%,100%{--sl:color-mix(in srgb,var(--sky) 45%,var(--navy));--pile:1}
+  }
+  @keyframes hbl-ring{0%,75%{opacity:0;scale:.6} 76%{opacity:.9} 88%,100%{opacity:0;scale:2.1}}
+}
