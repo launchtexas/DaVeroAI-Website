@@ -1,0 +1,58 @@
+/* AssessDesk (#assessment): one desk on a slab, on the navy band. Same family as .hbl / .lmf, dark-band slab.
+   Static paint is the finished state (agent on desk, work cleared, approved); .m-in builds once, .m-play loops 9s. */
+#assessment .asd{margin:32px 0 0;max-width:460px}
+.asd{display:block;width:100%;height:auto;overflow:visible}
+.asd polygon{stroke-linejoin:round;stroke-width:.8}
+.asd .slab polygon{fill:var(--navy-2);stroke:var(--orange)}
+.asd .slab .t{fill:var(--navy-3)}
+.asd .slab.under polygon{fill:var(--navy);stroke:color-mix(in srgb,var(--orange) 55%,transparent)}
+.asd .grid{fill:none;stroke:color-mix(in srgb,var(--sky) 22%,transparent);stroke-dasharray:3 5}
+.asd .desk polygon{fill:#fff;stroke:color-mix(in srgb,var(--navy) 22%,transparent)}
+.asd .desk .l{fill:var(--mist)} .asd .desk .r{fill:var(--line)}
+.asd .mon polygon{fill:var(--navy);stroke:color-mix(in srgb,var(--sky) 40%,var(--navy))}
+.asd .tile polygon{fill:color-mix(in srgb,var(--navy) 8%,#fff);stroke:color-mix(in srgb,var(--navy) 35%,transparent);stroke-width:.5}
+.asd .tile .l,.asd .tile .r{fill:color-mix(in srgb,var(--navy) 22%,#fff)}
+.asd .tile{opacity:0}
+.asd .cube .t{fill:var(--orange-soft)} .asd .cube .l{fill:var(--orange)} .asd .cube .r{fill:color-mix(in srgb,var(--orange) 78%,#081630)}
+.asd .cube polygon{stroke:color-mix(in srgb,var(--orange) 70%,#081630);stroke-width:.5}
+.asd .shadow{fill:color-mix(in srgb,var(--navy) 22%,transparent)}
+.asd .nb{opacity:.4}
+.asd .tick circle{fill:var(--approve)}
+.asd .tick path{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.asd .flag line{stroke:var(--orange)} .asd .dia{fill:var(--orange)}
+.asd .flag rect{fill:var(--orange);stroke:var(--orange)}
+.asd text{text-anchor:middle;font-family:var(--mono,ui-monospace,monospace);font-size:13px;font-weight:700;letter-spacing:.08em;fill:var(--orange-ink)}
+
+@media (prefers-reduced-motion:no-preference){
+  .asd.m-in .rise{animation:asd-rise 1.1s cubic-bezier(.33,1,.68,1) both}
+  .asd.m-in .fade{animation:asd-fade .9s ease-out var(--d) both}
+  .asd.m-in .dk{animation:asd-land .55s cubic-bezier(.23,1,.32,1) var(--d) both}
+  .asd.m-in .flag{animation:asd-tag .5s cubic-bezier(.23,1,.32,1) var(--d) both}
+  .asd.m-play .drop{animation:asd-drop 9s 2s infinite both}
+  .asd.m-play .shadow{transform-box:fill-box;transform-origin:center;animation:asd-shadow 9s 2s infinite both}
+  .asd.m-play .t3{animation:asd-c3 9s 2s infinite both}
+  .asd.m-play .t2{animation:asd-c2 9s 2s infinite both}
+  .asd.m-play .t1{animation:asd-c1 9s 2s infinite both}
+  .asd.m-play .t0{animation:asd-c0 9s 2s infinite both}
+  .asd.m-play .tick{transform-box:fill-box;transform-origin:center;animation:asd-tick 9s 2s infinite both}
+  .asd.m-play .bob{animation:asd-bob 3.2s ease-in-out infinite alternate}
+  .asd.m-play .nb + .nb .bob{animation-delay:-1.6s}
+  @keyframes asd-rise{from{transform:translateY(22px);opacity:0}}
+  @keyframes asd-fade{from{opacity:0}}
+  @keyframes asd-land{from{transform:translateY(-16px);opacity:0}}
+  @keyframes asd-tag{from{transform:translateY(6px);opacity:0}}
+  @keyframes asd-bob{to{transform:translateY(-3px)}}
+  /* drop (8-18%), tiles clear top first (26-56%), approve (60%), hold, agent lifts off and the work returns (90-100%) */
+  @keyframes asd-drop{
+    0%,8%{transform:translateY(-80px);opacity:0;animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    9%{opacity:1}
+    18%,88%{transform:none;opacity:1;animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    95%,100%{transform:translateY(-40px);opacity:0}
+  }
+  @keyframes asd-shadow{0%,8%{opacity:0;scale:.3} 18%,88%{opacity:1;scale:1} 95%,100%{opacity:0;scale:.5}}
+  @keyframes asd-c3{0%,26%{opacity:1;transform:none} 32%,93%{opacity:0;transform:translateY(-16px)} 97%,100%{opacity:1;transform:none}}
+  @keyframes asd-c2{0%,34%{opacity:1;transform:none} 40%,93%{opacity:0;transform:translateY(-16px)} 97%,100%{opacity:1;transform:none}}
+  @keyframes asd-c1{0%,42%{opacity:1;transform:none} 48%,93%{opacity:0;transform:translateY(-16px)} 97%,100%{opacity:1;transform:none}}
+  @keyframes asd-c0{0%,50%{opacity:1;transform:none} 56%,93%{opacity:0;transform:translateY(-16px)} 97%,100%{opacity:1;transform:none}}
+  @keyframes asd-tick{0%,58%{opacity:0;scale:0} 61%{opacity:1;scale:1.15} 64%,88%{opacity:1;scale:1} 92%,100%{opacity:0;scale:1}}
+}
