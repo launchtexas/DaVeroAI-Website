@@ -1,6 +1,7 @@
 import { Motion } from "@/components/site/v4/motion";
 import { Hero } from "@/components/site/v4/hero";
 import { Platforms } from "@/components/site/v4/platforms";
+import { LastMileFloor } from "@/components/site/v4/last-mile-floor";
 import { MILES, Problem } from "@/components/site/v4/problem";
 import { WhyNow } from "@/components/site/v4/why-now";
 import { Solutions } from "@/components/site/v4/solutions";
@@ -52,6 +53,7 @@ export default function Home() {
         zone3="Company-specific work beyond standard configuration, run today on disparate tools and manual effort."
         testTitle="Is it a last-mile workflow? Take the four-mile test."
         miles={MILES}
+        art={<LastMileFloor />}
       />
       <WhyNow
         title="Buying AI is easy. Making it work inside enterprise operations isn't."

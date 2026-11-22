@@ -15,6 +15,8 @@ export type ProblemProps = {
   testId?: string;
   testTitle: string;
   miles: Mile[];
+  /** Illustration beside the lede (Home only). */
+  art?: ReactNode;
 };
 
 /** Default four miles (Home). Function pages pass their own. */
@@ -31,13 +33,20 @@ const Covered = () => (
   </span>
 );
 
-export function Problem({ title, lede, zone1, zone2 = "Covered after process standardization.", zone3, testId = "lmt1", testTitle, miles }: ProblemProps) {
+export function Problem({ title, lede, zone1, zone2 = "Covered after process standardization.", zone3, testId = "lmt1", testTitle, miles, art }: ProblemProps) {
   return (
     <section className="section alt" id="problem">
       <div className="wrap">
         <p className="eyebrow">The last mile</p>
         <h2>{title}</h2>
-        <p className="lede">{lede}</p>
+        {art ? (
+          <div className="lede-art">
+            <p className="lede">{lede}</p>
+            {art}
+          </div>
+        ) : (
+          <p className="lede">{lede}</p>
+        )}
         <div className="zones">
           <div className="zone">
             <p className="tag">
