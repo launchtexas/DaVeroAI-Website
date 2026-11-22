@@ -788,7 +788,7 @@ section[id]{scroll-margin-top:72px}
 
 
 @media (max-width:900px){.est,.feed-wrap{grid-template-columns:1fr}.big{font-size:42px}}
-@media (prefers-reduced-motion:reduce){.live i,.ev{animation:none}.flow li[data-approve] .dot{background:var(--approve)}}
+@media (prefers-reduced-motion:reduce){.live i,.ev{animation:none}.flow li[data-approve] .dot{background:var(--approve)}.flow li[data-approve] :is(strong,.txt span,.step-txt,.who){color:var(--approve)}}
 
 /* Nav: Estimate Savings link in orange */
 .links a.nav-est{color:var(--orange-soft)}
@@ -1015,6 +1015,7 @@ section[id]{scroll-margin-top:72px}
   .flow.m-play li[data-approve].is-active{background:color-mix(in srgb,var(--approve) 12%,var(--navy-3));box-shadow:inset 0 0 0 1px var(--approve)}
   .flow.m-play li[data-approve].is-active .dot{animation-name:m-ring-ok}
   .flow.m-play li[data-approve].is-done .dot{background:var(--approve)}
+  .flow.m-play li[data-approve]:is(.is-active,.is-done) :is(strong,.txt span,.step-txt,.who){color:var(--approve)}
   @keyframes m-ring-ok{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--approve) 55%,transparent)}100%{box-shadow:0 0 0 10px color-mix(in srgb,var(--approve) 0%,transparent)}}
   @keyframes m-ring{0%{box-shadow:0 0 0 0 color-mix(in srgb,#FF6500 55%,transparent)}100%{box-shadow:0 0 0 10px color-mix(in srgb,#FF6500 0%,transparent)}}
   .m-num{font-variant-numeric:tabular-nums}
