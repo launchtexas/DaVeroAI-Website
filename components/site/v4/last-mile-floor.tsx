@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { useEffect, useRef } from "react";
 
 // Isometric "last mile" floor (home Problem section). Inline SVG; the loop is CSS (globals.css, .lmf). Server HTML is the
@@ -23,17 +24,17 @@ function Box({ x, y, w, d, h, z = 0, c }: { x: number; y: number; w: number; d: 
   );
 }
 
-/** Mono label on a thin leader line with a small diamond at its base. */
-function Flag({ at, up, text, sub, c = "", left }: { at: number[]; up: number; text: string; sub?: string; c?: string; left?: boolean }) {
+/** Mono label on a thin leader line with a small diamond at its base. A negative up hangs the label below its point. */
+function Flag({ at, up, text, sub, c = "", left, i }: { at: number[]; up: number; text: string; sub?: string; c?: string; left?: boolean; i: number }) {
   const [bx, by] = P(at[0], at[1], at[2]);
   const w = text.length * 7.6 + 18;
   const h = sub ? 34 : 22;
-  const top = by - up - h;
+  const top = up < 0 ? by - up : by - up - h;
   return (
-    <g className={`flag ${c}`}>
+    <g className={`flag ${c}`} style={d(2.6 + i * 0.15)}>
       <line x1={bx} y1={by} x2={bx} y2={by - up} />
       <path className="dia" d={`M${bx} ${by - 4}l4 4-4 4-4-4z`} />
-      <g className={left ? "lbl l" : "lbl"}>
+      <g className={`lbl${left ? " l" : ""}${up < 0 ? " dn" : ""}`}>
         <rect x={left ? r(bx - w) : bx} y={r(top)} width={r(w)} height={h} rx="3" />
         <text x={r(left ? bx - w / 2 : bx + w / 2)} y={r(top + 15)}>
           {text}
@@ -48,6 +49,9 @@ function Flag({ at, up, text, sub, c = "", left }: { at: number[]; up: number; t
   );
 }
 
+/** Build-in delay (s) for one element; the CSS reads --d. */
+const d = (s: number) => ({ "--d": `${r(s)}s` }) as React.CSSProperties;
+
 const ZONES = [
   { name: "FINANCE", x: 3, y: 0.6, cube: [0, 1] },
   { name: "PROCUREMENT", x: 6.6, y: 0.6, cube: [1, 0] },
@@ -58,12 +62,16 @@ const ZONES = [
 const ROUTE = [[1.1, 1.7], [1.1, 4], [3.9, 4], [6.3, 4], [6.3, 5.2], [6.3, 8]];
 const END = P(6.3, 8);
 
-function Desk({ x, y, cube, owner }: { x: number; y: number; cube?: boolean; owner?: boolean }) {
+function Desk({ x, y, cube, owner, i }: { x: number; y: number; cube?: boolean; owner?: boolean; i: number }) {
   return (
-    <g className={owner ? "owner" : undefined}>
+    <g className={owner ? "dk owner" : "dk"} style={d(1.2 + i * 0.05)}>
       <Box x={x} y={y} w={1} d={0.6} h={0.3} c="desk" />
       <Box x={x + 0.25} y={y + 0.06} w={0.5} d={0.06} h={0.34} z={0.3} c="mon" />
-      {cube && <Box x={x + 0.35} y={y + 0.22} w={0.3} d={0.3} h={0.3} z={0.3} c="cube" />}
+      {cube && (
+        <g className="bob" style={d(i * 0.21)}>
+          <Box x={x + 0.35} y={y + 0.22} w={0.3} d={0.3} h={0.3} z={0.3} c="cube" />
+        </g>
+      )}
     </g>
   );
 }
@@ -73,12 +81,18 @@ export function LastMileFloor() {
   useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-    // Plays (from the start) each time it scrolls into view; off screen it rests in the finished state.
-    const io = new IntersectionObserver(([e]) => el.classList.toggle("m-play", e.isIntersecting), { rootMargin: "0px 0px -10% 0px" });
+    // First sighting builds the floor once (m-in); the story loop (m-play) restarts each time it scrolls into view.
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) el.classList.add("m-in");
+        el.classList.toggle("m-play", e.isIntersecting);
+      },
+      { rootMargin: "0px 0px -10% 0px" },
+    );
     io.observe(el);
     return () => {
       io.disconnect();
-      el.classList.remove("m-play");
+      el.classList.remove("m-in", "m-play");
     };
   }, []);
 
@@ -94,15 +108,22 @@ export function LastMileFloor() {
       role="img"
       aria-label="The last mile, as a work floor: a work item leaves the system of record (the ERP), a DaVero AI agent in Finance prepares it, the process owner reviews and approves it, the business outcome is delivered and the result is recorded back in the system of record. Finance, Procurement, Supply Chain and Insurance teams work on the same floor."
     >
+      <g className="rise">
       {/* under-layers, then the slab */}
-      <Box x={0.3} y={0.3} w={10} d={8} h={0.14} z={-0.8} c="slab under" />
-      <Box x={0.15} y={0.15} w={10} d={8} h={0.14} z={-0.48} c="slab under" />
+      <g className="fade" style={d(0.45)}>
+        <Box x={0.3} y={0.3} w={10} d={8} h={0.14} z={-0.8} c="slab under" />
+      </g>
+      <g className="fade" style={d(0.25)}>
+        <Box x={0.15} y={0.15} w={10} d={8} h={0.14} z={-0.48} c="slab under" />
+      </g>
       <Box x={0} y={0} w={10} d={8} h={0.2} z={-0.2} c="slab" />
-      {grid.map((g) => (
-        <polyline key={g} className="grid" points={g} />
-      ))}
-      {ZONES.map((z) => (
-        <g key={z.name}>
+      <g className="fade" style={d(0.6)}>
+        {grid.map((g) => (
+          <polyline key={g} className="grid" points={g} />
+        ))}
+      </g>
+      {ZONES.map((z, k) => (
+        <g key={z.name} className="fade" style={d(0.75 + k * 0.12)}>
           <polygon className="zone" points={pts([z.x, z.y], [z.x + 3, z.y], [z.x + 3, z.y + 2.9], [z.x, z.y + 2.9])} />
           <text className="zname" transform={`translate(${P(z.x + 0.15, z.y + 2.75).join(" ")}) matrix(.866 .5 -.866 .5 0 0) translate(0 -2)`}>
             {z.name}
@@ -110,21 +131,24 @@ export function LastMileFloor() {
         </g>
       ))}
       {/* faint links between zones, then the story route */}
-      <polyline className="link" points={pts([1.1, 4], [10, 4])} />
-      <polyline className="link" points={pts([6.3, 0], [6.3, 8])} />
-      <polyline className="route" points={pts(...ROUTE)} />
-      <Box x={0.5} y={0.5} w={1.2} d={1.2} h={2.6} c="rack" />
-      {[0.5, 0.9, 1.3, 1.7, 2.1].map((z) => (
-        <g key={z} className="slot">
-          <polyline points={pts([0.62, 1.7, z], [1.58, 1.7, z])} />
-          <polyline points={pts([1.7, 0.62, z], [1.7, 1.58, z])} />
-        </g>
-      ))}
-      {ZONES.map((z) =>
+      <polyline className="link" pathLength={1} style={d(0.95)} points={pts([1.1, 4], [10, 4])} />
+      <polyline className="link" pathLength={1} style={d(1.1)} points={pts([6.3, 0], [6.3, 8])} />
+      <polyline className="route fade" style={d(1.5)} points={pts(...ROUTE)} />
+      <g className="grow" style={d(1.05)}>
+        <Box x={0.5} y={0.5} w={1.2} d={1.2} h={2.6} c="rack" />
+        {[0.5, 0.9, 1.3, 1.7, 2.1].map((z) => (
+          <g key={z} className="slot">
+            <polyline points={pts([0.62, 1.7, z], [1.58, 1.7, z])} />
+            <polyline points={pts([1.7, 0.62, z], [1.7, 1.58, z])} />
+          </g>
+        ))}
+      </g>
+      {ZONES.map((z, k) =>
         [0, 1].map((i) =>
           [0, 1].map((j) => (
             <Desk
               key={`${z.name}${i}${j}`}
+              i={k * 4 + i * 2 + j}
               x={z.x + 0.4 + i * 1.4}
               y={z.y + 0.4 + j * 1.4}
               cube={z.cube[0] === i && z.cube[1] === j}
@@ -138,7 +162,7 @@ export function LastMileFloor() {
         <Box x={-0.2} y={-0.2} w={0.4} d={0.4} h={0.4} z={0.25} c="cube" />
       </g>
       <ellipse className="ring" cx={END[0]} cy={END[1]} rx="22" ry="12.7" />
-      <Flag at={[1.1, 1.1, 2.6]} up={18} text="SYSTEM OF RECORD" sub="ERP" left />
+      <Flag at={[1.1, 1.1, 2.6]} up={18} text="SYSTEM OF RECORD" sub="ERP" left i={0} />
       <g className="rec">
         <rect x={P(1.1, 1.1, 2.6)[0] + 10} y={P(1.1, 1.1, 2.6)[1] - 52} width="98" height="22" rx="11" />
         <path d={`M${P(1.1, 1.1, 2.6)[0] + 21} ${P(1.1, 1.1, 2.6)[1] - 41}l3.5 3.5 6-7`} />
@@ -146,9 +170,11 @@ export function LastMileFloor() {
           RECORDED
         </text>
       </g>
-      <Flag at={[3.9, 2.7, 0.6]} up={56} text="AGENT PREPARES" c="ag" />
-      <Flag at={[7.5, 5.2, 0.6]} up={64} text="PROCESS OWNER" sub="APPROVES" c="ok" />
-      <Flag at={[6.3, 8]} up={84} text="BUSINESS OUTCOME" c="hot" left />
+      <Flag at={[3.9, 2.7, 0.6]} up={56} text="AGENT PREPARES" c="ag" i={1} />
+      <Flag at={[7.5, 5.2, 0.6]} up={64} text="PROCESS OWNER" sub="APPROVES" c="ok" i={2} />
+      {/* hangs below the front edge so it never covers a zone label */}
+      <Flag at={[6.3, 8]} up={-56} text="BUSINESS OUTCOME" c="hot" left i={3} />
+      </g>
     </svg>
   );
 }
