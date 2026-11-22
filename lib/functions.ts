@@ -1,3 +1,4 @@
+import type { FloorLabels } from "@/components/site/v4/last-mile-floor";
 // v4 function pages: copy extracted verbatim from docs/source/design-v4.html (pages page-finance-accounting,
 // page-supply-chain, page-procurement, page-security-governance, page-insurance). Only copy that differs from
 // page-index lives here; everything else is shared with the home page. Section map: docs/v4-map.md.
@@ -61,6 +62,8 @@ export type FunctionPage = {
     zoneTexts: [string, string, string];
     /** Four-mile test. Hint, result title and result copy are shared with page-index. */
     test: { title: string; gates: { title: string; text: string; chip: string }[] };
+    /** Labels for the isometric last-mile floor beside the lede (components/site/v4/last-mile-floor.tsx). */
+    floor: FloorLabels;
   };
   whyNow: { title: string; stats: Stat[] };
   workflows: {
@@ -184,6 +187,22 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       ]
     },
     problem: {
+      floor: {
+        rack: "GENERAL LEDGER",
+        zones: [
+          "RECONCILING",
+          "INTERCOMPANY",
+          "FLUX",
+          "CLOSE"
+        ],
+        agent: "AGENT MATCHES",
+        owner: [
+          "CONTROLLER",
+          "APPROVES"
+        ],
+        outcome: "BOOKS CLOSED",
+        label: "The finance last mile, as a work floor: a reconciliation leaves the general ledger, a DaVero AI agent matches it, the controller reviews and approves it, the books close and the result is recorded back in the ledger. Reconciling, intercompany, flux analysis and close work on the same floor."
+      },
       title: "The ERP is live. The close still runs on spreadsheets.",
       lede: [
         "The ",
@@ -463,6 +482,22 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       ]
     },
     problem: {
+      floor: {
+        rack: "WMS / ERP",
+        zones: [
+          "INVENTORY",
+          "COUNTS",
+          "RECEIVING",
+          "PLANNING"
+        ],
+        agent: "AGENT FINDS CAUSE",
+        owner: [
+          "PLANNER",
+          "APPROVES"
+        ],
+        outcome: "INVENTORY ACCURATE",
+        label: "The supply chain last mile, as a work floor: an inventory exception leaves the WMS and ERP, a DaVero AI agent finds the cause, the planner reviews and approves the fix, inventory is accurate again and the result is recorded back in the system. Inventory, counts, receiving and planning work on the same floor."
+      },
       title: "The systems are live. Exceptions still run on spreadsheets and email.",
       lede: [
         "Between the warehouse, the carrier, the supplier and the ledger sits a layer of work no single platform owns: mismatched receipts, stranded inventory, unallocated freight. Planners and analysts patch it by hand every week."
@@ -714,6 +749,22 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       ]
     },
     problem: {
+      floor: {
+        rack: "ERP / P2P",
+        zones: [
+          "INVOICES",
+          "PURCHASE ORDERS",
+          "RECEIPTS",
+          "SUPPLIERS"
+        ],
+        agent: "AGENT 3-WAY MATCH",
+        owner: [
+          "APPROVER",
+          "SIGNS OFF"
+        ],
+        outcome: "SUPPLIERS PAID RIGHT",
+        label: "The procurement last mile, as a work floor: an invoice leaves the ERP and procure-to-pay suite, a DaVero AI agent runs the three-way match against the purchase order and receipt, the approver signs off, the supplier is paid right and the result is recorded back in the system. Invoices, purchase orders, receipts and suppliers work on the same floor."
+      },
       title: "The procurement suite is live. Exceptions still run on email.",
       lede: [
         "Every company's approval matrices, supplier records and match rules are unique, so standard configuration only goes so far. The remaining work falls to buyers chasing approvals, AP chasing receipts and suppliers chasing payment."
@@ -966,6 +1017,22 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       ]
     },
     problem: {
+      floor: {
+        rack: "GRC / IAM",
+        zones: [
+          "REVIEWS",
+          "ROLES",
+          "AUDIT",
+          "POLICY"
+        ],
+        agent: "AGENT FLAGS ACCESS",
+        owner: [
+          "ACCESS OWNER",
+          "APPROVES"
+        ],
+        outcome: "ACCESS CLEAN",
+        label: "The security last mile, as a work floor: an access review leaves the GRC and identity systems, a DaVero AI agent flags access that does not fit the role, the access owner reviews and approves the change, access is clean and the result is recorded back as evidence. Reviews, roles, audit and policy work on the same floor."
+      },
       title: "The GRC platform is live. Certification cycles still run on spreadsheets.",
       lede: [
         "Every organization's access policies, approval hierarchies and risk tolerances are unique, so standard GRC configuration only goes so far. The remaining work falls to security analysts chasing reviewers, compliance teams compiling evidence and risk managers tracking exceptions through email."
@@ -1225,6 +1292,22 @@ export const FUNCTION_PAGES: FunctionPage[] = [
       ]
     },
     problem: {
+      floor: {
+        rack: "POLICY ADMIN",
+        zones: [
+          "INTAKE",
+          "COVERAGE",
+          "CLAIMS",
+          "PAYMENTS"
+        ],
+        agent: "AGENT CHECKS COVERAGE",
+        owner: [
+          "CLAIMS HANDLER",
+          "APPROVES"
+        ],
+        outcome: "CLAIM PAID",
+        label: "The insurance last mile, as a work floor: a claim leaves the policy admin system, a DaVero AI agent checks it against coverage, the claims handler reviews and approves it, the claim is paid and the result is recorded back in the policy admin system. Intake, coverage, claims and payments work on the same floor."
+      },
       title: "The policy admin system is live. Exceptions still run on email and spreadsheets.",
       lede: [
         "Every carrier's coverage rules, authority limits and bordereaux formats are unique, so standard platform configuration only goes so far. The remaining work falls to claims handlers chasing approvals, finance teams reconciling bordereaux by hand and actuarial staff patching premium accruals outside the system."

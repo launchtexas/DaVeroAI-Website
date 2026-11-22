@@ -53,13 +53,35 @@ function Flag({ at, up, text, sub, c = "", left, i }: { at: number[]; up: number
 const d = (s: number) => ({ "--d": `${r(s)}s` }) as React.CSSProperties;
 
 const ZONES = [
-  { name: "FINANCE", x: 3, y: 0.6, cube: [0, 1] },
-  { name: "PROCUREMENT", x: 6.6, y: 0.6, cube: [1, 0] },
-  { name: "SUPPLY CHAIN", x: 3, y: 4.5, cube: [1, 1] },
-  { name: "INSURANCE", x: 6.6, y: 4.5, cube: [1, 1] },
+  { x: 3, y: 0.6, cube: [0, 1] },
+  { x: 6.6, y: 0.6, cube: [1, 0] },
+  { x: 3, y: 4.5, cube: [1, 1] },
+  { x: 6.6, y: 4.5, cube: [1, 1] },
 ];
-// Work-item route: rack → agent desk (finance) → process owner desk (insurance) → front edge. Stops match lmf-move.
-const ROUTE = [[1.1, 1.7], [1.1, 4], [3.9, 4], [6.3, 4], [6.3, 5.2], [6.3, 8]];
+// Work-item route: rack → agent stop beside zone 1 (clear of every zone name) → owner desk (zone 4) → front edge. Stops match lmf-move.
+const ROUTE = [[1.1, 1.7], [1.1, 2.7], [2.6, 2.7], [2.6, 4], [6.3, 4], [6.3, 5.2], [6.3, 8]];
+
+/** What one floor says. Defaults are the home page; function pages pass their own (lib/functions.ts, problem.floor). */
+export type FloorLabels = {
+  /** Sub-label under SYSTEM OF RECORD on the rack. */
+  rack: string;
+  /** Zone names, back-left, back-right, front-left, front-right. The agent works in the first, the owner in the last. */
+  zones: [string, string, string, string];
+  agent: string;
+  /** Owner flag: role, then action. */
+  owner: [string, string];
+  outcome: string;
+  label: string;
+};
+const HOME: FloorLabels = {
+  rack: "ERP",
+  zones: ["FINANCE", "PROCUREMENT", "SUPPLY CHAIN", "INSURANCE"],
+  agent: "AGENT PREPARES",
+  owner: ["PROCESS OWNER", "APPROVES"],
+  outcome: "BUSINESS OUTCOME",
+  label:
+    "The last mile, as a work floor: a work item leaves the system of record (the ERP), a DaVero AI agent in Finance prepares it, the process owner reviews and approves it, the business outcome is delivered and the result is recorded back in the system of record. Finance, Procurement, Supply Chain and Insurance teams work on the same floor.",
+};
 const END = P(6.3, 8);
 
 function Desk({ x, y, cube, owner, i }: { x: number; y: number; cube?: boolean; owner?: boolean; i: number }) {
@@ -76,7 +98,8 @@ function Desk({ x, y, cube, owner, i }: { x: number; y: number; cube?: boolean; 
   );
 }
 
-export function LastMileFloor() {
+export function LastMileFloor(props: Partial<FloorLabels>) {
+  const { rack, zones, agent, owner, outcome, label } = { ...HOME, ...props };
   const ref = useRef<SVGSVGElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -106,7 +129,7 @@ export function LastMileFloor() {
       className="lmf"
       viewBox="-300 -150 640 500"
       role="img"
-      aria-label="The last mile, as a work floor: a work item leaves the system of record (the ERP), a DaVero AI agent in Finance prepares it, the process owner reviews and approves it, the business outcome is delivered and the result is recorded back in the system of record. Finance, Procurement, Supply Chain and Insurance teams work on the same floor."
+      aria-label={label}
     >
       <g className="rise">
       {/* under-layers, then the slab */}
@@ -123,10 +146,11 @@ export function LastMileFloor() {
         ))}
       </g>
       {ZONES.map((z, k) => (
-        <g key={z.name} className="fade" style={d(0.75 + k * 0.12)}>
+        <g key={k} className="fade" style={d(0.75 + k * 0.12)}>
           <polygon className="zone" points={pts([z.x, z.y], [z.x + 3, z.y], [z.x + 3, z.y + 2.9], [z.x, z.y + 2.9])} />
-          <text className="zname" transform={`translate(${P(z.x + 0.15, z.y + 2.75).join(" ")}) matrix(.866 .5 -.866 .5 0 0) translate(0 -2)`}>
-            {z.name}
+          {/* an edge holds 12 characters at 10px, the agent zone 9 (the owner leader line crosses its edge); longer names shrink */}
+          <text className="zname" style={zones[k].length > (k ? 12 : 9) ? { fontSize: r((10 * (k ? 12 : 9)) / zones[k].length) } : undefined} transform={`translate(${P(z.x + 0.15, z.y + 2.75).join(" ")}) matrix(.866 .5 -.866 .5 0 0) translate(0 -2)`}>
+            {zones[k]}
           </text>
         </g>
       ))}
@@ -147,12 +171,12 @@ export function LastMileFloor() {
         [0, 1].map((i) =>
           [0, 1].map((j) => (
             <Desk
-              key={`${z.name}${i}${j}`}
+              key={`${k}${i}${j}`}
               i={k * 4 + i * 2 + j}
               x={z.x + 0.4 + i * 1.4}
               y={z.y + 0.4 + j * 1.4}
               cube={z.cube[0] === i && z.cube[1] === j}
-              owner={z.name === "INSURANCE" && i === 0 && j === 0}
+              owner={k === 3 && i === 0 && j === 0}
             />
           )),
         ),
@@ -162,7 +186,7 @@ export function LastMileFloor() {
         <Box x={-0.2} y={-0.2} w={0.4} d={0.4} h={0.4} z={0.25} c="cube" />
       </g>
       <ellipse className="ring" cx={END[0]} cy={END[1]} rx="22" ry="12.7" />
-      <Flag at={[1.1, 1.1, 2.6]} up={18} text="SYSTEM OF RECORD" sub="ERP" left i={0} />
+      <Flag at={[1.1, 1.1, 2.6]} up={18} text="SYSTEM OF RECORD" sub={rack} left i={0} />
       <g className="rec">
         <rect x={P(1.1, 1.1, 2.6)[0] + 10} y={P(1.1, 1.1, 2.6)[1] - 52} width="98" height="22" rx="11" />
         <path d={`M${P(1.1, 1.1, 2.6)[0] + 21} ${P(1.1, 1.1, 2.6)[1] - 41}l3.5 3.5 6-7`} />
@@ -170,10 +194,10 @@ export function LastMileFloor() {
           RECORDED
         </text>
       </g>
-      <Flag at={[3.9, 2.7, 0.6]} up={56} text="AGENT PREPARES" c="ag" i={1} />
-      <Flag at={[7.5, 5.2, 0.6]} up={64} text="PROCESS OWNER" sub="APPROVES" c="ok" i={2} />
+      <Flag at={[3.9, 2.7, 0.6]} up={56} text={agent} c="ag" i={1} />
+      <Flag at={[7.5, 5.2, 0.6]} up={64} text={owner[0]} sub={owner[1]} c="ok" i={2} />
       {/* hangs below the front edge so it never covers a zone label */}
-      <Flag at={[6.3, 8]} up={-56} text="BUSINESS OUTCOME" c="hot" left i={3} />
+      <Flag at={[6.3, 8]} up={-56} text={outcome} c="hot" left i={3} />
       </g>
     </svg>
   );

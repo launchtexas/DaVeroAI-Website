@@ -3,6 +3,7 @@ import { FUNCTION_SHARED, type FunctionPage, type RichText } from "@/lib/functio
 import { Hero } from "./hero";
 import { Platforms } from "./platforms";
 import { MILES, Problem } from "./problem";
+import { LastMileFloor } from "./last-mile-floor";
 import { WhyNow } from "./why-now";
 import { Workflows } from "./workflows";
 import { AgentsAtWork } from "./agents-at-work";
@@ -53,6 +54,7 @@ export function FunctionPageView({ page: p }: { page: FunctionPage }) {
         testId={TEST_IDS[p.slug]}
         testTitle={p.problem.test.title}
         miles={p.problem.test.gates.length === 4 ? p.problem.test.gates : MILES}
+        art={<LastMileFloor {...p.problem.floor} />}
       />
       <WhyNow
         title={p.whyNow.title}
