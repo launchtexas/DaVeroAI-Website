@@ -152,7 +152,7 @@
 
 :root{
   /* Only the 9 brand-kit colours; dark-band tints are Mist mixed into Midnight (docs/brand-compliance.md C-4).
-     Orange is never text on light bands (C-6): --orange-ink is Midnight. */
+     Orange is text on light bands only for .eyebrow (owner exception, C-6); --orange-ink is Midnight. */
   --navy:#081630; --navy-deep:#061126; --navy-2:color-mix(in srgb,#E6EAF0 5%,#081630); --navy-3:color-mix(in srgb,#E6EAF0 9%,#081630);
   --line-dark:color-mix(in srgb,#E6EAF0 16%,#081630); --line-dark-2:color-mix(in srgb,#E6EAF0 26%,#081630);
   --ink:#081630; --text-ink:#111827; --muted:#536378; --muted-2:#536378; --line:#E6EAF0; --mist:#F3F6FA;
@@ -170,8 +170,8 @@ a{color:var(--orange-ink)} a:hover{color:var(--navy-deep)}
 .alt{background:var(--mist)}
 .dark{background:var(--navy);color:#fff}
 .dark a{color:var(--orange-soft)}
-.eyebrow{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-ink)}
-.dark .eyebrow{color:var(--orange-soft)}
+.eyebrow{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
+.dark .eyebrow{color:var(--orange)}
 h1{margin:0;font-size:clamp(44px,6.5vw,72px);line-height:1.02;font-weight:800;letter-spacing:-.03em}
 h2{margin:0;font-size:clamp(32px,4vw,44px);line-height:1.1;font-weight:800;letter-spacing:-.02em;max-width:780px}
 h3{margin:0 0 8px;font-size:21px;line-height:1.25}
