@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalDoc, Mail, type LegalSection } from "@/components/site/legal-doc";
+import { SecGates } from "@/components/site/v4/sec-gates";
 
 // Protections listed here must match the code (next.config.ts, app/api/contact/route.ts, lib/contact-shield.ts)
 // and docs/security/REPORT.md. Governance: docs/governance.md. "Designed to align with", never a certification claim.
@@ -150,6 +151,7 @@ const sections: LegalSection[] = [
     title: "How we govern agent work",
     body: (
       <>
+        <SecGates />
         <p>
           For client work, our{" "}
           <Link className="link" href="/#controls">
